@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBT SMPN 1 Terusan Nunyai — ASAS Ganjil Matematika Kelas 8</title>
+<style>
+:root{--blue:#004e9e;--blue2:#005eb8;--bg:#d3e7fd;--ink:#0b2a4a;--card:#fff;--line:#bcd6f5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:20px}
+header{background:var(--blue);color:#fff;padding:28px 20px}.wrap2{max-width:860px;margin:0 auto;padding:0 20px}
+h1{margin:0 0 6px;font-size:1.5rem}header p{margin:4px 0;opacity:.95}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input[type=text],input[type=date],select{width:100%;padding:11px 12px;border:1px solid #9db8d6;border-radius:8px;font-size:1rem}
+.topbar-in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.emblem{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--blue);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:.95rem;line-height:1.1;flex-shrink:0;border:3px solid #ffd166}
+.brand-name{font-weight:800;letter-spacing:.05em;font-size:1.05rem}
+.brand-sub{font-size:.88rem;opacity:.92}
+.top-right{text-align:right;font-weight:800;line-height:1.2}
+.top-right span{font-weight:400;font-size:.85rem;opacity:.92}
+.login-head{text-align:center;padding:6px 0 2px}
+.login-head .emblem{width:76px;height:76px;font-size:1.15rem;margin:0 auto 10px}
+.steps{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.steps span{background:#e8f2fd;border:1px solid var(--line);color:var(--blue);border-radius:20px;padding:4px 12px;font-size:.82rem;font-weight:700}
+.steps span.on{background:var(--blue);color:#fff}
+.login-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:14px}
+@media(max-width:720px){.login-grid{grid-template-columns:1fr}}
+.login-form h2,.login-info h3{margin-top:0}
+.token-box{background:#fff8e1;border:1px dashed #d9a400;border-radius:10px;padding:12px 14px;margin:12px 0;text-align:center}
+.token-box .token{font-size:1.5rem;font-weight:800;letter-spacing:.18em;color:var(--blue)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-item{background:#f2f7ff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.info-item b{display:block;font-size:.8rem;color:#43586e;text-transform:uppercase;letter-spacing:.04em}
+.info-item span{font-weight:700}
+.rules{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0;font-size:.93rem}
+.rules li{margin:4px 0}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:600;cursor:pointer}
+.check input{width:auto;margin-top:4px}
+.btn-block{width:100%;padding:14px;font-weight:700}
+.confirm-table{width:100%;border-collapse:collapse;margin:12px 0}
+.confirm-table td{padding:10px 8px;border-bottom:1px solid var(--line)}
+.confirm-table td:first-child{font-weight:700;width:42%;color:#43586e}
+.login-foot{text-align:center;color:#43586e;font-size:.88rem;margin-top:6px}
+button{background:var(--blue2);color:#fff;border:0;border-radius:8px;padding:12px 20px;font-size:1rem;cursor:pointer}
+button:hover{background:var(--blue)}button.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+.timer{position:sticky;top:0;background:var(--blue);color:#fff;padding:10px 16px;border-radius:8px;display:flex;justify-content:space-between;font-weight:700;margin:12px 0;z-index:5}
+.q{border-top:1px solid var(--line);padding:16px 0}.q h3{margin:0 0 10px}
+.opt{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:8px;margin:6px 0;cursor:pointer}
+.opt:has(input:checked){border-color:var(--blue2);background:#e8f2fd}
+.opt input{width:auto;margin-right:8px}
+.matchrow{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.matchrow .left{flex:1;min-width:180px;font-weight:600}
+.matchrow select{flex:1;min-width:180px}
+.badge{display:inline-block;background:#e8f2fd;color:var(--blue);border:1px solid var(--line);border-radius:20px;padding:2px 10px;font-size:.82rem;font-weight:700;margin-bottom:6px}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.nav button{padding:8px 12px;background:#fff;color:var(--blue);border:1px solid var(--blue)}
+.nav button.done{background:var(--blue2);color:#fff}
+.correct{color:#0a6b2e;font-weight:700}.wrong{color:#b00020;font-weight:700}
+.why{background:#f2f7ff;border-left:4px solid var(--blue2);padding:10px 12px;margin:8px 0}
+.small{color:#43586e;font-size:.92rem}.hidden{display:none}
+.score{font-size:2rem;font-weight:800;color:var(--blue)}
+@media print{.no-print{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap2 topbar-in">
+<div class="brand"><div class="emblem">SMPN<br>1</div><div><div class="brand-name">CBT SMPN 1 TERUSAN NUNYAI</div><div class="brand-sub">Asesmen Sumatif Akhir Semester (ASAS) Ganjil &middot; Tahun Pelajaran 2026/2027</div></div></div>
+<div class="top-right">ASAS GANJIL<br><span>Matematika &middot; Kelas VIII &middot; Fase D</span></div>
+</div></header>
+<div class="wrap">
+
+<section id="loginCard">
+<div class="login-head">
+<div class="emblem">SMPN<br>1</div>
+<h1 style="color:var(--blue);margin:6px 0 2px">CBT SMPN 1 TERUSAN NUNYAI</h1>
+<p style="margin:2px 0"><strong>ASAS Ganjil 2026/2027 &mdash; Matematika Kelas 8</strong></p>
+<p style="margin:2px 0"><em>&ldquo;Belajar jujur itu sangat indah&rdquo;</em></p>
+<div class="steps"><span class="on">1 &middot; Login Peserta</span><span>2 &middot; Konfirmasi Data</span><span>3 &middot; Mengerjakan Soal</span></div>
+</div>
+<div class="login-grid">
+<div class="card" style="margin:0">
+<h2>Login Peserta</h2>
+<p class="small">Masukkan data diri dan token ujian seperti pada CBT TKA Kemdikdasmen. Token ujian ditampilkan di bawah ini, sama seperti token yang ditampilkan pengawas di awal sesi.</p>
+<div class="token-box"><div class="small">TOKEN UJIAN</div><div class="token">ASAS2026</div><div class="small">Salin token di atas ke kolom Token Ujian.</div></div>
+<label for="nama">Nama Lengkap (Username)</label>
+<input type="text" id="nama" placeholder="Contoh: Andi Pratama" autocomplete="off">
+<label for="nis">NIS / No. Peserta</label>
+<input type="text" id="nis" placeholder="Contoh: 12345" autocomplete="off">
+<label for="kelas">Kelas</label>
+<input type="text" id="kelas" placeholder="Contoh: VIII-A" autocomplete="off">
+<label for="tgl">Tanggal Lahir</label>
+<input type="date" id="tgl">
+<label for="token">Token Ujian</label>
+<input type="text" id="token" placeholder="Contoh: ASAS2026" autocomplete="off">
+<div class="rules"><strong>Tata Tertib Peserta</strong><ol style="margin:8px 0 0;padding-left:18px"><li>Kerjakan soal secara mandiri dan jujur.</li><li>Dilarang membuka catatan, buku, atau aplikasi lain selama ujian.</li><li>Waktu ujian 120 menit. Jawaban terkumpul otomatis saat waktu habis.</li><li>Periksa kembali jawaban sebelum menekan tombol Kumpulkan Jawaban.</li></ol></div>
+<label class="check"><input type="checkbox" id="setuju"> Saya sudah membaca tata tertib di atas dan akan mengerjakan ujian ini dengan jujur.</label>
+<p><button id="btnStart" class="btn-block">Login &rarr; Lanjut ke Konfirmasi Data</button></p>
+<p class="small">Catatan: file ini satu file HTML tanpa server. Jawaban dan nilai tersimpan di perangkat ini saja (localStorage) &mdash; belum terkumpul otomatis untuk semua siswa.</p>
+</div>
+<aside class="card" style="margin:0">
+<h3>Informasi Ujian</h3>
+<div class="info-grid">
+<div class="info-item"><b>Mata Pelajaran</b><span>Matematika</span></div>
+<div class="info-item"><b>Jumlah Soal</b><span>40 soal</span></div>
+<div class="info-item"><b>Waktu</b><span>120 menit</span></div>
+<div class="info-item"><b>Kurikulum</b><span>Merdeka</span></div>
+</div>
+<p class="small" style="margin-top:14px"><strong>Materi yang diujikan</strong><br>Bilangan Berpangkat (14 soal) &middot; Teorema Pythagoras (14 soal) &middot; PLSV dan PtLSV (12 soal)</p>
+<p class="small"><strong>Bentuk soal</strong><br>Pilihan Ganda, PG Jamak, Benar/Salah, Menjodohkan, dan Isian. Semua soal dinilai otomatis, nilai 0&ndash;100.</p>
+<p class="small"><strong>Alur ujian</strong><br>1. Login &rarr; 2. Konfirmasi data &rarr; 3. Mengerjakan soal. Timer baru berjalan setelah kamu menekan &ldquo;Mulai Ujian&rdquo; di halaman konfirmasi.</p>
+</aside>
+</div>
+<p class="login-foot">&copy; 2026 CBT SMPN 1 Terusan Nunyai &middot; ASAS Ganjil 2026/2027</p>
+</section>
+
+<section class="card hidden" id="confirmCard">
+<div class="steps"><span>1 &middot; Login Peserta</span><span class="on">2 &middot; Konfirmasi Data</span><span>3 &middot; Mengerjakan Soal</span></div>
+<h2 style="margin-top:10px">Konfirmasi Data Peserta</h2>
+<p class="small">Periksa kembali data di bawah ini. Pastikan nama, NIS, kelas, dan tanggal lahir sudah benar sebelum memulai ujian, seperti pada halaman konfirmasi data di CBT TKA.</p>
+<table class="confirm-table">
+<tr><td>Nama Peserta</td><td id="confNama"></td></tr>
+<tr><td>NIS / No. Peserta</td><td id="confNis"></td></tr>
+<tr><td>Kelas</td><td id="confKelas"></td></tr>
+<tr><td>Tanggal Lahir</td><td id="confTgl"></td></tr>
+<tr><td>Mata Pelajaran</td><td>Matematika Kelas 8 (Fase D)</td></tr>
+<tr><td>Jumlah Soal</td><td>40 soal</td></tr>
+<tr><td>Waktu Ujian</td><td>120 menit</td></tr>
+<tr><td>Token Ujian</td><td>ASAS2026</td></tr>
+</table>
+<p><button id="btnConfirm" class="btn-block">Data Benar &mdash; Mulai Ujian</button></p>
+<p><button class="ghost" id="btnBack" type="button">Kembali &mdash; Ubah Data</button></p>
+</section>
+
+<section id="examCard" class="hidden">
+<div class="timer"><span id="timerLabel">Sisa waktu: 120:00</span><span id="progressLabel">0 / 40 dijawab</span></div>
+<div class="nav no-print" id="navBox"></div>
+<div id="qBox"></div>
+<p class="no-print"><button id="btnSubmit">Kumpulkan Jawaban</button>
+<button class="ghost" id="btnReset" type="button">Ulangi dari Awal</button></p>
+</section>
+
+<section class="card hidden" id="resultCard">
+<h2 style="margin-top:0">Hasil Ujian</h2>
+<p><strong id="resNama"></strong> &middot; <span id="resKelas"></span></p>
+<p class="score" id="resScore"></p>
+<p id="resDetail"></p>
+<div id="resReview"></div>
+<p class="no-print"><button onclick="window.print()">Cetak / Simpan PDF</button>
+<button class="ghost" onclick="location.reload()">Ujian Baru</button></p>
+</section>
+</div>
+<script>
+const QUIZ = [
+{t:"mc", q:"Hasil dari 2^3 \u00d7 2^5 adalah \u2026", opts:["2^8","2^15","2^2","4^8"], ans:0, why:"2^(3+5) = 2^8 = 256."},
+{t:"mc", q:"Nilai dari (2^3)^2 adalah \u2026", opts:["2^5","2^6","3^6","2^9"], ans:1, why:"(2^3)^2 = 2^(3 \u00d7 2) = 2^6 = 64."},
+{t:"mc", q:"Nilai dari 3^-2 adalah \u2026", opts:["-9","9","1/9","-1/9"], ans:2, why:"3^-2 = 1 / 3^2 = 1/9."},
+{t:"mc", q:"Bentuk notasi ilmiah dari 0,000045 adalah \u2026", opts:["4,5 \u00d7 10^-4","4,5 \u00d7 10^-5","4,5 \u00d7 10^-6","4,5 \u00d7 10^5"], ans:1, why:"Koma digeser 5 tempat ke kanan, pangkatnya negatif: 4,5 \u00d7 10^-5."},
+{t:"multi", q:"Manakah di bawah ini yang bernilai 16? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["2^4","4^2","2^5","8^1"], ans:[0,1], why:"2^4 = 16 dan 4^2 = 16. Sedangkan 2^5 = 32 dan 8^1 = 8."},
+{t:"multi", q:"Manakah pernyataan tentang sifat eksponen berikut yang benar? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["a^m \u00d7 a^n = a^(m+n)","a^m : a^n = a^(m-n)","(a+b)^2 = a^2 + b^2","a^0 = 0 (untuk a \u2260 0)"], ans:[0,1], why:"Yang benar: a^m \u00d7 a^n = a^(m+n) dan a^m : a^n = a^(m-n). (a+b)^2 = a^2 + 2ab + b^2, dan a^0 = 1."},
+{t:"tf", q:"5^3 = 125.", opts:["Benar","Salah"], ans:0, why:"Benar. 5 \u00d7 5 \u00d7 5 = 125."},
+{t:"tf", q:"10^-3 = 1.000.", opts:["Benar","Salah"], ans:1, why:"Salah. 10^-3 = 0,001."},
+{t:"match", q:"Pasangkan bilangan berpangkat dengan nilainya.", left:["2^3","3^3","5^2"], rights:["27","8","25"], ans:[1,0,2], why:"2^3 = 8, 3^3 = 27, 5^2 = 25."},
+{t:"match", q:"Pasangkan bentuk perpangkatan dengan nilainya.", left:["10^6","10^-2","2^-3"], rights:["0,01","1.000.000","1/8"], ans:[1,0,2], why:"10^6 = 1.000.000, 10^-2 = 0,01, 2^-3 = 1/8."},
+{t:"fill", q:"Nilai dari 7^2 \u00d7 7^3 : 7^4 adalah \u2026 (tulis angkanya saja)", ans:"7", why:"7^(2+3-4) = 7^1 = 7."},
+{t:"fill", q:"Nilai dari \u221a144 + 2^3 adalah \u2026 (tulis angkanya saja)", ans:"20", why:"12 + 8 = 20."},
+{t:"tf", q:"Hasil dari (2^4 \u00d7 2^3) : 2^5 adalah 32.", opts:["Benar","Salah"], ans:1, why:"Salah. (2^4 \u00d7 2^3) : 2^5 = 2^(4+3-5) = 2^2 = 4."},
+{t:"match", q:"Pasangkan bilangan dengan bentuk notasi ilmiahnya.", left:["0,00000072","0,000045","720.000"], rights:["4,5 \u00d7 10^-5","7,2 \u00d7 10^5","7,2 \u00d7 10^-7"], ans:[2,0,1], why:"0,00000072 = 7,2 \u00d7 10^-7; 0,000045 = 4,5 \u00d7 10^-5; 720.000 = 7,2 \u00d7 10^5."},
+{t:"mc", q:"Segitiga siku-siku dengan sisi siku-siku 6 cm dan 8 cm. Panjang sisi miringnya adalah \u2026", opts:["9 cm","10 cm","12 cm","14 cm"], ans:1, why:"\u221a(6^2 + 8^2) = \u221a100 = 10 cm."},
+{t:"mc", q:"Segitiga siku-siku dengan sisi miring 13 cm dan salah satu sisi siku-siku 5 cm. Panjang sisi siku-siku yang lain adalah \u2026", opts:["8 cm","10 cm","12 cm","18 cm"], ans:2, why:"\u221a(13^2 - 5^2) = \u221a144 = 12 cm."},
+{t:"mc", q:"Segitiga dengan panjang sisi 9 cm, 12 cm, dan 15 cm adalah segitiga \u2026", opts:["Lancip","Siku-siku","Tumpul","Sama sisi"], ans:1, why:"9^2 + 12^2 = 81 + 144 = 225 = 15^2, jadi siku-siku."},
+{t:"mc", q:"Panjang diagonal persegi panjang dengan panjang 3 cm dan lebar 4 cm adalah \u2026", opts:["5 cm","6 cm","7 cm","25 cm"], ans:0, why:"\u221a(3^2 + 4^2) = \u221a25 = 5 cm."},
+{t:"mc", q:"Sebuah tangga bersandar pada tembok. Kaki tangga berjarak 5 m dari tembok dan ujung atas tangga mencapai ketinggian 12 m. Panjang tangga adalah \u2026", opts:["11 m","13 m","17 m","25 m"], ans:1, why:"\u221a(5^2 + 12^2) = \u221a169 = 13 m."},
+{t:"mc", q:"Berikut ini yang merupakan tripel Pythagoras adalah \u2026", opts:["5, 12, 13","5, 12, 14","6, 8, 11","7, 9, 11"], ans:0, why:"5^2 + 12^2 = 25 + 144 = 169 = 13^2."},
+{t:"mc", q:"Segitiga dengan sisi 7 cm, 24 cm, dan 25 cm. Jenis segitiga tersebut adalah \u2026", opts:["Segitiga tumpul","Segitiga lancip","Segitiga siku-siku","Segitiga sama kaki"], ans:2, why:"7^2 + 24^2 = 49 + 576 = 625 = 25^2, jadi siku-siku."},
+{t:"mc", q:"Panjang diagonal persegi dengan sisi 10 cm adalah \u2026", opts:["10\u221a2 cm","20 cm","5\u221a2 cm","100 cm"], ans:0, why:"\u221a(10^2 + 10^2) = \u221a200 = 10\u221a2 cm."},
+{t:"mc", q:"Segitiga dengan panjang sisi 10 cm, 24 cm, dan 26 cm. Pernyataan yang benar adalah \u2026", opts:["Segitiga lancip, karena 10^2 + 24^2 > 26^2","Segitiga siku-siku, karena 10^2 + 24^2 = 26^2","Segitiga tumpul, karena 10^2 + 24^2 < 26^2","Bukan segitiga, karena sisinya tidak memenuhi"], ans:1, why:"100 + 576 = 676 = 26^2, jadi siku-siku."},
+{t:"multi", q:"Manakah berikut ini yang merupakan tripel Pythagoras? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["3, 4, 5","6, 8, 10","8, 15, 16","9, 12, 14"], ans:[0,1], why:"3^2+4^2=5^2 dan 6^2+8^2=10^2. 8^2+15^2=289 \u2260 256, 9^2+12^2=225 \u2260 196."},
+{t:"tf", q:"Segitiga dengan sisi 8 cm, 15 cm, dan 17 cm adalah segitiga siku-siku.", opts:["Benar","Salah"], ans:0, why:"Benar. 8^2 + 15^2 = 64 + 225 = 289 = 17^2."},
+{t:"match", q:"Pasangkan pasangan sisi siku-siku dengan panjang sisi miringnya.", left:["6 dan 8","5 dan 12","9 dan 12"], rights:["13","15","10"], ans:[2,0,1], why:"(6,8) \u2192 10; (5,12) \u2192 13; (9,12) \u2192 15."},
+{t:"fill", q:"Segitiga siku-siku memiliki sisi miring 25 cm dan salah satu sisi siku-siku 7 cm. Panjang sisi siku-siku yang lain adalah \u2026 cm. (tulis angkanya saja)", ans:"24", why:"\u221a(25^2 - 7^2) = \u221a576 = 24 cm."},
+{t:"tf", q:"Sebuah tangga sepanjang 10 m bersandar pada tembok. Kaki tangga berjarak 6 m dari kaki tembok, dan tinggi yang dicapai ujung atas tangga adalah 6 m.", opts:["Benar","Salah"], ans:1, why:"Salah. Tingginya \u221a(10^2 - 6^2) = \u221a64 = 8 m."},
+{t:"mc", q:"Penyelesaian dari 3x + 5 = 20 adalah \u2026", opts:["x = 3","x = 4","x = 5","x = 6"], ans:2, why:"3x = 15, x = 5."},
+{t:"mc", q:"Penyelesaian dari 2(x - 3) = 10 adalah \u2026", opts:["x = 6","x = 7","x = 8","x = 9"], ans:2, why:"x - 3 = 5, x = 8."},
+{t:"multi", q:"Manakah berikut ini yang merupakan persamaan linear satu variabel (PLSV)? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["2x + 3 = 7","x^2 + 1 = 0","3y - 5 = 10","2x + 3y = 5"], ans:[0,2], why:"2x + 3 = 7 dan 3y - 5 = 10 adalah PLSV. x^2 + 1 = 0 berpangkat dua, 2x + 3y = 5 dua variabel."},
+{t:"multi", q:"Nilai x berikut yang memenuhi pertidaksamaan 2x - 4 \u2265 6 adalah \u2026 (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["x = 5","x = 6","x = 4","x = 3"], ans:[0,1], why:"2x \u2265 10, jadi x \u2265 5. Yang memenuhi: x = 5 dan x = 6."},
+{t:"tf", q:"Penyelesaian dari x + 7 = 12 adalah x = 5.", opts:["Benar","Salah"], ans:0, why:"Benar. x = 12 - 7 = 5."},
+{t:"tf", q:"Himpunan penyelesaian dari x + 2 \u2264 5 adalah x \u2264 2.", opts:["Benar","Salah"], ans:1, why:"Salah. Yang benar x \u2264 3."},
+{t:"match", q:"Pasangkan persamaan dengan penyelesaiannya.", left:["x + 4 = 10","2x = 14","3x - 3 = 9"], rights:["x = 7","x = 4","x = 6"], ans:[2,0,1], why:"x + 4 = 10 \u2192 x = 6; 2x = 14 \u2192 x = 7; 3x - 3 = 9 \u2192 x = 4."},
+{t:"match", q:"Pasangkan persamaan dengan penyelesaiannya.", left:["5x - 5 = 10","x/2 = 4","2x + 1 = 11"], rights:["x = 8","x = 3","x = 5"], ans:[1,0,2], why:"5x - 5 = 10 \u2192 x = 3; x/2 = 4 \u2192 x = 8; 2x + 1 = 11 \u2192 x = 5."},
+{t:"fill", q:"Nilai x yang memenuhi 4x - 7 = 9 adalah \u2026 (tulis angkanya saja)", ans:"4", why:"4x = 16, x = 4."},
+{t:"fill", q:"Nilai x yang memenuhi 3x + 2 = 17 adalah \u2026 (tulis angkanya saja)", ans:"5", why:"3x = 15, x = 5."},
+{t:"tf", q:"Andi membeli 4 buku tulis dengan harga yang sama. Ia membayar Rp50.000,00 dan menerima kembalian Rp10.000,00. Harga 1 buku tulis adalah Rp10.000,00.", opts:["Benar","Salah"], ans:0, why:"Benar. 4x + 10.000 = 50.000, 4x = 40.000, x = 10.000."},
+{t:"match", q:"Pasangkan pertidaksamaan dengan himpunan penyelesaiannya.", left:["2x + 3 < 11","x + 5 > 9","3x - 3 \u2265 6"], rights:["x > 4","x \u2265 3","x < 4"], ans:[2,0,1], why:"2x + 3 < 11 \u2192 x < 4; x + 5 > 9 \u2192 x > 4; 3x - 3 \u2265 6 \u2192 x \u2265 3."}
+];
+const TOKEN = "ASAS2026";
+const TYPE_LABEL = {mc:"Pilihan Ganda", multi:"Pilihan Ganda Jamak", tf:"Benar / Salah", match:"Menjodohkan", fill:"Isian"};
+const DUR = 120*60; let left = DUR, timerId=null, startedAt=null;
+let answers = QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);
+const $=id=>document.getElementById(id);
+function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function isAnswered(i){
+  const it=QUIZ[i], a=answers[i];
+  if(it.t==="multi") return a.length>0;
+  if(it.t==="match") return a.every(v=>v!==null && v!=="");
+  if(it.t==="fill") return a!==null && String(a).trim()!=="";
+  return a!==null;
+}
+function normFill(s){return String(s).trim().replace(/\s/g,"").replace(",",".");}
+function isCorrect(i){
+  const it=QUIZ[i], a=answers[i];
+  if(!isAnswered(i)) return false;
+  if(it.t==="multi"){ if(a.length!==it.ans.length) return false; return it.ans.every(v=>a.includes(v)); }
+  if(it.t==="match"){ return it.ans.every((v,j)=>a[j]===v); }
+  if(it.t==="fill"){ return normFill(a)===normFill(it.ans); }
+  return a===it.ans;
+}
+function renderNav(){
+  $("navBox").innerHTML = QUIZ.map((_,i)=>`<button type="button" data-i="${i}" class="${isAnswered(i)?"done":""}">${i+1}</button>`).join("");
+  document.querySelectorAll("#navBox button").forEach(b=>b.onclick=()=>{document.getElementById("q"+b.dataset.i).scrollIntoView({behavior:"smooth",block:"center"});});
+  $("progressLabel").textContent = answers.filter((_,i)=>isAnswered(i)).length+" / "+QUIZ.length+" dijawab";
+}
+function renderQ(){
+  $("qBox").innerHTML = QUIZ.map((it,i)=>{
+    let body="";
+    if(it.t==="mc" || it.t==="tf"){
+      body = it.opts.map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}" ${answers[i]===j?"checked":""}> ${it.t==="mc"?"ABCD"[j]+". ":""}${o}</label>`).join("");
+    } else if(it.t==="multi"){
+      body = it.opts.map((o,j)=>`<label class="opt"><input type="checkbox" name="q${i}" value="${j}" ${answers[i].includes(j)?"checked":""}> ${"ABCD"[j]}. ${o}</label>`).join("");
+    } else if(it.t==="match"){
+      body = it.left.map((l,j)=>`<div class="matchrow"><span class="left">${l}</span><span>\u2192</span><select data-i="${i}" data-j="${j}"><option value="">-- pilih pasangan --</option>${it.rights.map((r,k)=>`<option value="${k}" ${answers[i][j]===k?"selected":""}>${r}</option>`).join("")}</select></div>`).join("");
+    } else if(it.t==="fill"){
+      body = `<input type="text" data-fill="${i}" value="${answers[i]===null?"":String(answers[i]).replace(/"/g,"&quot;")}" placeholder="Tulis jawabanmu di sini" autocomplete="off">`;
+    }
+    return `<div class="q" id="q${i}"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. ${it.q}</h3>${body}</div>`;
+  }).join("");
+  QUIZ.forEach((it,i)=>{
+    if(it.t==="mc" || it.t==="tf"){
+      document.querySelectorAll(`input[name=q${i}]`).forEach(r=>r.onchange=()=>{answers[i]=+r.value;renderNav();});
+    } else if(it.t==="multi"){
+      document.querySelectorAll(`input[name=q${i}]`).forEach(r=>r.onchange=()=>{
+        const v=+r.value;
+        if(r.checked){ if(!answers[i].includes(v)) answers[i].push(v); }
+        else { answers[i]=answers[i].filter(x=>x!==v); }
+        renderNav();
+      });
+    } else if(it.t==="match"){
+      document.querySelectorAll(`select[data-i="${i}"]`).forEach(s=>s.onchange=()=>{answers[i][+s.dataset.j]=s.value===""?null:+s.value;renderNav();});
+    } else if(it.t==="fill"){
+      const inp=document.querySelector(`input[data-fill="${i}"]`);
+      if(inp) inp.oninput=()=>{answers[i]=inp.value;renderNav();};
+    }
+  });
+}
+function fmtUser(it,a){
+  if(a===null || a===undefined) return "\u2014";
+  if(it.t==="mc" || it.t==="tf") return it.opts[a];
+  if(it.t==="multi") return a.length? a.slice().sort().map(v=>it.opts[v]).join(", ") : "\u2014";
+  if(it.t==="match") return it.left.map((l,j)=>l+" \u2192 "+(a[j]===null?"\u2014":it.rights[a[j]])).join("; ");
+  if(it.t==="fill") return String(a).trim()===""?"\u2014":String(a);
+  return "\u2014";
+}
+function fmtKey(it){
+  if(it.t==="mc" || it.t==="tf") return it.opts[it.ans];
+  if(it.t==="multi") return it.ans.map(v=>it.opts[v]).join(", ");
+  if(it.t==="match") return it.left.map((l,j)=>l+" \u2192 "+it.rights[it.ans[j]]).join("; ");
+  if(it.t==="fill") return it.ans;
+  return "";
+}
+$("btnStart").onclick=()=>{
+  const nama=$("nama").value.trim(), kelas=$("kelas").value.trim(), nis=$("nis").value.trim(), token=$("token").value.trim().toUpperCase().replace(/[\s-]/g,""), tgl=$("tgl").value;
+  if(!nama){alert("Isi nama lengkap dulu.");$("nama").focus();return;}
+  if(!nis){alert("Isi NIS / No. Peserta dulu.");$("nis").focus();return;}
+  if(!kelas){alert("Isi kelas dulu.");$("kelas").focus();return;}
+  if(!tgl){alert("Isi tanggal lahir dulu.");$("tgl").focus();return;}
+  if(token!==TOKEN){alert("Token ujian salah. Token ujian adalah ASAS2026, seperti yang ditampilkan di kotak Token Ujian.");$("token").focus();return;}
+  if(!$("setuju").checked){alert("Centang dulu pernyataan bahwa kamu akan mengerjakan ujian ini dengan jujur.");$("setuju").focus();return;}
+  $("confNama").textContent=nama;
+  $("confNis").textContent=nis;
+  $("confKelas").textContent=kelas;
+  $("confTgl").textContent=new Date(tgl+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+  $("loginCard").classList.add("hidden");$("confirmCard").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+};
+$("btnBack").onclick=()=>{$("confirmCard").classList.add("hidden");$("loginCard").classList.remove("hidden");};
+$("btnConfirm").onclick=()=>{
+  $("confirmCard").classList.add("hidden");$("examCard").classList.remove("hidden");
+  startedAt=new Date(); renderQ(); renderNav();
+  timerId=setInterval(()=>{left--; $("timerLabel").textContent="Sisa waktu: "+fmt(Math.max(left,0));
+    if(left<=0){clearInterval(timerId); submit(true);}},1000);
+};
+function submit(auto){
+  clearInterval(timerId);
+  let correct=0; QUIZ.forEach((_,i)=>{if(isCorrect(i))correct++;});
+  const score=Math.round(correct/QUIZ.length*100);
+  const mins=startedAt?Math.round((new Date()-startedAt)/60000):0;
+  $("resNama").textContent=$("nama").value.trim();
+  $("resKelas").textContent="Kelas "+$("kelas").value.trim()+" \u00b7 NIS "+$("nis").value.trim()+($("tgl").value?" \u00b7 Lahir "+new Date($("tgl").value+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}):"");
+  $("resScore").textContent=score+"  ("+correct+" benar dari "+QUIZ.length+" soal)";
+  $("resDetail").textContent=(auto?"Waktu habis \u2014 jawaban dikumpulkan otomatis. ":"")+"Waktu pengerjaan: \u00b1"+mins+" menit. Tanggal: "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+".";
+  $("resReview").innerHTML=QUIZ.map((it,i)=>{
+    const ok=isCorrect(i);
+    return `<div class="q"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. <span class="${ok?"correct":"wrong"}">${ok?"Benar":"Salah"}</span>${!isAnswered(i)?" (tidak dijawab)":""}</h3>
+    <p>Jawabanmu: <strong>${fmtUser(it,answers[i])}</strong><br>Kunci: <strong>${fmtKey(it)}</strong></p>
+    <div class="why">${it.why}</div></div>`;}).join("");
+  try{localStorage.setItem("cbt-asas-ganjil-terakhir",JSON.stringify({nama:$("nama").value.trim(),kelas:$("kelas").value.trim(),skor:score,benar:correct,tanggal:new Date().toISOString()}));}catch(e){}
+  $("examCard").classList.add("hidden");$("resultCard").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("btnSubmit").onclick=()=>{
+  const un=QUIZ.filter((_,i)=>!isAnswered(i)).length;
+  if(un>0 && !confirm("Masih ada "+un+" soal belum dijawab. Tetap kumpulkan?")) return;
+  submit(false);
+};
+$("btnReset").onclick=()=>{if(confirm("Hapus semua jawaban dan mulai lagi dari awal?")){answers=QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);left=DUR;renderQ();renderNav();$("timerLabel").textContent="Sisa waktu: "+fmt(left);}};
+</script>
+</body>
+</html>
