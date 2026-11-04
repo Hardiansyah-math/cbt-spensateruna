@@ -96,7 +96,7 @@ button:hover{background:var(--blue)}button.ghost{background:#fff;color:var(--blu
 <div class="rules"><strong>Tata Tertib Peserta</strong><ol style="margin:8px 0 0;padding-left:18px"><li>Kerjakan soal secara mandiri dan jujur.</li><li>Dilarang membuka catatan, buku, atau aplikasi lain selama ujian.</li><li>Waktu ujian 120 menit. Jawaban terkumpul otomatis saat waktu habis.</li><li>Periksa kembali jawaban sebelum menekan tombol Kumpulkan Jawaban.</li></ol></div>
 <label class="check"><input type="checkbox" id="setuju"> Saya sudah membaca tata tertib di atas dan akan mengerjakan ujian ini dengan jujur.</label>
 <p><button id="btnStart" class="btn-block">Login &rarr; Lanjut ke Konfirmasi Data</button></p>
-<p class="small">Catatan: file ini satu file HTML tanpa server. Jawaban dan nilai tersimpan di perangkat ini saja (localStorage) &mdash; belum terkumpul otomatis untuk semua siswa.</p>
+<p class="small">Catatan: jawaban dan nilaimu otomatis terkumpul ke rekap guru setelah kamu menekan Kumpulkan Jawaban. Kalau pengiriman gagal karena internet, nilai tetap tersimpan di perangkat ini.</p>
 </div>
 <aside class="card" style="margin:0">
 <h3>Informasi Ujian</h3>
@@ -145,6 +145,8 @@ button:hover{background:var(--blue)}button.ghost{background:#fff;color:var(--blu
 <p><strong id="resNama"></strong> &middot; <span id="resKelas"></span></p>
 <p class="score" id="resScore"></p>
 <p id="resDetail"></p>
+<p id="rekapStatus" class="small"></p>
+<p class="no-print hidden" id="rekapRetryWrap"><button class="ghost" id="btnKirimUlang" type="button">Coba Kirim Ulang ke Rekap Guru</button></p>
 <div id="resReview"></div>
 <p class="no-print"><button onclick="window.print()">Cetak / Simpan PDF</button>
 <button class="ghost" onclick="location.reload()">Ujian Baru</button></p>
@@ -194,6 +196,8 @@ const QUIZ = [
 {t:"match", q:"Pasangkan pertidaksamaan dengan himpunan penyelesaiannya.", left:["2x + 3 < 11","x + 5 > 9","3x - 3 \u2265 6"], rights:["x > 4","x \u2265 3","x < 4"], ans:[2,0,1], why:"2x + 3 < 11 \u2192 x < 4; x + 5 > 9 \u2192 x > 4; 3x - 3 \u2265 6 \u2192 x \u2265 3."}
 ];
 const TOKEN = "ASAS2026";
+const REKAP_URL = "https://script.google.com/macros/s/AKfycby9l9le5uZ7tfEKI5_mhSXiy30kUPrnqZ5UUGrAVgFCp-Pm-daN5AKpuMDA0DMDa1yN/exec"; // Web App Apps Script rekap (deploy 4 Nov 2026)
+let lastPayload = null;
 const TYPE_LABEL = {mc:"Pilihan Ganda", multi:"Pilihan Ganda Jamak", tf:"Benar / Salah", match:"Menjodohkan", fill:"Isian"};
 const DUR = 120*60; let left = DUR, timerId=null, startedAt=null;
 let answers = QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);
@@ -289,6 +293,29 @@ $("btnConfirm").onclick=()=>{
   timerId=setInterval(()=>{left--; $("timerLabel").textContent="Sisa waktu: "+fmt(Math.max(left,0));
     if(left<=0){clearInterval(timerId); submit(true);}},1000);
 };
+function fmtAnswerCode(it,a){
+  if(a===null || a===undefined) return "-";
+  if(it.t==="mc") return "ABCD"[a];
+  if(it.t==="tf") return a===0?"Benar":"Salah";
+  if(it.t==="multi") return a.length? a.slice().sort().map(v=>"ABCD"[v]).join("") : "-";
+  if(it.t==="match") return a.map(v=>v===null?"-":"ABC"[v]).join("");
+  if(it.t==="fill") return String(a).trim()===""?"-":String(a).trim();
+  return "-";
+}
+async function kirimRekap(){
+  const st=$("rekapStatus");
+  if(!REKAP_URL){ st.textContent="Rekap guru belum diaktifkan untuk ujian ini."; return; }
+  st.textContent="Mengirim hasil ke rekap guru…";
+  try{
+    await fetch(REKAP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(lastPayload)});
+    st.textContent="✓ Hasil sudah terkirim ke rekap guru.";
+    $("rekapRetryWrap").classList.add("hidden");
+  }catch(e){
+    st.textContent="⚠ Hasil belum terkirim ke rekap guru (internet bermasalah). Nilai tetap tersimpan di perangkat ini — tekan tombol di bawah untuk mencoba kirim ulang.";
+    $("rekapRetryWrap").classList.remove("hidden");
+  }
+}
+$("btnKirimUlang").onclick=()=>{kirimRekap();};
 function submit(auto){
   clearInterval(timerId);
   let correct=0; QUIZ.forEach((_,i)=>{if(isCorrect(i))correct++;});
@@ -304,6 +331,8 @@ function submit(auto){
     <p>Jawabanmu: <strong>${fmtUser(it,answers[i])}</strong><br>Kunci: <strong>${fmtKey(it)}</strong></p>
     <div class="why">${it.why}</div></div>`;}).join("");
   try{localStorage.setItem("cbt-asas-ganjil-terakhir",JSON.stringify({nama:$("nama").value.trim(),kelas:$("kelas").value.trim(),skor:score,benar:correct,tanggal:new Date().toISOString()}));}catch(e){}
+  lastPayload={waktu:new Date().toISOString(),nama:$("nama").value.trim(),nis:$("nis").value.trim(),kelas:$("kelas").value.trim(),tglLahir:$("tgl").value,skor:score,benar:correct,jawaban:QUIZ.map((it,i)=>fmtAnswerCode(it,answers[i])).join("; "),durasi:mins};
+  kirimRekap();
   $("examCard").classList.add("hidden");$("resultCard").classList.remove("hidden");
   window.scrollTo({top:0,behavior:"smooth"});
 }
