@@ -149,6 +149,13 @@ sup,sub{font-size:.78em;line-height:0}
 <button class="ghost" id="btnReset" type="button">Ulangi dari Awal</button></p>
 </section>
 
+<section class="card hidden" id="confirmSubmitCard">
+<h2 style="margin-top:0" id="confirmSubmitTitle">Kumpulkan Jawaban?</h2>
+<p id="confirmSubmitText"></p>
+<p><button id="btnConfirmSubmit" class="btn-block">Ya, Kumpulkan Jawaban</button></p>
+<p><button class="ghost" id="btnCancelSubmit" type="button">Batal &mdash; Lanjut Mengerjakan</button></p>
+</section>
+
 <section class="card hidden" id="resultCard">
 <h2 style="margin-top:0">Hasil Ujian</h2>
 <p><strong id="resNama"></strong> &middot; <span id="resKelas"></span></p>
@@ -502,12 +509,33 @@ function submit(auto){
   $("examCard").classList.add("hidden");$("resultCard").classList.remove("hidden");
   window.scrollTo({top:0,behavior:"smooth"});
 }
+let pendingAction=null;
+function showConfirm(title,text,btnLabel,action){
+  $("confirmSubmitTitle").textContent=title;
+  $("confirmSubmitText").textContent=text;
+  $("btnConfirmSubmit").textContent=btnLabel;
+  pendingAction=action;
+  $("examCard").classList.add("hidden");
+  $("confirmSubmitCard").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("btnCancelSubmit").onclick=()=>{$("confirmSubmitCard").classList.add("hidden");$("examCard").classList.remove("hidden");pendingAction=null;};
+$("btnConfirmSubmit").onclick=()=>{
+  const a=pendingAction; pendingAction=null;
+  $("confirmSubmitCard").classList.add("hidden");
+  if(a==="submit"){ submit(false); }
+  else if(a==="reset"){
+    answers=QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);
+    left=DUR; renderQ(); renderNav(); $("timerLabel").textContent="Sisa waktu: "+fmt(left);
+    $("examCard").classList.remove("hidden");
+  }
+};
 $("btnSubmit").onclick=()=>{
   const un=QUIZ.filter((_,i)=>!isAnswered(i)).length;
-  if(un>0 && !confirm("Masih ada "+un+" soal belum dijawab. Tetap kumpulkan?")) return;
-  submit(false);
+  if(un>0) showConfirm("Kumpulkan Jawaban?","Masih ada "+un+" soal belum dijawab. Soal yang tidak dijawab dihitung salah.","Ya, Tetap Kumpulkan","submit");
+  else showConfirm("Kumpulkan Jawaban?","Semua 40 soal sudah dijawab. Periksa kembali sebelum mengumpulkan.","Ya, Kumpulkan Jawaban","submit");
 };
-$("btnReset").onclick=()=>{if(confirm("Hapus semua jawaban dan mulai lagi dari awal?")){answers=QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);left=DUR;renderQ();renderNav();$("timerLabel").textContent="Sisa waktu: "+fmt(left);}};
+$("btnReset").onclick=()=>{showConfirm("Ulangi dari Awal?","Semua jawaban akan dihapus dan ujian dimulai lagi dari awal.","Ya, Hapus Semua Jawaban","reset");};
 // ---- Admin: login + dashboard pantau ----
 $("linkAdmin").onclick=(e)=>{e.preventDefault();$("loginCard").classList.add("hidden");$("adminLoginCard").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});};
 $("btnAdminBack").onclick=()=>{$("adminLoginCard").classList.add("hidden");$("loginCard").classList.remove("hidden");};
