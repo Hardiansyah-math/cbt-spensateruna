@@ -251,6 +251,52 @@ function tex(s){
   }
   return parse(null);
 }
+// Versi teks-polos untuk <option> dropdown (browser menghapus tag HTML di sana):
+// \frac{a}{b} -> a/b, pangkat -> superskrip Unicode, \sqrt{x} -> √x
+const SUPMAP={"0":"\u2070","1":"\u00b9","2":"\u00b2","3":"\u00b3","4":"\u2074","5":"\u2075","6":"\u2076","7":"\u2077","8":"\u2078","9":"\u2079","-":"\u207b","+":"\u207a"};
+const SUBMAP={"0":"\u2080","1":"\u2081","2":"\u2082","3":"\u2083","4":"\u2084","5":"\u2085","6":"\u2086","7":"\u2087","8":"\u2088","9":"\u2089","-":"\u208b","+":"\u208a"};
+function texPlain(s){
+  let i=0;
+  function parse(stop){
+    let out="";
+    while(i<s.length){
+      const c=s[i];
+      if(stop && c===stop){i++;return out;}
+      if(c==="\\"){
+        const m=s.slice(i+1).match(/^(frac|sqrt|times|div|ldots|rightarrow|ge|le|ne|pm|cdot|text)/);
+        if(m){
+          const cmd=m[1]; i+=1+cmd.length;
+          if(cmd==="frac"){out+=group()+"/"+group();}
+          else if(cmd==="sqrt"){out+="\u221a"+group();}
+          else if(cmd==="text"){out+=group();}
+          else out+=({times:"\u00d7",div:"\u00f7",ge:"\u2265",le:"\u2264",ne:"\u2260",pm:"\u00b1",cdot:"\u00b7",ldots:"\u2026",rightarrow:"\u2192"})[cmd];
+        } else { out+="\\"; i++; }
+      } else if(c==="^"||c==="_"){
+        const map=c==="^"?SUPMAP:SUBMAP; i++;
+        let inner="";
+        if(s[i]==="{"){i++; inner=parse("}");}
+        else {
+          let j=i;
+          if(s[j]==="-"||s[j]==="+") j++;
+          if(j<s.length && /[0-9]/.test(s[j])){ while(j<s.length && /[0-9]/.test(s[j])) j++; }
+          else if(j<s.length && /[a-zA-Z]/.test(s[j])){ j++; }
+          inner=s.slice(i,j); i=j;
+        }
+        out+=inner.split("").map(ch=>map[ch]||ch).join("");
+      } else if(c==="{"||c==="}"){
+        i++;
+      } else {
+        out+=c; i++;
+      }
+    }
+    return out;
+  }
+  function group(){
+    if(s[i]==="{"){i++; return parse("}");}
+    return s[i++]||"";
+  }
+  return esc(parse(null));
+}
 function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 function isAnswered(i){
   const it=QUIZ[i], a=answers[i];
@@ -281,7 +327,7 @@ function renderQ(){
     } else if(it.t==="multi"){
       body = it.opts.map((o,j)=>`<label class="opt"><input type="checkbox" name="q${i}" value="${j}" ${answers[i].includes(j)?"checked":""}> ${"ABCD"[j]}. ${tex(o)}</label>`).join("");
     } else if(it.t==="match"){
-      body = it.left.map((l,j)=>`<div class="matchrow"><span class="left">${tex(l)}</span><span>\u2192</span><select data-i="${i}" data-j="${j}"><option value="">-- pilih pasangan --</option>${it.rights.map((r,k)=>`<option value="${k}" ${answers[i][j]===k?"selected":""}>${tex(r)}</option>`).join("")}</select></div>`).join("");
+      body = it.left.map((l,j)=>`<div class="matchrow"><span class="left">${tex(l)}</span><span>\u2192</span><select data-i="${i}" data-j="${j}"><option value="">-- pilih pasangan --</option>${it.rights.map((r,k)=>`<option value="${k}" ${answers[i][j]===k?"selected":""}>${texPlain(r)}</option>`).join("")}</select></div>`).join("");
     } else if(it.t==="fill"){
       body = `<input type="text" data-fill="${i}" value="${answers[i]===null?"":String(answers[i]).replace(/"/g,"&quot;")}" placeholder="Tulis jawabanmu di sini" autocomplete="off">`;
     }
