@@ -12,7 +12,7 @@ header{background:var(--blue);color:#fff;padding:28px 20px}.wrap2{max-width:860p
 h1{margin:0 0 6px;font-size:1.5rem}header p{margin:4px 0;opacity:.95}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin:18px 0}
 label{display:block;font-weight:600;margin:12px 0 4px}
-input[type=text],input[type=date],select{width:100%;padding:11px 12px;border:1px solid #9db8d6;border-radius:8px;font-size:1rem}
+input[type=text],input[type=date],input[type=password],select{width:100%;padding:11px 12px;border:1px solid #9db8d6;border-radius:8px;font-size:1rem}
 .topbar-in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:14px}
 .emblem{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--blue);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:.95rem;line-height:1.1;flex-shrink:0;border:3px solid #ffd166}
@@ -86,21 +86,25 @@ sup,sub{font-size:.78em;line-height:0}
 <div class="login-grid">
 <div class="card" style="margin:0">
 <h2>Login Peserta</h2>
-<p class="small">Masukkan data diri dan token ujian seperti pada CBT TKA Kemdikdasmen. Token ujian ditampilkan di bawah ini, sama seperti token yang ditampilkan pengawas di awal sesi.</p>
+<p class="small">Masukkan NIS dan tanggal lahir sesuai data sekolah, lalu token ujian. Nama dan kelasmu diambil langsung dari database ujian, seperti pada CBT resmi.</p>
 <div class="token-box"><div class="small">TOKEN UJIAN</div><div class="token">ASAS2026</div><div class="small">Salin token di atas ke kolom Token Ujian.</div></div>
-<label for="nama">Nama Lengkap (Username)</label>
-<input type="text" id="nama" placeholder="Contoh: Andi Pratama" autocomplete="off">
 <label for="nis">NIS / No. Peserta</label>
 <input type="text" id="nis" placeholder="Contoh: 12345" autocomplete="off">
-<label for="kelas">Kelas</label>
-<input type="text" id="kelas" placeholder="Contoh: VIII-A" autocomplete="off">
 <label for="tgl">Tanggal Lahir</label>
 <input type="date" id="tgl">
 <label for="token">Token Ujian</label>
 <input type="text" id="token" placeholder="Contoh: ASAS2026" autocomplete="off">
+<div id="manualBox" class="hidden">
+<p class="small" style="color:#b00020"><strong>Mode darurat:</strong> database ujian tidak dapat dihubungi. Isi nama dan kelas secara manual di bawah ini, lalu tekan Login lagi. Hasilmu tetap terkirim ke rekap, tapi tidak terverifikasi database.</p>
+<label for="nama">Nama Lengkap</label>
+<input type="text" id="nama" placeholder="Contoh: Andi Pratama" autocomplete="off">
+<label for="kelas">Kelas</label>
+<input type="text" id="kelas" placeholder="Contoh: VIII-A" autocomplete="off">
+</div>
 <div class="rules"><strong>Tata Tertib Peserta</strong><ol style="margin:8px 0 0;padding-left:18px"><li>Kerjakan soal secara mandiri dan jujur.</li><li>Dilarang membuka catatan, buku, atau aplikasi lain selama ujian.</li><li>Waktu ujian 120 menit. Jawaban terkumpul otomatis saat waktu habis.</li><li>Periksa kembali jawaban sebelum menekan tombol Kumpulkan Jawaban.</li></ol></div>
 <label class="check"><input type="checkbox" id="setuju"> Saya sudah membaca tata tertib di atas dan akan mengerjakan ujian ini dengan jujur.</label>
 <p><button id="btnStart" class="btn-block">Login &rarr; Lanjut ke Konfirmasi Data</button></p>
+<p class="small" style="text-align:center"><a href="#" id="linkAdmin">Login Admin (Guru)</a></p>
 <p class="small">Catatan: jawaban dan nilaimu otomatis terkumpul ke rekap guru setelah kamu menekan Kumpulkan Jawaban. Kalau pengiriman gagal karena internet, nilai tetap tersimpan di perangkat ini.</p>
 </div>
 <aside class="card" style="margin:0">
@@ -113,7 +117,7 @@ sup,sub{font-size:.78em;line-height:0}
 </div>
 <p class="small" style="margin-top:14px"><strong>Materi yang diujikan</strong><br>Bilangan Berpangkat (14 soal) &middot; Teorema Pythagoras (14 soal) &middot; PLSV dan PtLSV (12 soal)</p>
 <p class="small"><strong>Bentuk soal</strong><br>Pilihan Ganda, PG Jamak, Benar/Salah, Menjodohkan, dan Isian. Semua soal dinilai otomatis, nilai 0&ndash;100.</p>
-<p class="small"><strong>Alur ujian</strong><br>1. Login &rarr; 2. Konfirmasi data &rarr; 3. Mengerjakan soal. Timer baru berjalan setelah kamu menekan &ldquo;Mulai Ujian&rdquo; di halaman konfirmasi.</p>
+<p class="small"><strong>Alur ujian</strong><br>1. Login (NIS + tanggal lahir dicocokkan dengan database) &rarr; 2. Konfirmasi data &rarr; 3. Mengerjakan soal. Timer baru berjalan setelah kamu menekan &ldquo;Mulai Ujian&rdquo; di halaman konfirmasi.</p>
 </aside>
 </div>
 <p class="login-foot">&copy; 2026 CBT SMPN 1 Terusan Nunyai &middot; ASAS Ganjil 2026/2027</p>
@@ -155,6 +159,29 @@ sup,sub{font-size:.78em;line-height:0}
 <div id="resReview"></div>
 <p class="no-print"><button onclick="window.print()">Cetak / Simpan PDF</button>
 <button class="ghost" onclick="location.reload()">Ujian Baru</button></p>
+</section>
+
+<section class="card hidden" id="adminLoginCard">
+<h2 style="margin-top:0">Login Admin</h2>
+<p class="small">Khusus guru / pengawas. Masukkan kata sandi admin untuk memantau jalannya ujian.</p>
+<label for="adminPass">Kata Sandi Admin</label>
+<input type="password" id="adminPass" placeholder="Kata sandi admin" autocomplete="off">
+<p id="adminErr" class="small" style="color:#b00020"></p>
+<p><button id="btnAdminLogin" class="btn-block">Masuk Dashboard Admin</button></p>
+<p><button class="ghost" id="btnAdminBack" type="button">Kembali ke Login Peserta</button></p>
+</section>
+
+<section class="card hidden" id="adminCard">
+<h2 style="margin-top:0">Dashboard Admin &mdash; Pantau Ujian</h2>
+<p class="small">Data diperbarui otomatis tiap 30 detik. <span id="adminUpdated"></span></p>
+<div class="info-grid" id="adminSummary"></div>
+<p>
+<input type="text" id="adminSearch" placeholder="Cari nama / NIS..." autocomplete="off" style="max-width:240px;display:inline-block">
+<select id="adminFilterKelas" style="max-width:150px;display:inline-block"><option value="">Semua Kelas</option></select>
+<button class="ghost" id="btnAdminRefresh" type="button">Muat Ulang</button>
+</p>
+<div style="overflow-x:auto"><table class="confirm-table" id="adminTable"></table></div>
+<p class="no-print"><button class="ghost" id="btnAdminLogout" type="button">Keluar Dashboard</button></p>
 </section>
 </div>
 <script>
@@ -201,8 +228,13 @@ const QUIZ = [
 {t:"match", q:"Pasangkan pertidaksamaan dengan himpunan penyelesaiannya.", left:["2x + 3 < 11","x + 5 > 9","3x - 3 \u2265 6"], rights:["x > 4","x \u2265 3","x < 4"], ans:[2,0,1], why:"2x + 3 < 11 \u2192 x < 4; x + 5 > 9 \u2192 x > 4; 3x - 3 \u2265 6 \u2192 x \u2265 3."}
 ];
 const TOKEN = "ASAS2026";
-const REKAP_URL = "https://script.google.com/macros/s/AKfycby9l9le5uZ7tfEKI5_mhSXiy30kUPrnqZ5UUGrAVgFCp-Pm-daN5AKpuMDA0DMDa1yN/exec"; // Web App Apps Script rekap (deploy 4 Nov 2026)
+const REKAP_URL = "https://script.google.com/macros/s/AKfycbwJxErBadyvgt7sW7p861Qeb-LGEBES9yywHKooeS0HJgFS1g_1A-L7pN-LcONrd8in/exec"; // Web App Apps Script v2 (deploy baru 5 Nov 2026 — login + status + data admin)
+const ADMIN_PASS = "Admin1979"; // Kata sandi admin (diatur 5 Nov 2026 atas permintaan ibing)
 let lastPayload = null;
+let siswaDB = null; // {nama, kelas, tglLahir} dari database setelah login valid
+let statusTimerId = null;
+let adminData = null, adminTimerId = null;
+function peserta(){ return {nama: siswaDB ? siswaDB.nama : $("nama").value.trim(), kelas: siswaDB ? siswaDB.kelas : $("kelas").value.trim(), nis: $("nis").value.trim(), tgl: $("tgl").value}; }
 const TYPE_LABEL = {mc:"Pilihan Ganda", multi:"Pilihan Ganda Jamak", tf:"Benar / Salah", match:"Menjodohkan", fill:"Isian"};
 const DUR = 120*60; let left = DUR, timerId=null, startedAt=null;
 let answers = QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);
@@ -370,28 +402,61 @@ function fmtKey(it){
   else s="";
   return tex(s);
 }
-$("btnStart").onclick=()=>{
-  const nama=$("nama").value.trim(), kelas=$("kelas").value.trim(), nis=$("nis").value.trim(), token=$("token").value.trim().toUpperCase().replace(/[\s-]/g,""), tgl=$("tgl").value;
-  if(!nama){alert("Isi nama lengkap dulu.");$("nama").focus();return;}
-  if(!nis){alert("Isi NIS / No. Peserta dulu.");$("nis").focus();return;}
-  if(!kelas){alert("Isi kelas dulu.");$("kelas").focus();return;}
-  if(!tgl){alert("Isi tanggal lahir dulu.");$("tgl").focus();return;}
-  if(token!==TOKEN){alert("Token ujian salah. Token ujian adalah ASAS2026, seperti yang ditampilkan di kotak Token Ujian.");$("token").focus();return;}
-  if(!$("setuju").checked){alert("Centang dulu pernyataan bahwa kamu akan mengerjakan ujian ini dengan jujur.");$("setuju").focus();return;}
+function tampilKonfirmasi(nama,nis,kelas,tgl){
   $("confNama").textContent=nama;
   $("confNis").textContent=nis;
   $("confKelas").textContent=kelas;
   $("confTgl").textContent=new Date(tgl+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
   $("loginCard").classList.add("hidden");$("confirmCard").classList.remove("hidden");
   window.scrollTo({top:0,behavior:"smooth"});
+}
+$("btnStart").onclick=async()=>{
+  const nis=$("nis").value.trim(), tgl=$("tgl").value;
+  const token=$("token").value.trim().toUpperCase().replace(/[\s-]/g,"");
+  if(!nis){alert("Isi NIS / No. Peserta dulu.");$("nis").focus();return;}
+  if(!tgl){alert("Isi tanggal lahir dulu.");$("tgl").focus();return;}
+  if(token!==TOKEN){alert("Token ujian salah. Token ujian adalah ASAS2026, seperti yang ditampilkan di kotak Token Ujian.");$("token").focus();return;}
+  if(!$("setuju").checked){alert("Centang dulu pernyataan bahwa kamu akan mengerjakan ujian ini dengan jujur.");$("setuju").focus();return;}
+  // Validasi NIS + tanggal lahir ke database ujian (Apps Script v2).
+  let db=null;
+  try{
+    const r=await fetch(REKAP_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"login",nis:nis,tglLahir:tgl})});
+    db=await r.json();
+  }catch(e){ db=null; }
+  if(db && db.ok){
+    siswaDB={nama:db.nama,kelas:db.kelas,tglLahir:db.tglLahir};
+    tampilKonfirmasi(db.nama,nis,db.kelas,tgl);
+  } else if(db && !db.ok){
+    alert(db.error||"Login gagal. Periksa NIS dan tanggal lahir.");
+    return;
+  } else {
+    // Database tidak dapat dihubungi: mode darurat (isi nama & kelas manual).
+    if($("manualBox").classList.contains("hidden")){
+      $("manualBox").classList.remove("hidden");
+      alert("Database ujian tidak dapat dihubungi (internet bermasalah). Isi nama dan kelas secara manual di bawah ini, lalu tekan Login lagi.");
+      return;
+    }
+    const nama=$("nama").value.trim(), kelas=$("kelas").value.trim();
+    if(!nama){alert("Isi nama lengkap dulu.");$("nama").focus();return;}
+    if(!kelas){alert("Isi kelas dulu.");$("kelas").focus();return;}
+    siswaDB={nama:nama,kelas:kelas,tglLahir:tgl};
+    tampilKonfirmasi(nama,nis,kelas,tgl);
+  }
 };
 $("btnBack").onclick=()=>{$("confirmCard").classList.add("hidden");$("loginCard").classList.remove("hidden");};
 $("btnConfirm").onclick=()=>{
   $("confirmCard").classList.add("hidden");$("examCard").classList.remove("hidden");
   startedAt=new Date(); renderQ(); renderNav();
+  kirimStatus();
+  statusTimerId=setInterval(kirimStatus,30000);
   timerId=setInterval(()=>{left--; $("timerLabel").textContent="Sisa waktu: "+fmt(Math.max(left,0));
     if(left<=0){clearInterval(timerId); submit(true);}},1000);
 };
+function kirimStatus(){
+  if(!REKAP_URL||!siswaDB) return;
+  const dijawab=answers.filter((_,i)=>isAnswered(i)).length;
+  fetch(REKAP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"status",nis:peserta().nis,nama:siswaDB.nama,kelas:siswaDB.kelas,status:"mengerjakan",dijawab:dijawab,sisa:Math.max(left,0)})}).catch(()=>{});
+}
 function fmtAnswerCode(it,a){
   if(a===null || a===undefined) return "-";
   if(it.t==="mc") return "ABCD"[a];
@@ -417,11 +482,13 @@ async function kirimRekap(){
 $("btnKirimUlang").onclick=()=>{kirimRekap();};
 function submit(auto){
   clearInterval(timerId);
+  if(statusTimerId) clearInterval(statusTimerId);
   let correct=0; QUIZ.forEach((_,i)=>{if(isCorrect(i))correct++;});
   const score=Math.round(correct/QUIZ.length*100);
   const mins=startedAt?Math.round((new Date()-startedAt)/60000):0;
-  $("resNama").textContent=$("nama").value.trim();
-  $("resKelas").textContent="Kelas "+$("kelas").value.trim()+" \u00b7 NIS "+$("nis").value.trim()+($("tgl").value?" \u00b7 Lahir "+new Date($("tgl").value+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}):"");
+  const ps=peserta();
+  $("resNama").textContent=ps.nama;
+  $("resKelas").textContent="Kelas "+ps.kelas+" \u00b7 NIS "+ps.nis+(ps.tgl?" \u00b7 Lahir "+new Date(ps.tgl+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}):"");
   $("resScore").textContent=score+"  ("+correct+" benar dari "+QUIZ.length+" soal)";
   $("resDetail").textContent=(auto?"Waktu habis \u2014 jawaban dikumpulkan otomatis. ":"")+"Waktu pengerjaan: \u00b1"+mins+" menit. Tanggal: "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+".";
   $("resReview").innerHTML=QUIZ.map((it,i)=>{
@@ -429,8 +496,8 @@ function submit(auto){
     return `<div class="q"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. <span class="${ok?"correct":"wrong"}">${ok?"Benar":"Salah"}</span>${!isAnswered(i)?" (tidak dijawab)":""}</h3>
     <p>Jawabanmu: <strong>${fmtUser(it,answers[i])}</strong><br>Kunci: <strong>${fmtKey(it)}</strong></p>
     <div class="why">${tex(it.why)}</div></div>`;}).join("");
-  try{localStorage.setItem("cbt-asas-ganjil-terakhir",JSON.stringify({nama:$("nama").value.trim(),kelas:$("kelas").value.trim(),skor:score,benar:correct,tanggal:new Date().toISOString()}));}catch(e){}
-  lastPayload={waktu:new Date().toISOString(),nama:$("nama").value.trim(),nis:$("nis").value.trim(),kelas:$("kelas").value.trim(),tglLahir:$("tgl").value,skor:score,benar:correct,jawaban:QUIZ.map((it,i)=>fmtAnswerCode(it,answers[i])).join("; "),durasi:mins};
+  try{localStorage.setItem("cbt-asas-ganjil-terakhir",JSON.stringify({nama:ps.nama,kelas:ps.kelas,skor:score,benar:correct,tanggal:new Date().toISOString()}));}catch(e){}
+  lastPayload={waktu:new Date().toISOString(),nama:ps.nama,nis:ps.nis,kelas:ps.kelas,tglLahir:ps.tgl,skor:score,benar:correct,jawaban:QUIZ.map((it,i)=>fmtAnswerCode(it,answers[i])).join("; "),durasi:mins};
   kirimRekap();
   $("examCard").classList.add("hidden");$("resultCard").classList.remove("hidden");
   window.scrollTo({top:0,behavior:"smooth"});
@@ -441,6 +508,63 @@ $("btnSubmit").onclick=()=>{
   submit(false);
 };
 $("btnReset").onclick=()=>{if(confirm("Hapus semua jawaban dan mulai lagi dari awal?")){answers=QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);left=DUR;renderQ();renderNav();$("timerLabel").textContent="Sisa waktu: "+fmt(left);}};
+// ---- Admin: login + dashboard pantau ----
+$("linkAdmin").onclick=(e)=>{e.preventDefault();$("loginCard").classList.add("hidden");$("adminLoginCard").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});};
+$("btnAdminBack").onclick=()=>{$("adminLoginCard").classList.add("hidden");$("loginCard").classList.remove("hidden");};
+$("btnAdminLogin").onclick=()=>{
+  if($("adminPass").value!==ADMIN_PASS){$("adminErr").textContent="Kata sandi admin salah.";$("adminPass").focus();return;}
+  $("adminErr").textContent="";
+  $("adminLoginCard").classList.add("hidden");$("adminCard").classList.remove("hidden");
+  muatAdmin(); adminTimerId=setInterval(muatAdmin,30000);
+  window.scrollTo({top:0,behavior:"smooth"});
+};
+$("btnAdminLogout").onclick=()=>{if(adminTimerId)clearInterval(adminTimerId);$("adminCard").classList.add("hidden");$("loginCard").classList.remove("hidden");};
+$("btnAdminRefresh").onclick=()=>muatAdmin();
+$("adminSearch").oninput=()=>renderAdminTable();
+$("adminFilterKelas").onchange=()=>renderAdminTable();
+async function muatAdmin(){
+  try{
+    const r=await fetch(REKAP_URL+"?action=data");
+    const d=await r.json();
+    if(!d.ok) throw new Error("gagal");
+    adminData=d; renderAdminTable();
+    $("adminUpdated").textContent="Terakhir diperbarui: "+new Date().toLocaleTimeString("id-ID");
+  }catch(e){
+    $("adminUpdated").textContent="Gagal memuat data — periksa internet lalu tekan Muat Ulang.";
+  }
+}
+function renderAdminTable(){
+  if(!adminData) return;
+  const hasilByNis={}, statusByNis={};
+  adminData.hasil.forEach(row=>{hasilByNis[row[2]]=row;});
+  adminData.status.forEach(row=>{statusByNis[row[0]]=row;});
+  let total=adminData.siswa.length, sedang=0, selesai=0, belum=0;
+  adminData.siswa.forEach(r=>{ if(hasilByNis[r[0]]) selesai++; else if(statusByNis[r[0]]) sedang++; else belum++; });
+  $("adminSummary").innerHTML=
+    `<div class="info-item"><b>Total Siswa</b><span>${total}</span></div>`+
+    `<div class="info-item"><b>Sedang Mengerjakan</b><span>${sedang}</span></div>`+
+    `<div class="info-item"><b>Sudah Mengumpulkan</b><span>${selesai}</span></div>`+
+    `<div class="info-item"><b>Belum Mulai</b><span>${belum}</span></div>`;
+  const sel=$("adminFilterKelas");
+  if(sel.options.length<=1){
+    [...new Set(adminData.siswa.map(r=>r[2]))].sort().forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k;sel.appendChild(o);});
+  }
+  const q=($("adminSearch").value||"").toLowerCase();
+  const fk=sel.value;
+  const rows=adminData.siswa.filter(r=>{
+    if(fk && r[2]!==fk) return false;
+    if(q && !(String(r[1]).toLowerCase().includes(q)||String(r[0]).toLowerCase().includes(q))) return false;
+    return true;
+  }).map(r=>{
+    const nis=r[0], nama=r[1], kelas=r[2];
+    const st=statusByNis[nis], hs=hasilByNis[nis];
+    let status="Belum mulai", dijawab="-", sisa="-", skor="-", aktif="-";
+    if(hs){status="Sudah mengumpulkan"; skor=hs[5]+" ("+hs[6]+" benar)"; dijawab="40"; sisa="0:00"; aktif=hs[0];}
+    else if(st){status="Sedang mengerjakan"; dijawab=st[4]; sisa=fmt(+st[5]||0); aktif=st[6];}
+    return `<tr><td>${esc(nama)}</td><td>${esc(nis)}</td><td>${esc(kelas)}</td><td>${status}</td><td>${dijawab}</td><td>${sisa}</td><td>${skor}</td><td>${esc(aktif)}</td></tr>`;
+  });
+  $("adminTable").innerHTML=`<tr><td><strong>Nama</strong></td><td><strong>NIS</strong></td><td><strong>Kelas</strong></td><td><strong>Status</strong></td><td><strong>Dijawab</strong></td><td><strong>Sisa Waktu</strong></td><td><strong>Skor</strong></td><td><strong>Terakhir Aktif</strong></td></tr>`+rows.join("");
+}
 </script>
 </body>
 </html>
