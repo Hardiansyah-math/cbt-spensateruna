@@ -187,6 +187,7 @@ sup,sub{font-size:.78em;line-height:0}
 <input type="text" id="adminSearch" placeholder="Cari nama / NIS..." autocomplete="off" style="max-width:240px;display:inline-block">
 <select id="adminFilterKelas" style="max-width:150px;display:inline-block"><option value="">Semua Kelas</option></select>
 <button class="ghost" id="btnAdminRefresh" type="button">Muat Ulang</button>
+<button class="ghost" id="btnCetakHasil" type="button">Cetak Hasil (PDF)</button>
 </p>
 <div style="overflow-x:auto"><table class="confirm-table" id="adminTable"></table></div>
 <p class="no-print"><button class="ghost" id="btnAdminLogout" type="button">Keluar Dashboard</button></p>
@@ -549,6 +550,56 @@ $("btnAdminLogin").onclick=()=>{
 };
 $("btnAdminLogout").onclick=()=>{if(adminTimerId)clearInterval(adminTimerId);$("adminCard").classList.add("hidden");$("loginCard").classList.remove("hidden");};
 $("btnAdminRefresh").onclick=()=>muatAdmin();
+$("btnCetakHasil").onclick=()=>cetakHasil();
+async function cetakHasil(){
+  const w=window.open("","_blank");
+  if(!w){alert("Jendela cetak diblokir browser. Izinkan pop-up untuk situs ini lalu coba lagi.");return;}
+  w.document.write("<p style='font-family:sans-serif'>Memuat data hasil ujian...</p>"); w.document.close();
+  await muatAdmin();
+  if(!adminData){ w.document.open(); w.document.write("<p style='font-family:sans-serif'>Gagal memuat data hasil. Periksa internet lalu coba lagi.</p>"); w.document.close(); return; }
+  const hasilByNis={}, statusByNis={};
+  adminData.hasil.forEach(row=>{hasilByNis[row[2]]=row;});
+  adminData.status.forEach(row=>{statusByNis[row[0]]=row;});
+  let total=adminData.siswa.length, sedang=0, selesai=0, belum=0;
+  adminData.siswa.forEach(r=>{ if(hasilByNis[r[0]]) selesai++; else if(statusByNis[r[0]]) sedang++; else belum++; });
+  const q=($("adminSearch").value||"").trim();
+  const fk=$("adminFilterKelas").value;
+  const list=adminData.siswa.filter(r=>{
+    if(fk && r[2]!==fk) return false;
+    if(q && !(String(r[1]).toLowerCase().includes(q.toLowerCase())||String(r[0]).includes(q))) return false;
+    return true;
+  });
+  const rows=list.map((r,i)=>{
+    const nis=r[0], nama=r[1], kelas=r[2];
+    const st=statusByNis[nis], hs=hasilByNis[nis];
+    let status="Belum mulai", dijawab="-", skor="-";
+    if(hs){status="Sudah mengumpulkan"; skor=hs[5]+" ("+hs[6]+" benar dari 40)"; dijawab="40";}
+    else if(st){status="Sedang mengerjakan"; dijawab=st[4];}
+    return `<tr><td>${i+1}</td><td>${esc(nis)}</td><td>${esc(nama)}</td><td>${esc(kelas)}</td><td>${status}</td><td>${dijawab}</td><td>${skor}</td></tr>`;
+  }).join("");
+  const tgl=new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+  const filterTxt=(fk||q)?("Filter: "+(fk?("Kelas "+esc(fk)):"")+((fk&&q)?" \u00b7 ":"")+(q?("Pencarian \u201c"+esc(q)+"\u201d"):"")):"Semua siswa";
+  const html=`<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><title>Rekap Hasil CBT ASAS Ganjil \u2014 Matematika Kelas 8</title><style>
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:16px}
+  h1{font-size:18px;margin:0 0 2px} h2{font-size:14px;margin:0 0 2px;font-weight:normal} p{margin:2px 0 10px;font-size:12px;color:#444}
+  .ringkasan{font-size:13px;margin:8px 0 12px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th,td{border:1px solid #999;padding:5px 7px;text-align:left}
+  th{background:#eaf2ff} tr:nth-child(even) td{background:#f7f7f7}
+  .tombol{margin:0 0 14px}
+  @page{size:A4 landscape;margin:12mm}
+  @media print{.no-print{display:none!important} body{margin:0}}
+  </style></head><body>
+  <div class="no-print tombol"><button onclick="window.print()" style="padding:8px 16px;font-size:14px">Cetak / Simpan sebagai PDF</button> <span style="font-size:12px;color:#555">Pada dialog cetak, pilih tujuan \u201cSave as PDF\u201d.</span></div>
+  <h1>Rekap Hasil CBT \u2014 SMPN 1 Terusan Nunyai</h1>
+  <h2>ASAS Ganjil 2026/2027 \u2014 Matematika Kelas 8 (40 soal, 120 menit)</h2>
+  <p>Dicetak: ${tgl} &middot; ${filterTxt} &middot; Dikembangkan oleh Hardiansyah, S.Pd</p>
+  <div class="ringkasan">Total siswa: <b>${total}</b> &middot; Sudah mengumpulkan: <b>${selesai}</b> &middot; Sedang mengerjakan: <b>${sedang}</b> &middot; Belum mulai: <b>${belum}</b></div>
+  <table><thead><tr><th>No</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Dijawab</th><th>Skor (0\u2013100)</th></tr></thead><tbody>${rows}</tbody></table>
+  </body></html>`;
+  w.document.open(); w.document.write(html); w.document.close(); w.focus();
+  setTimeout(()=>{try{w.print();}catch(e){}},600);
+}
 $("adminSearch").oninput=()=>renderAdminTable();
 $("adminFilterKelas").onchange=()=>renderAdminTable();
 async function muatAdmin(){
