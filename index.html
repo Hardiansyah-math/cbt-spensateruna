@@ -60,6 +60,11 @@ button:hover{background:var(--blue)}button.ghost{background:#fff;color:var(--blu
 .why{background:#f2f7ff;border-left:4px solid var(--blue2);padding:10px 12px;margin:8px 0}
 .small{color:#43586e;font-size:.92rem}.hidden{display:none}
 .score{font-size:2rem;font-weight:800;color:var(--blue)}
+.frac{display:inline-block;vertical-align:middle;text-align:center;margin:0 2px;line-height:1.25}
+.frac .num{display:block;padding:0 4px}
+.frac .den{display:block;border-top:1.5px solid currentColor;padding:0 4px}
+.rad{border-top:1.5px solid currentColor;padding:0 1px}
+sup,sub{font-size:.78em;line-height:0}
 @media print{.no-print{display:none}}
 </style>
 </head>
@@ -154,34 +159,34 @@ button:hover{background:var(--blue)}button.ghost{background:#fff;color:var(--blu
 </div>
 <script>
 const QUIZ = [
-{t:"mc", q:"Hasil dari 2^3 \u00d7 2^5 adalah \u2026", opts:["2^8","2^15","2^2","4^8"], ans:0, why:"2^(3+5) = 2^8 = 256."},
-{t:"mc", q:"Nilai dari (2^3)^2 adalah \u2026", opts:["2^5","2^6","3^6","2^9"], ans:1, why:"(2^3)^2 = 2^(3 \u00d7 2) = 2^6 = 64."},
-{t:"mc", q:"Nilai dari 3^-2 adalah \u2026", opts:["-9","9","1/9","-1/9"], ans:2, why:"3^-2 = 1 / 3^2 = 1/9."},
+{t:"mc", q:"Hasil dari 2^3 \u00d7 2^5 adalah \u2026", opts:["2^8","2^15","2^2","4^8"], ans:0, why:"2^{3+5} = 2^8 = 256."},
+{t:"mc", q:"Nilai dari (2^3)^2 adalah \u2026", opts:["2^5","2^6","3^6","2^9"], ans:1, why:"(2^3)^2 = 2^{3 \\times 2} = 2^6 = 64."},
+{t:"mc", q:"Nilai dari 3^-2 adalah \u2026", opts:["-9","9","\\frac{1}{9}","-\\frac{1}{9}"], ans:2, why:"3^-2 = \\frac{1}{3^2} = \\frac{1}{9}."},
 {t:"mc", q:"Bentuk notasi ilmiah dari 0,000045 adalah \u2026", opts:["4,5 \u00d7 10^-4","4,5 \u00d7 10^-5","4,5 \u00d7 10^-6","4,5 \u00d7 10^5"], ans:1, why:"Koma digeser 5 tempat ke kanan, pangkatnya negatif: 4,5 \u00d7 10^-5."},
 {t:"multi", q:"Manakah di bawah ini yang bernilai 16? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["2^4","4^2","2^5","8^1"], ans:[0,1], why:"2^4 = 16 dan 4^2 = 16. Sedangkan 2^5 = 32 dan 8^1 = 8."},
-{t:"multi", q:"Manakah pernyataan tentang sifat eksponen berikut yang benar? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["a^m \u00d7 a^n = a^(m+n)","a^m : a^n = a^(m-n)","(a+b)^2 = a^2 + b^2","a^0 = 0 (untuk a \u2260 0)"], ans:[0,1], why:"Yang benar: a^m \u00d7 a^n = a^(m+n) dan a^m : a^n = a^(m-n). (a+b)^2 = a^2 + 2ab + b^2, dan a^0 = 1."},
+{t:"multi", q:"Manakah pernyataan tentang sifat eksponen berikut yang benar? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["a^m \u00d7 a^n = a^{m+n}","a^m : a^n = a^{m-n}","(a+b)^2 = a^2 + b^2","a^0 = 0 (untuk a \u2260 0)"], ans:[0,1], why:"Yang benar: a^m \u00d7 a^n = a^{m+n} dan a^m : a^n = a^{m-n}. (a+b)^2 = a^2 + 2ab + b^2, dan a^0 = 1."},
 {t:"tf", q:"5^3 = 125.", opts:["Benar","Salah"], ans:0, why:"Benar. 5 \u00d7 5 \u00d7 5 = 125."},
 {t:"tf", q:"10^-3 = 1.000.", opts:["Benar","Salah"], ans:1, why:"Salah. 10^-3 = 0,001."},
 {t:"match", q:"Pasangkan bilangan berpangkat dengan nilainya.", left:["2^3","3^3","5^2"], rights:["27","8","25"], ans:[1,0,2], why:"2^3 = 8, 3^3 = 27, 5^2 = 25."},
-{t:"match", q:"Pasangkan bentuk perpangkatan dengan nilainya.", left:["10^6","10^-2","2^-3"], rights:["0,01","1.000.000","1/8"], ans:[1,0,2], why:"10^6 = 1.000.000, 10^-2 = 0,01, 2^-3 = 1/8."},
-{t:"fill", q:"Nilai dari 7^2 \u00d7 7^3 : 7^4 adalah \u2026 (tulis angkanya saja)", ans:"7", why:"7^(2+3-4) = 7^1 = 7."},
-{t:"fill", q:"Nilai dari \u221a144 + 2^3 adalah \u2026 (tulis angkanya saja)", ans:"20", why:"12 + 8 = 20."},
-{t:"tf", q:"Hasil dari (2^4 \u00d7 2^3) : 2^5 adalah 32.", opts:["Benar","Salah"], ans:1, why:"Salah. (2^4 \u00d7 2^3) : 2^5 = 2^(4+3-5) = 2^2 = 4."},
+{t:"match", q:"Pasangkan bentuk perpangkatan dengan nilainya.", left:["10^6","10^-2","2^-3"], rights:["0,01","1.000.000","\\frac{1}{8}"], ans:[1,0,2], why:"10^6 = 1.000.000, 10^-2 = 0,01, 2^{-3} = \\frac{1}{8}."},
+{t:"fill", q:"Nilai dari 7^2 \u00d7 7^3 : 7^4 adalah \u2026 (tulis angkanya saja)", ans:"7", why:"7^{2+3-4} = 7^1 = 7."},
+{t:"fill", q:"Nilai dari \\sqrt{144} + 2^3 adalah \u2026 (tulis angkanya saja)", ans:"20", why:"12 + 8 = 20."},
+{t:"tf", q:"Hasil dari (2^4 \u00d7 2^3) : 2^5 adalah 32.", opts:["Benar","Salah"], ans:1, why:"Salah. (2^4 \u00d7 2^3) : 2^5 = 2^{4+3-5} = 2^2 = 4."},
 {t:"match", q:"Pasangkan bilangan dengan bentuk notasi ilmiahnya.", left:["0,00000072","0,000045","720.000"], rights:["4,5 \u00d7 10^-5","7,2 \u00d7 10^5","7,2 \u00d7 10^-7"], ans:[2,0,1], why:"0,00000072 = 7,2 \u00d7 10^-7; 0,000045 = 4,5 \u00d7 10^-5; 720.000 = 7,2 \u00d7 10^5."},
-{t:"mc", q:"Segitiga siku-siku dengan sisi siku-siku 6 cm dan 8 cm. Panjang sisi miringnya adalah \u2026", opts:["9 cm","10 cm","12 cm","14 cm"], ans:1, why:"\u221a(6^2 + 8^2) = \u221a100 = 10 cm."},
-{t:"mc", q:"Segitiga siku-siku dengan sisi miring 13 cm dan salah satu sisi siku-siku 5 cm. Panjang sisi siku-siku yang lain adalah \u2026", opts:["8 cm","10 cm","12 cm","18 cm"], ans:2, why:"\u221a(13^2 - 5^2) = \u221a144 = 12 cm."},
+{t:"mc", q:"Segitiga siku-siku dengan sisi siku-siku 6 cm dan 8 cm. Panjang sisi miringnya adalah \u2026", opts:["9 cm","10 cm","12 cm","14 cm"], ans:1, why:"\\sqrt{6^2 + 8^2} = \\sqrt{100} = 10 cm."},
+{t:"mc", q:"Segitiga siku-siku dengan sisi miring 13 cm dan salah satu sisi siku-siku 5 cm. Panjang sisi siku-siku yang lain adalah \u2026", opts:["8 cm","10 cm","12 cm","18 cm"], ans:2, why:"\\sqrt{13^2 - 5^2} = \\sqrt{144} = 12 cm."},
 {t:"mc", q:"Segitiga dengan panjang sisi 9 cm, 12 cm, dan 15 cm adalah segitiga \u2026", opts:["Lancip","Siku-siku","Tumpul","Sama sisi"], ans:1, why:"9^2 + 12^2 = 81 + 144 = 225 = 15^2, jadi siku-siku."},
-{t:"mc", q:"Panjang diagonal persegi panjang dengan panjang 3 cm dan lebar 4 cm adalah \u2026", opts:["5 cm","6 cm","7 cm","25 cm"], ans:0, why:"\u221a(3^2 + 4^2) = \u221a25 = 5 cm."},
-{t:"mc", q:"Sebuah tangga bersandar pada tembok. Kaki tangga berjarak 5 m dari tembok dan ujung atas tangga mencapai ketinggian 12 m. Panjang tangga adalah \u2026", opts:["11 m","13 m","17 m","25 m"], ans:1, why:"\u221a(5^2 + 12^2) = \u221a169 = 13 m."},
+{t:"mc", q:"Panjang diagonal persegi panjang dengan panjang 3 cm dan lebar 4 cm adalah \u2026", opts:["5 cm","6 cm","7 cm","25 cm"], ans:0, why:"\\sqrt{3^2 + 4^2} = \\sqrt{25} = 5 cm."},
+{t:"mc", q:"Sebuah tangga bersandar pada tembok. Kaki tangga berjarak 5 m dari tembok dan ujung atas tangga mencapai ketinggian 12 m. Panjang tangga adalah \u2026", opts:["11 m","13 m","17 m","25 m"], ans:1, why:"\\sqrt{5^2 + 12^2} = \\sqrt{169} = 13 m."},
 {t:"mc", q:"Berikut ini yang merupakan tripel Pythagoras adalah \u2026", opts:["5, 12, 13","5, 12, 14","6, 8, 11","7, 9, 11"], ans:0, why:"5^2 + 12^2 = 25 + 144 = 169 = 13^2."},
 {t:"mc", q:"Segitiga dengan sisi 7 cm, 24 cm, dan 25 cm. Jenis segitiga tersebut adalah \u2026", opts:["Segitiga tumpul","Segitiga lancip","Segitiga siku-siku","Segitiga sama kaki"], ans:2, why:"7^2 + 24^2 = 49 + 576 = 625 = 25^2, jadi siku-siku."},
-{t:"mc", q:"Panjang diagonal persegi dengan sisi 10 cm adalah \u2026", opts:["10\u221a2 cm","20 cm","5\u221a2 cm","100 cm"], ans:0, why:"\u221a(10^2 + 10^2) = \u221a200 = 10\u221a2 cm."},
+{t:"mc", q:"Panjang diagonal persegi dengan sisi 10 cm adalah \u2026", opts:["10\\sqrt{2} cm","20 cm","5\\sqrt{2} cm","100 cm"], ans:0, why:"\\sqrt{10^2 + 10^2} = \\sqrt{200} = 10\\sqrt{2} cm."},
 {t:"mc", q:"Segitiga dengan panjang sisi 10 cm, 24 cm, dan 26 cm. Pernyataan yang benar adalah \u2026", opts:["Segitiga lancip, karena 10^2 + 24^2 > 26^2","Segitiga siku-siku, karena 10^2 + 24^2 = 26^2","Segitiga tumpul, karena 10^2 + 24^2 < 26^2","Bukan segitiga, karena sisinya tidak memenuhi"], ans:1, why:"100 + 576 = 676 = 26^2, jadi siku-siku."},
 {t:"multi", q:"Manakah berikut ini yang merupakan tripel Pythagoras? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["3, 4, 5","6, 8, 10","8, 15, 16","9, 12, 14"], ans:[0,1], why:"3^2+4^2=5^2 dan 6^2+8^2=10^2. 8^2+15^2=289 \u2260 256, 9^2+12^2=225 \u2260 196."},
 {t:"tf", q:"Segitiga dengan sisi 8 cm, 15 cm, dan 17 cm adalah segitiga siku-siku.", opts:["Benar","Salah"], ans:0, why:"Benar. 8^2 + 15^2 = 64 + 225 = 289 = 17^2."},
 {t:"match", q:"Pasangkan pasangan sisi siku-siku dengan panjang sisi miringnya.", left:["6 dan 8","5 dan 12","9 dan 12"], rights:["13","15","10"], ans:[2,0,1], why:"(6,8) \u2192 10; (5,12) \u2192 13; (9,12) \u2192 15."},
-{t:"fill", q:"Segitiga siku-siku memiliki sisi miring 25 cm dan salah satu sisi siku-siku 7 cm. Panjang sisi siku-siku yang lain adalah \u2026 cm. (tulis angkanya saja)", ans:"24", why:"\u221a(25^2 - 7^2) = \u221a576 = 24 cm."},
-{t:"tf", q:"Sebuah tangga sepanjang 10 m bersandar pada tembok. Kaki tangga berjarak 6 m dari kaki tembok, dan tinggi yang dicapai ujung atas tangga adalah 6 m.", opts:["Benar","Salah"], ans:1, why:"Salah. Tingginya \u221a(10^2 - 6^2) = \u221a64 = 8 m."},
+{t:"fill", q:"Segitiga siku-siku memiliki sisi miring 25 cm dan salah satu sisi siku-siku 7 cm. Panjang sisi siku-siku yang lain adalah \u2026 cm. (tulis angkanya saja)", ans:"24", why:"\\sqrt{25^2 - 7^2} = \\sqrt{576} = 24 cm."},
+{t:"tf", q:"Sebuah tangga sepanjang 10 m bersandar pada tembok. Kaki tangga berjarak 6 m dari kaki tembok, dan tinggi yang dicapai ujung atas tangga adalah 6 m.", opts:["Benar","Salah"], ans:1, why:"Salah. Tingginya \\sqrt{10^2 - 6^2} = \\sqrt{64} = 8 m."},
 {t:"mc", q:"Penyelesaian dari 3x + 5 = 20 adalah \u2026", opts:["x = 3","x = 4","x = 5","x = 6"], ans:2, why:"3x = 15, x = 5."},
 {t:"mc", q:"Penyelesaian dari 2(x - 3) = 10 adalah \u2026", opts:["x = 6","x = 7","x = 8","x = 9"], ans:2, why:"x - 3 = 5, x = 8."},
 {t:"multi", q:"Manakah berikut ini yang merupakan persamaan linear satu variabel (PLSV)? (Pilih semua yang benar \u2014 ada 2 jawaban benar)", opts:["2x + 3 = 7","x^2 + 1 = 0","3y - 5 = 10","2x + 3y = 5"], ans:[0,2], why:"2x + 3 = 7 dan 3y - 5 = 10 adalah PLSV. x^2 + 1 = 0 berpangkat dua, 2x + 3y = 5 dua variabel."},
@@ -189,7 +194,7 @@ const QUIZ = [
 {t:"tf", q:"Penyelesaian dari x + 7 = 12 adalah x = 5.", opts:["Benar","Salah"], ans:0, why:"Benar. x = 12 - 7 = 5."},
 {t:"tf", q:"Himpunan penyelesaian dari x + 2 \u2264 5 adalah x \u2264 2.", opts:["Benar","Salah"], ans:1, why:"Salah. Yang benar x \u2264 3."},
 {t:"match", q:"Pasangkan persamaan dengan penyelesaiannya.", left:["x + 4 = 10","2x = 14","3x - 3 = 9"], rights:["x = 7","x = 4","x = 6"], ans:[2,0,1], why:"x + 4 = 10 \u2192 x = 6; 2x = 14 \u2192 x = 7; 3x - 3 = 9 \u2192 x = 4."},
-{t:"match", q:"Pasangkan persamaan dengan penyelesaiannya.", left:["5x - 5 = 10","x/2 = 4","2x + 1 = 11"], rights:["x = 8","x = 3","x = 5"], ans:[1,0,2], why:"5x - 5 = 10 \u2192 x = 3; x/2 = 4 \u2192 x = 8; 2x + 1 = 11 \u2192 x = 5."},
+{t:"match", q:"Pasangkan persamaan dengan penyelesaiannya.", left:["5x - 5 = 10","\\frac{x}{2} = 4","2x + 1 = 11"], rights:["x = 8","x = 3","x = 5"], ans:[1,0,2], why:"5x - 5 = 10 \u2192 x = 3; \\frac{x}{2} = 4 \u2192 x = 8; 2x + 1 = 11 \u2192 x = 5."},
 {t:"fill", q:"Nilai x yang memenuhi 4x - 7 = 9 adalah \u2026 (tulis angkanya saja)", ans:"4", why:"4x = 16, x = 4."},
 {t:"fill", q:"Nilai x yang memenuhi 3x + 2 = 17 adalah \u2026 (tulis angkanya saja)", ans:"5", why:"3x = 15, x = 5."},
 {t:"tf", q:"Andi membeli 4 buku tulis dengan harga yang sama. Ia membayar Rp50.000,00 dan menerima kembalian Rp10.000,00. Harga 1 buku tulis adalah Rp10.000,00.", opts:["Benar","Salah"], ans:0, why:"Benar. 4x + 10.000 = 50.000, 4x = 40.000, x = 10.000."},
@@ -202,6 +207,50 @@ const TYPE_LABEL = {mc:"Pilihan Ganda", multi:"Pilihan Ganda Jamak", tf:"Benar /
 const DUR = 120*60; let left = DUR, timerId=null, startedAt=null;
 let answers = QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);
 const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+// Mini-renderer LaTeX: \\frac{a}{b}, \\sqrt{x}, x^2, x_{1}, \\times \div \le \ge \ne \pm \cdot \rightarrow
+function tex(s){
+  let i=0;
+  function parse(stop){
+    let out="";
+    while(i<s.length){
+      const c=s[i];
+      if(stop && c===stop){i++;return out;}
+      if(c==="\\"){
+        const m=s.slice(i+1).match(/^(frac|sqrt|times|div|ldots|rightarrow|ge|le|ne|pm|cdot|text)/);
+        if(m){
+          const cmd=m[1]; i+=1+cmd.length;
+          if(cmd==="frac"){const a=group(), b=group(); out+='<span class="frac"><span class="num">'+a+'</span><span class="den">'+b+'</span></span>';}
+          else if(cmd==="sqrt"){out+="\u221a<span class=\"rad\">"+group()+"</span>";}
+          else if(cmd==="text"){out+=esc(group());}
+          else out+=({times:"\u00d7",div:"\u00f7",ge:"\u2265",le:"\u2264",ne:"\u2260",pm:"\u00b1",cdot:"\u00b7",ldots:"\u2026",rightarrow:"\u2192"})[cmd];
+        } else { out+=esc("\\"); i++; }
+      } else if(c==="^"||c==="_"){
+        const tag=c==="^"?"sup":"sub"; i++;
+        let inner="";
+        if(s[i]==="{"){i++; inner=parse("}");}
+        else {
+          let j=i;
+          if(s[j]==="-"||s[j]==="+") j++;
+          if(j<s.length && /[0-9]/.test(s[j])){ while(j<s.length && /[0-9]/.test(s[j])) j++; }
+          else if(j<s.length && /[a-zA-Z]/.test(s[j])){ j++; }
+          inner=esc(s.slice(i,j)); i=j;
+        }
+        out+="<"+tag+">"+inner+"</"+tag+">";
+      } else if(c==="{"||c==="}"){
+        i++;
+      } else {
+        out+=esc(c); i++;
+      }
+    }
+    return out;
+  }
+  function group(){
+    if(s[i]==="{"){i++; return parse("}");}
+    return esc(s[i++]||"");
+  }
+  return parse(null);
+}
 function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 function isAnswered(i){
   const it=QUIZ[i], a=answers[i];
@@ -228,15 +277,15 @@ function renderQ(){
   $("qBox").innerHTML = QUIZ.map((it,i)=>{
     let body="";
     if(it.t==="mc" || it.t==="tf"){
-      body = it.opts.map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}" ${answers[i]===j?"checked":""}> ${it.t==="mc"?"ABCD"[j]+". ":""}${o}</label>`).join("");
+      body = it.opts.map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}" ${answers[i]===j?"checked":""}> ${it.t==="mc"?"ABCD"[j]+". ":""}${tex(o)}</label>`).join("");
     } else if(it.t==="multi"){
-      body = it.opts.map((o,j)=>`<label class="opt"><input type="checkbox" name="q${i}" value="${j}" ${answers[i].includes(j)?"checked":""}> ${"ABCD"[j]}. ${o}</label>`).join("");
+      body = it.opts.map((o,j)=>`<label class="opt"><input type="checkbox" name="q${i}" value="${j}" ${answers[i].includes(j)?"checked":""}> ${"ABCD"[j]}. ${tex(o)}</label>`).join("");
     } else if(it.t==="match"){
-      body = it.left.map((l,j)=>`<div class="matchrow"><span class="left">${l}</span><span>\u2192</span><select data-i="${i}" data-j="${j}"><option value="">-- pilih pasangan --</option>${it.rights.map((r,k)=>`<option value="${k}" ${answers[i][j]===k?"selected":""}>${r}</option>`).join("")}</select></div>`).join("");
+      body = it.left.map((l,j)=>`<div class="matchrow"><span class="left">${tex(l)}</span><span>\u2192</span><select data-i="${i}" data-j="${j}"><option value="">-- pilih pasangan --</option>${it.rights.map((r,k)=>`<option value="${k}" ${answers[i][j]===k?"selected":""}>${tex(r)}</option>`).join("")}</select></div>`).join("");
     } else if(it.t==="fill"){
       body = `<input type="text" data-fill="${i}" value="${answers[i]===null?"":String(answers[i]).replace(/"/g,"&quot;")}" placeholder="Tulis jawabanmu di sini" autocomplete="off">`;
     }
-    return `<div class="q" id="q${i}"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. ${it.q}</h3>${body}</div>`;
+    return `<div class="q" id="q${i}"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. ${tex(it.q)}</h3>${body}</div>`;
   }).join("");
   QUIZ.forEach((it,i)=>{
     if(it.t==="mc" || it.t==="tf"){
@@ -258,18 +307,22 @@ function renderQ(){
 }
 function fmtUser(it,a){
   if(a===null || a===undefined) return "\u2014";
-  if(it.t==="mc" || it.t==="tf") return it.opts[a];
-  if(it.t==="multi") return a.length? a.slice().sort().map(v=>it.opts[v]).join(", ") : "\u2014";
-  if(it.t==="match") return it.left.map((l,j)=>l+" \u2192 "+(a[j]===null?"\u2014":it.rights[a[j]])).join("; ");
-  if(it.t==="fill") return String(a).trim()===""?"\u2014":String(a);
-  return "\u2014";
+  let s;
+  if(it.t==="mc" || it.t==="tf") s=it.opts[a];
+  else if(it.t==="multi") s=a.length? a.slice().sort().map(v=>it.opts[v]).join(", ") : "\u2014";
+  else if(it.t==="match") s=it.left.map((l,j)=>l+" \u2192 "+(a[j]===null?"\u2014":it.rights[a[j]])).join("; ");
+  else if(it.t==="fill") s=String(a).trim()===""?"\u2014":String(a);
+  else s="\u2014";
+  return tex(s);
 }
 function fmtKey(it){
-  if(it.t==="mc" || it.t==="tf") return it.opts[it.ans];
-  if(it.t==="multi") return it.ans.map(v=>it.opts[v]).join(", ");
-  if(it.t==="match") return it.left.map((l,j)=>l+" \u2192 "+it.rights[it.ans[j]]).join("; ");
-  if(it.t==="fill") return it.ans;
-  return "";
+  let s;
+  if(it.t==="mc" || it.t==="tf") s=it.opts[it.ans];
+  else if(it.t==="multi") s=it.ans.map(v=>it.opts[v]).join(", ");
+  else if(it.t==="match") s=it.left.map((l,j)=>l+" \u2192 "+it.rights[it.ans[j]]).join("; ");
+  else if(it.t==="fill") s=it.ans;
+  else s="";
+  return tex(s);
 }
 $("btnStart").onclick=()=>{
   const nama=$("nama").value.trim(), kelas=$("kelas").value.trim(), nis=$("nis").value.trim(), token=$("token").value.trim().toUpperCase().replace(/[\s-]/g,""), tgl=$("tgl").value;
@@ -329,7 +382,7 @@ function submit(auto){
     const ok=isCorrect(i);
     return `<div class="q"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. <span class="${ok?"correct":"wrong"}">${ok?"Benar":"Salah"}</span>${!isAnswered(i)?" (tidak dijawab)":""}</h3>
     <p>Jawabanmu: <strong>${fmtUser(it,answers[i])}</strong><br>Kunci: <strong>${fmtKey(it)}</strong></p>
-    <div class="why">${it.why}</div></div>`;}).join("");
+    <div class="why">${tex(it.why)}</div></div>`;}).join("");
   try{localStorage.setItem("cbt-asas-ganjil-terakhir",JSON.stringify({nama:$("nama").value.trim(),kelas:$("kelas").value.trim(),skor:score,benar:correct,tanggal:new Date().toISOString()}));}catch(e){}
   lastPayload={waktu:new Date().toISOString(),nama:$("nama").value.trim(),nis:$("nis").value.trim(),kelas:$("kelas").value.trim(),tglLahir:$("tgl").value,skor:score,benar:correct,jawaban:QUIZ.map((it,i)=>fmtAnswerCode(it,answers[i])).join("; "),durasi:mins};
   kirimRekap();
