@@ -55,29 +55,29 @@ footer.foot{text-align:center;color:var(--mut);font-size:.88rem;padding:8px 0 22
 @media print{
  body{background:#fff}.no-print,header.top,.wrap,footer.foot{display:none!important}
  #print-area{display:block}
- .sheet{page-break-after:always;font-family:"Times New Roman",serif;color:#000;font-size:12pt}
+ .sheet{page-break-after:always;page-break-inside:avoid;break-inside:avoid;font-family:"Times New Roman",serif;color:#000;font-size:11.5pt;line-height:1.35}
  .sheet:last-child{page-break-after:auto}
- .kop{display:flex;align-items:center;gap:14px;border-bottom:3px double #000;padding-bottom:8px;margin-bottom:12px}
- .kop img{width:76px;height:76px;object-fit:cover}
- .kop .kt{flex:1;text-align:center}.kop .sp{width:76px}
- .kop h1{margin:0;font-size:15pt}.kop h2{margin:0;font-size:13pt;color:#000}
- .kop p{margin:0;font-size:10.5pt}
- .sheet h3.title{text-align:center;text-decoration:underline;color:#000;margin:10px 0 14px;font-size:13pt}
- table.rep{width:100%;border-collapse:collapse;margin:10px 0}
- table.rep th,table.rep td{border:1px solid #000;padding:5px 8px}
+ .kop{display:flex;align-items:center;gap:12px;border-bottom:3px double #000;padding-bottom:6px;margin-bottom:8px}
+ .kop img{width:64px;height:64px;object-fit:cover}
+ .kop .kt{flex:1;text-align:center}.kop .sp{width:64px}
+ .kop h1{margin:0;font-size:14pt}.kop h2{margin:0;font-size:12pt;color:#000}
+ .kop p{margin:0;font-size:10pt}
+ .sheet h3.title{text-align:center;text-decoration:underline;color:#000;margin:6px 0 8px;font-size:12.5pt}
+ table.rep{width:100%;border-collapse:collapse;margin:6px 0}
+ table.rep th,table.rep td{border:1px solid #000;padding:4px 7px}
  table.rep th{background:#eee}
- .ident td{padding:2px 6px}.ident td:first-child{width:170px}
- .extra{display:flex;gap:20px;align-items:flex-start;margin-top:4px}
+ .ident td{padding:1px 6px}.ident td:first-child{width:170px}
+ .extra{display:flex;gap:18px;align-items:flex-start;margin-top:2px;page-break-inside:avoid;break-inside:avoid}
  .extra .hadir{width:230px;flex:none}
- .extra .hadir table.rep{margin:10px 0}
+ .extra .hadir table.rep{margin:6px 0}
  .extra .catat{flex:1;min-width:0}
- .extra .catat p{margin:10px 0;overflow-wrap:break-word}
- .sign{margin-top:26px}
+ .extra .catat p{margin:6px 0;overflow-wrap:break-word}
+ .sign{margin-top:14px;page-break-inside:avoid;break-inside:avoid}
  .sign-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
  .sign-row>div{width:32%;text-align:center}
- .sign-space{height:64px}
+ .sign-space{height:44px}
  .sign .nm{font-weight:bold;text-decoration:underline;white-space:nowrap;font-size:11pt}
- @page{size:A4;margin:14mm}
+ @page{size:A4;margin:10mm 12mm}
 }
 </style>
 </head>
