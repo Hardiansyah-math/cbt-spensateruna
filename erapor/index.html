@@ -67,8 +67,11 @@ footer.foot{text-align:center;color:var(--mut);font-size:.88rem;padding:8px 0 22
  table.rep th,table.rep td{border:1px solid #000;padding:5px 8px}
  table.rep th{background:#eee}
  .ident td{padding:2px 6px}.ident td:first-child{width:170px}
- .sign{display:flex;justify-content:space-between;margin-top:26px;gap:10px}
- .sign>div{width:32%;text-align:center}.sign .nm{margin-top:64px;font-weight:bold;text-decoration:underline;white-space:nowrap;font-size:11pt}
+ .sign{margin-top:26px}
+ .sign-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+ .sign-row>div{width:32%;text-align:center}
+ .sign-space{height:64px}
+ .sign .nm{font-weight:bold;text-decoration:underline;white-space:nowrap;font-size:11pt}
  @page{size:A4;margin:14mm}
 }
 </style>
@@ -549,9 +552,12 @@ function reportHtml(s){
    "<tr><td colspan='2'><b>Jumlah</b></td><td style='text-align:center'><b>"+(cnt?fmtNum(sum):"—")+"</b></td></tr>"+
    "<tr><td colspan='2'><b>Rata-rata</b></td><td style='text-align:center'><b>"+(cnt?fmtNum(avg):"—")+"</b></td></tr></table>"+
    "<p>Catatan Wali Kelas: ……………………………………………………………………………………</p>"+
-   '<div class="sign"><div>Orang Tua / Wali,<div class="nm">( ………………………… )</div></div>'+
-   "<div>Kepala Sekolah,<div class='nm'>"+esc(HEAD.nama)+"</div>NIP. "+esc(HEAD.nip)+"</div>"+
-   "<div>"+tgl+"<br>Wali Kelas "+esc(s[4])+',<div class="nm">'+esc(WALI[s[4]]||"…………………………")+"</div></div></div></div>";
+   '<div class="sign"><div class="sign-row"><div>Orang Tua / Wali,</div>'+
+   "<div>Kepala Sekolah,</div>"+
+   "<div>"+tgl+"<br>Wali Kelas "+esc(s[4])+",</div></div>"+
+   '<div class="sign-space"></div><div class="sign-row"><div><div class="nm">( ………………………… )</div></div>'+
+   "<div><div class='nm'>"+esc(HEAD.nama)+"</div>NIP. "+esc(HEAD.nip)+"</div>"+
+   '<div><div class="nm">'+esc(WALI[s[4]]||"…………………………")+"</div></div></div></div></div>";
 }
 function printStudent(id){ el("print-area").innerHTML=reportHtml(byId[id]); setTimeout(()=>window.print(),60); }
 function printClass(k){ el("print-area").innerHTML=byClass[k].map(reportHtml).join(""); setTimeout(()=>window.print(),60); }
