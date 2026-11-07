@@ -67,6 +67,11 @@ footer.foot{text-align:center;color:var(--mut);font-size:.88rem;padding:8px 0 22
  table.rep th,table.rep td{border:1px solid #000;padding:5px 8px}
  table.rep th{background:#eee}
  .ident td{padding:2px 6px}.ident td:first-child{width:170px}
+ .extra{display:flex;gap:20px;align-items:flex-start;margin-top:4px}
+ .extra .hadir{width:230px;flex:none}
+ .extra .hadir table.rep{margin:10px 0}
+ .extra .catat{flex:1;min-width:0}
+ .extra .catat p{margin:10px 0;overflow-wrap:break-word}
  .sign{margin-top:26px}
  .sign-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
  .sign-row>div{width:32%;text-align:center}
@@ -140,6 +145,8 @@ function dataUrl(){ try{return localStorage.getItem("erapor_url")||DATA_URL_BUIL
 function isDemo(){ return !dataUrl(); }
 let S = null; /* sesi: {u,n,peran aktif,roles,wali,asg,token} */
 let SCORES = {}; /* key id|mapel -> nilai (string) */
+let CATATAN = {}; /* key id siswa -> teks catatan wali kelas */
+let KEHADIRAN = {}; /* key id siswa -> {s,i,a} jumlah hari (string) */
 let SETTINGS = {tanggal:""};
 let ACCOUNTS = null; /* hanya Admin */
 let ui = {kelas:"", mapel:"", mode:"guru"}; /* mode: guru|wali|admin */
@@ -162,6 +169,12 @@ function demoAccounts(){ try{const a=JSON.parse(localStorage.getItem("erapor_dem
 function demoSaveAccounts(a){ try{localStorage.setItem("erapor_demo_accounts",JSON.stringify(a));}catch(e){} }
 function demoScoresLoad(){ try{return JSON.parse(localStorage.getItem("erapor_demo_scores")||"{}");}catch(e){return {};} }
 function demoScoresSave(s){ try{localStorage.setItem("erapor_demo_scores",JSON.stringify(s));}catch(e){} }
+function demoCatatanLoad(){ try{return JSON.parse(localStorage.getItem("erapor_demo_catatan")||"{}");}catch(e){return {};} }
+function demoCatatanSave(s){ try{localStorage.setItem("erapor_demo_catatan",JSON.stringify(s));}catch(e){} }
+function demoKehadiranLoad(){ try{return JSON.parse(localStorage.getItem("erapor_demo_kehadiran")||"{}");}catch(e){return {};} }
+function demoKehadiranSave(s){ try{localStorage.setItem("erapor_demo_kehadiran",JSON.stringify(s));}catch(e){} }
+function demoIsWali(accs,d){ const a=accs.find(x=>x.u===String(d.username||"").trim().toLowerCase());
+  return !!a && (a.peran||[]).includes("Wali") && String(a.wali||"")===String(d.kelas||"") && !!d.kelas; }
 function pubAccount(a){ return {u:a.u,n:a.n,peran:a.peran,wali:a.wali||"",asg:a.asg||[]}; }
 function demoPost(d){
   const accs = demoAccounts();
@@ -175,6 +188,18 @@ function demoPost(d){
     const sc = demoScoresLoad();
     (d.items||[]).forEach(it=>{ const k=it.id+"|"+it.mapel; if(it.nilai===""||it.nilai===null) delete sc[k]; else sc[k]=String(it.nilai); });
     demoScoresSave(sc); return {ok:true,saved:(d.items||[]).length};
+  }
+  if(d.action==="saveCatatan"){
+    if(!demoIsWali(accs,d)) return {ok:false,error:"Catatan hanya boleh diisi oleh Wali Kelas "+(d.kelas||"")+"." };
+    const c=demoCatatanLoad();
+    (d.items||[]).forEach(it=>{ if(String(it.catatan||"").trim()==="") delete c[it.id]; else c[it.id]=String(it.catatan); });
+    demoCatatanSave(c); return {ok:true,saved:(d.items||[]).length};
+  }
+  if(d.action==="saveKehadiran"){
+    if(!demoIsWali(accs,d)) return {ok:false,error:"Kehadiran hanya boleh diisi oleh Wali Kelas "+(d.kelas||"")+"." };
+    const h=demoKehadiranLoad();
+    (d.items||[]).forEach(it=>{ if(it.hapus){ delete h[it.id]; return; } h[it.id]={s:String(it.s===""||it.s==null?0:it.s),i:String(it.i===""||it.i==null?0:it.i),a:String(it.a===""||it.a==null?0:it.a)}; });
+    demoKehadiranSave(h); return {ok:true,saved:(d.items||[]).length};
   }
   if(d.action==="saveAccount"){
     const a=d.account||{}; a.u=String(a.u||"").trim().toLowerCase(); if(!a.u) return {ok:false,error:"Username kosong."};
@@ -192,6 +217,8 @@ function demoPost(d){
 }
 function demoGet(p){
   if(p.action==="scores") return {ok:true,scores:demoScoresLoad()};
+  if(p.action==="catatan") return {ok:true,catatan:demoCatatanLoad()};
+  if(p.action==="kehadiran") return {ok:true,kehadiran:demoKehadiranLoad()};
   if(p.action==="accounts") return {ok:true,accounts:demoAccounts().map(pubAccount)};
   if(p.action==="settings"){ let s={tanggal:""}; try{s=Object.assign(s,JSON.parse(localStorage.getItem("erapor_demo_settings")||"{}"));}catch(e){} return {ok:true,settings:s}; }
   return {ok:false,error:"Aksi tidak dikenal."};
@@ -218,20 +245,23 @@ async function doLogin(){
     ui.mode = role==="Admin"?"admin":role==="Wali"?"wali":"guru";
     ui.kelas=""; ui.mapel="";
     try{ sessionStorage.setItem("erapor_sesi",JSON.stringify({S:S,mode:ui.mode})); }catch(e){}
-    await loadScores(); await loadSettings();
+    await loadScores(); await loadSettings(); await loadExtra();
     el("view-login").style.display="none"; el("view-app").style.display="block";
     renderTopUser(); renderApp();
   }catch(err){ msg("login-msg","Tidak dapat terhubung ke server nilai. Periksa alamat Web App / koneksi internet.","err"); }
   finally{ btn.disabled=false; btn.textContent="Masuk"; }
 }
 function doLogout(){
-  S=null; SCORES={}; ACCOUNTS=null; ui={kelas:"",mapel:"",mode:"guru"};
+  S=null; SCORES={}; CATATAN={}; KEHADIRAN={}; ACCOUNTS=null; ui={kelas:"",mapel:"",mode:"guru"};
   try{sessionStorage.removeItem("erapor_sesi");}catch(e){}
   el("view-app").style.display="none"; el("view-login").style.display="block";
   el("f-pass").value=""; renderTopUser(); renderDemoBanner();
 }
 async function loadScores(){ try{ const r=await apiGet({action:"scores"}); if(r.ok) SCORES=r.scores||{}; }catch(e){} }
 async function loadSettings(){ try{ const r=await apiGet({action:"settings"}); if(r.ok&&r.settings) SETTINGS=r.settings; }catch(e){} }
+async function loadCatatan(){ try{ const r=await apiGet({action:"catatan"}); if(r.ok) CATATAN=r.catatan||{}; }catch(e){} }
+async function loadKehadiran(){ try{ const r=await apiGet({action:"kehadiran"}); if(r.ok) KEHADIRAN=r.kehadiran||{}; }catch(e){} }
+async function loadExtra(){ await loadCatatan(); await loadKehadiran(); }
 function canRole(r){ return S && (S.roles||[]).includes(r); }
 function myClasses(){
   if(!S) return [];
@@ -425,19 +455,71 @@ function renderWali(){
   let stuRows=list.map((s,i)=>{
     let filled=0, sum=0;
     SUBJECTS.forEach(m=>{ const v=SCORES[s[0]+"|"+m]; if(v!==""&&v!=null){ filled++; sum+=Number(v); } });
+    const adaCat = String(CATATAN[s[0]]||"").trim()!=="";
+    const hd = KEHADIRAN[s[0]];
     return "<tr><td class='num'>"+(i+1)+"</td><td>"+esc(s[3])+"</td><td class='num'>"+esc(s[1]||"—")+"</td><td class='num'>"+filled+" / 12</td><td class='num'>"+(filled?esc((sum/filled).toFixed(2).replace(".",",")):"—")+"</td>"+
+     "<td class='num'>"+(adaCat?"✓":"—")+"</td><td class='num'>"+(hd?esc(hd.s)+"/"+esc(hd.i)+"/"+esc(hd.a):"—")+"</td>"+
      "<td class='num'><button class='small ghost' data-print='"+s[0]+"'>Cetak Rapor</button></td></tr>";
   }).join("");
+  const catFilled=list.filter(s=>String(CATATAN[s[0]]||"").trim()!=="").length;
+  let catRows=list.map((s,i)=>"<tr><td class='num'>"+(i+1)+"</td><td>"+esc(s[3])+"</td>"+
+   "<td><textarea rows='2' data-cat='"+s[0]+"' placeholder='Tulis catatan untuk siswa ini…'>"+esc(CATATAN[s[0]]||"")+"</textarea></td></tr>").join("");
+  let hadRows=list.map((s,i)=>{ const h=KEHADIRAN[s[0]]||{};
+    const cell=(attr,v)=>"<td><input type='number' min='0' step='1' inputmode='numeric' data-"+attr+"='"+s[0]+"' value='"+esc(v==null?"":v)+"'></td>";
+    return "<tr><td class='num'>"+(i+1)+"</td><td>"+esc(s[3])+"</td>"+cell("hs",h.s)+cell("hi",h.i)+cell("ha",h.a)+"</tr>"; }).join("");
   el("view-app").innerHTML='<div class="card">'+toolbarHtml()+stepsHtml(1)+
    "<h2>Kelas Perwalian "+esc(k)+"</h2>"+
-   '<p class="mut">Mode Wali Kelas hanya untuk memantau dan mencetak rapor — pengisian nilai dilakukan guru mapel masing-masing.</p>'+
+   '<p class="mut">Mode Wali Kelas untuk memantau nilai, mengisi <b>catatan wali kelas</b> dan <b>kehadiran</b> siswa kelas ini, lalu mencetak rapor. Pengisian nilai tetap dilakukan guru mapel masing-masing.</p>'+
    "<h3>Progres Pengisian per Mapel</h3><table class='grid'><tr><th>Mata Pelajaran</th><th class='num'>Terisi</th><th style='width:38%'>Progres</th></tr>"+progRows+"</table>"+
    '<div class="rowflex"><button id="wali-printall">Cetak Rapor Satu Kelas</button><button class="ghost" id="wali-refresh">Muat Ulang Nilai</button></div>'+
-   "<h3>Daftar Siswa</h3><table class='grid'><tr><th class='num'>No</th><th>Nama Siswa</th><th class='num'>NIS</th><th class='num'>Mapel Terisi</th><th class='num'>Rata-rata Sementara</th><th></th></tr>"+stuRows+"</table></div>";
+   "<h3>Daftar Siswa</h3><table class='grid'><tr><th class='num'>No</th><th>Nama Siswa</th><th class='num'>NIS</th><th class='num'>Mapel Terisi</th><th class='num'>Rata-rata Sementara</th><th class='num'>Catatan</th><th class='num'>Hadir S/I/A</th><th></th></tr>"+stuRows+"</table>"+
+   "<h3>Catatan Wali Kelas</h3><div id='wali-cat-msg'></div>"+
+   '<p class="mut">Tulis catatan untuk tiap siswa kelas '+esc(k)+'. Catatan ini tercetak di rapor menggantikan garis titik-titik. Terisi <b>'+catFilled+" dari "+list.length+"</b> siswa.</p>"+
+   "<table class='grid'><tr><th class='num'>No</th><th>Nama Siswa</th><th>Catatan</th></tr>"+catRows+"</table>"+
+   '<div class="rowflex"><button id="wali-catsave">Simpan Catatan</button></div>'+
+   "<h3>Kehadiran Siswa</h3><div id='wali-had-msg'></div>"+
+   '<p class="mut">Jumlah hari <b>Sakit</b>, <b>Izin</b>, dan <b>Tanpa Keterangan</b> selama tengah semester ini. Tercetak di rapor sebagai tabel kehadiran. Kosongkan ketiga kolom untuk menghapus data kehadiran siswa.</p>'+
+   "<table class='grid'><tr><th class='num'>No</th><th>Nama Siswa</th><th class='num' style='width:110px'>Sakit</th><th class='num' style='width:110px'>Izin</th><th class='num' style='width:140px'>Tanpa Keterangan</th></tr>"+hadRows+"</table>"+
+   '<div class="rowflex"><button id="wali-hadsave">Simpan Kehadiran</button></div></div>';
   bindToolbar();
   el("wali-printall").onclick=()=>printClass(k);
-  el("wali-refresh").onclick=async()=>{ await loadScores(); renderWali(); };
+  el("wali-refresh").onclick=async()=>{ await loadScores(); await loadExtra(); renderWali(); };
+  el("wali-catsave").onclick=saveWaliCatatan;
+  el("wali-hadsave").onclick=saveWaliKehadiran;
   document.querySelectorAll("[data-print]").forEach(b=>b.onclick=()=>printStudent(Number(b.getAttribute("data-print"))));
+}
+async function saveWaliCatatan(){
+  const k=S.wali; const items=[];
+  document.querySelectorAll("[data-cat]").forEach(t=>{ const sid=t.getAttribute("data-cat");
+    items.push({id:Number(sid),nama:byId[sid][3],catatan:t.value.trim()}); });
+  const btn=el("wali-catsave"); btn.disabled=true; btn.textContent="Menyimpan…";
+  try{
+    const r=await apiPost({action:"saveCatatan",username:S.u,token:S.token,kelas:k,items:items});
+    if(!r.ok){ msg("wali-cat-msg",esc(r.error||"Gagal menyimpan catatan."),"err"); return; }
+    items.forEach(it=>{ if(it.catatan==="") delete CATATAN[it.id]; else CATATAN[it.id]=it.catatan; });
+    msg("wali-cat-msg","Catatan wali kelas tersimpan untuk Kelas "+esc(k)+".","ok");
+  }catch(e){ msg("wali-cat-msg","Gagal terhubung ke server. Catatan belum tersimpan.","err"); }
+  finally{ btn.disabled=false; btn.textContent="Simpan Catatan"; }
+}
+async function saveWaliKehadiran(){
+  const k=S.wali; const items=[]; let bad="";
+  const val=(attr,sid)=>{ const inp=document.querySelector("[data-"+attr+"='"+sid+"']"); return inp?inp.value.trim():""; };
+  byClass[k].forEach(s=>{ const sid=s[0];
+    const vs=val("hs",sid), vi=val("hi",sid), va=val("ha",sid);
+    [vs,vi,va].forEach(v=>{ if(v!==""&&(isNaN(Number(v))||Number(v)<0||Math.floor(Number(v))!==Number(v))) bad=s[3]; });
+    if(vs===""&&vi===""&&va===""){ if(KEHADIRAN[sid]) items.push({id:sid,nama:s[3],hapus:true}); return; }
+    items.push({id:sid,nama:s[3],s:vs===""?0:Number(vs),i:vi===""?0:Number(vi),a:va===""?0:Number(va)});
+  });
+  if(bad){ msg("wali-had-msg","Jumlah hari untuk <b>"+esc(bad)+"</b> tidak valid. Isi bilangan bulat 0 atau lebih.","err"); window.scrollTo({top:0,behavior:"smooth"}); return; }
+  if(!items.length){ msg("wali-had-msg","Belum ada kehadiran yang diisi.","info"); return; }
+  const btn=el("wali-hadsave"); btn.disabled=true; btn.textContent="Menyimpan…";
+  try{
+    const r=await apiPost({action:"saveKehadiran",username:S.u,token:S.token,kelas:k,items:items});
+    if(!r.ok){ msg("wali-had-msg",esc(r.error||"Gagal menyimpan kehadiran."),"err"); return; }
+    items.forEach(it=>{ if(it.hapus) delete KEHADIRAN[it.id]; else KEHADIRAN[it.id]={s:String(it.s),i:String(it.i),a:String(it.a)}; });
+    msg("wali-had-msg","Kehadiran tersimpan untuk Kelas "+esc(k)+".","ok");
+  }catch(e){ msg("wali-had-msg","Gagal terhubung ke server. Kehadiran belum tersimpan.","err"); }
+  finally{ btn.disabled=false; btn.textContent="Simpan Kehadiran"; }
 }
 /* ================= ADMIN ================= */
 async function renderAdmin(){
@@ -448,7 +530,10 @@ async function renderAdmin(){
   CLASSES.forEach(k=>{ const list=byClass[k]; let tot=0;
     SUBJECTS.forEach(m=>tot+=filledCount(k,m));
     const max=list.length*12;
+    const catN=list.filter(s=>String(CATATAN[s[0]]||"").trim()!=="").length;
+    const hadN=list.filter(s=>KEHADIRAN[s[0]]).length;
     prog+="<tr><td>Kelas "+k+"</td><td class='num'>"+list.length+"</td><td class='num'>"+tot+" / "+max+"</td><td><div class='bar' style='margin:0'><i style='width:"+Math.round(tot/max*100)+"%'></i></div></td>"+
+     "<td class='num'>"+catN+" / "+list.length+"</td><td class='num'>"+hadN+" / "+list.length+"</td>"+
      "<td class='num'><button class='small ghost' data-pclass='"+k+"'>Cetak Rapor</button></td></tr>"; });
   let accRows=(ACCOUNTS||[]).map((a,i)=>{
     const tugas=(a.asg||[]).map(x=>esc(x.m)+" ("+x.k.length+" kelas)").join("; ")||"—";
@@ -457,7 +542,7 @@ async function renderAdmin(){
   el("view-app").innerHTML='<div class="card">'+toolbarHtml()+
    "<h2>Panel Admin</h2>"+
    '<div class="rowflex"><button class="small" id="ad-entry">Isi Nilai (Mode Guru)</button><button class="small ghost" id="ad-refresh">Muat Ulang Nilai</button></div>'+
-   "<h3>Progres Pengisian per Kelas</h3><table class='grid'><tr><th>Kelas</th><th class='num'>Siswa</th><th class='num'>Nilai Terisi</th><th style='width:30%'>Progres</th><th></th></tr>"+prog+"</table>"+
+   "<h3>Progres Pengisian per Kelas</h3><table class='grid'><tr><th>Kelas</th><th class='num'>Siswa</th><th class='num'>Nilai Terisi</th><th style='width:24%'>Progres</th><th class='num'>Catatan Wali</th><th class='num'>Kehadiran</th><th></th></tr>"+prog+"</table>"+
    "<h3>Pengaturan Rapor</h3><div id='ad-set-msg'></div>"+
    '<label for="ad-tanggal">Tanggal Pembagian Rapor (kosong = “Menyusul” di cetakan)</label>'+
    '<div class="rowflex"><input type="text" id="ad-tanggal" class="grow" placeholder="Contoh: Terusan Nunyai, 20 Maret 2027" value="'+esc(SETTINGS.tanggal||"")+'"><button class="small" id="ad-setsave">Simpan Pengaturan</button></div>'+
@@ -467,7 +552,7 @@ async function renderAdmin(){
    '<button id="ad-add">+ Tambah Akun</button></div>';
   bindToolbar();
   el("ad-entry").onclick=()=>{ ui.mode="guru"; ui.kelas=""; ui.mapel=""; renderTopUser(); renderPickClass(); };
-  el("ad-refresh").onclick=async()=>{ await loadScores(); renderAdmin(); };
+  el("ad-refresh").onclick=async()=>{ await loadScores(); await loadExtra(); renderAdmin(); };
   el("ad-setsave").onclick=async()=>{ SETTINGS.tanggal=el("ad-tanggal").value.trim();
     const r=await apiPost({action:"saveSettings",username:S.u,token:S.token,settings:SETTINGS});
     msg("ad-set-msg", r.ok?"Pengaturan tersimpan.":"Gagal: "+esc(r.error||""), r.ok?"ok":"err"); };
@@ -543,6 +628,14 @@ function reportHtml(s){
   let sum=0,cnt=0; SUBJECTS.forEach(m=>{ const v=SCORES[s[0]+"|"+m]; if(v!==""&&v!=null){ sum+=Number(v); cnt++; } });
   const avg = cnt? (sum/cnt) : 0;
   const tgl = SETTINGS.tanggal ? esc(SETTINGS.tanggal) : "…………………………";
+  const catTxt = String(CATATAN[s[0]]||"").trim();
+  const hd = KEHADIRAN[s[0]];
+  const hv = v=> hd ? esc(v) : "—";
+  const extra = '<div class="extra"><div class="hadir"><table class="rep"><tr><th colspan="2">Kehadiran</th></tr>'+
+   "<tr><td>Sakit</td><td style='text-align:center;width:64px'>"+hv(hd?hd.s:"")+"</td></tr>"+
+   "<tr><td>Izin</td><td style='text-align:center;width:64px'>"+hv(hd?hd.i:"")+"</td></tr>"+
+   "<tr><td>Tanpa Keterangan</td><td style='text-align:center;width:64px'>"+hv(hd?hd.a:"")+"</td></tr></table></div>"+
+   '<div class="catat"><p><b>Catatan Wali Kelas:</b><br>'+(catTxt?esc(catTxt).replace(/\n/g,"<br>"):"………………………………………………………………………")+"</p></div></div>";
   return '<div class="sheet"><div class="kop"><img src="'+LOGO+'" alt=""><div class="kt">'+
    '<h1>SMP NEGERI 1 TERUSAN NUNYAI</h1><h2>LAMPUNG TENGAH</h2><p>Rapor Tengah Semester — Tahun Ajaran 2026/2027</p></div><div class="sp"></div></div>'+
    '<h3 class="title">RAPOR TENGAH SEMESTER GENAP 2026-2027</h3>'+
@@ -551,7 +644,7 @@ function reportHtml(s){
    "<table class='rep'><tr><th style='width:44px'>No</th><th>Mata Pelajaran</th><th style='width:110px'>Nilai STS</th></tr>"+rows+
    "<tr><td colspan='2'><b>Jumlah</b></td><td style='text-align:center'><b>"+(cnt?fmtNum(sum):"—")+"</b></td></tr>"+
    "<tr><td colspan='2'><b>Rata-rata</b></td><td style='text-align:center'><b>"+(cnt?fmtNum(avg):"—")+"</b></td></tr></table>"+
-   "<p>Catatan Wali Kelas: ……………………………………………………………………………………</p>"+
+   extra+
    '<div class="sign"><div class="sign-row"><div>Orang Tua / Wali,</div>'+
    "<div>Kepala Sekolah,</div>"+
    "<div>"+tgl+"<br>Wali Kelas "+esc(s[4])+",</div></div>"+
@@ -577,7 +670,7 @@ el("btn-url-clear").onclick=()=>{ try{localStorage.removeItem("erapor_url");}cat
   try{ const raw=sessionStorage.getItem("erapor_sesi"); if(!raw) return;
     const d=JSON.parse(raw); if(!d||!d.S||!d.S.u) return;
     S=d.S; ui.mode=d.mode||"guru"; ui.kelas=""; ui.mapel="";
-    loadScores().then(()=>loadSettings()).then(()=>{ el("view-login").style.display="none"; el("view-app").style.display="block"; renderTopUser(); renderApp(); });
+    loadScores().then(()=>loadSettings()).then(()=>loadExtra()).then(()=>{ el("view-login").style.display="none"; el("view-app").style.display="block"; renderTopUser(); renderApp(); });
   }catch(e){}
 })();
 </script>
