@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>CBT SMPN 1 Terusan Nunyai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f6fa; --surface:#ffffff; --surface-2:#eaf1f7; --surface-3:#dfeaf3;
+  --ink:#16283a; --ink-2:#4a6178; --ink-3:#71879c;
+  --line:#d7e2ec; --line-strong:#b9ccdd;
+  --blue:#0e4d8a; --blue-deep:#0a3763; --blue-soft:#e3eef8;
+  --teal:#0f766e; --teal-soft:#dff3f0;
+  --amber:#b45309; --amber-soft:#fdf0dc;
+  --green:#15803d; --green-soft:#e2f3e6;
+  --red:#b91c1c; --red-soft:#fbe7e7;
+  --radius:14px;
+  --shadow:0 10px 30px rgba(10,55,99,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c1622; --surface:#132334; --surface-2:#1a2f47; --surface-3:#223c59;
+    --ink:#eef5fb; --ink-2:#b7c9da; --ink-3:#8aa2b8;
+    --line:#27405a; --line-strong:#385878;
+    --blue:#4a9be0; --blue-deep:#8fc3f2; --blue-soft:#1b3653;
+    --teal:#2dd4bf; --teal-soft:#123a38;
+    --amber:#fbbf24; --amber-soft:#3d2f10;
+    --green:#4ade80; --green-soft:#143322;
+    --red:#f87171; --red-soft:#3d1818;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+button{font:inherit;cursor:pointer}
+input,select{font:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+.mono{font-family:"JetBrains Mono",monospace}
+
+/* ---------- Header band ---------- */
+.band{background:var(--blue-deep);color:#eef5fb;position:relative;overflow:hidden}
+@media (prefers-color-scheme: dark){.band{background:#0a2547}}
+.band::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(560px 240px at 88% -40px, rgba(96,165,250,.35), transparent 65%),
+  radial-gradient(420px 220px at 4% 120%, rgba(45,212,191,.18), transparent 65%);pointer-events:none}
+.band .wrap{position:relative;z-index:1;padding-top:30px;padding-bottom:26px}
+.band-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.school{display:flex;gap:12px;align-items:center}
+.school-mark{width:46px;height:46px;flex:none;border-radius:12px;background:#f5b921;color:#0a3763;display:grid;place-items:center;font-weight:800;font-size:15px;letter-spacing:.02em;border:2px solid rgba(255,255,255,.5)}
+.school small{display:block;color:#bcd6f2;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.school strong{font-size:17px;line-height:1.2}
+.chip-demo{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:700}
+.chip-demo i{width:8px;height:8px;border-radius:50%;background:#f5b921;display:block}
+.band h1{font-size:clamp(26px,4.6vw,40px);line-height:1.14;margin:20px 0 8px;font-weight:800;max-width:760px;letter-spacing:-.01em}
+.band h1 em{font-style:normal;color:#f5b921}
+.band p.lead{margin:0;color:#d3e5f6;max-width:680px;font-size:15.5px}
+.motto{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:13.5px;color:#bcd6f2}
+.motto b{color:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
+.stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font-size:22px;line-height:1;color:#fff}
+.stat span{font-size:12px;color:#bcd6f2;font-weight:600}
+@media(max-width:640px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .switcher .wrap{flex-wrap:wrap;overflow-x:visible}
+  .view-btn{flex:1 1 28%;justify-content:center;font-size:12px;padding:8px 8px;gap:6px}
+  .view-btn svg{display:none}
+}
+
+/* ---------- View switcher ---------- */
+.switcher{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.switcher .wrap{display:flex;gap:8px;padding-top:12px;padding-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.switcher .wrap::-webkit-scrollbar{display:none}
+.view-btn{flex:none;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:9px 16px;font-weight:700;font-size:13.5px;transition:.15s}
+.view-btn svg{width:16px;height:16px}
+.view-btn[aria-selected="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+@media (prefers-color-scheme: dark){.view-btn[aria-selected="true"]{color:#081a2e}}
+.view-btn .n{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--surface-2);font-size:11px}
+.view-btn[aria-selected="true"] .n{background:rgba(255,255,255,.25)}
+
+main{padding:26px 0 10px}
+.view{display:none}
+.view.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.view.active{animation:none} html{scroll-behavior:auto}}
+
+.view-head{margin:4px 0 18px}
+.view-head h2{font-size:clamp(21px,3vw,27px);margin:0 0 4px;letter-spacing:-.01em}
+.view-head p{margin:0;color:var(--ink-2);font-size:14.5px;max-width:720px}
+
+.grid-2{display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card-pad{padding:20px}
+.card h3{margin:0 0 4px;font-size:16.5px}
+.card .sub{color:var(--ink-2);font-size:13px;margin:0 0 14px}
+
+/* login */
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:5px;color:var(--ink-2)}
+.field input,.field select{width:100%;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:10px;padding:11px 12px;font-size:14.5px;outline:none}
+.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:10px;padding:12px 18px;font-weight:800;font-size:14.5px;background:var(--blue);color:#fff;transition:.15s;width:100%}
+.btn:hover{filter:brightness(1.08)}
+.btn.secondary{background:var(--surface-2);color:var(--ink);border:1.5px solid var(--line-strong)}
+.btn.ghost{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
+.btn.small{width:auto;padding:9px 14px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.hint{font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:10px 12px;margin-top:12px}
+.hint b{color:var(--ink)}
+.login-ok{display:none;margin-top:14px;background:var(--green-soft);border:1px solid var(--green);border-radius:10px;padding:12px 14px;font-size:13.5px}
+.login-ok.show{display:block}
+.login-ok b{color:var(--green)}
+.login-err{display:none;margin-top:14px;background:var(--red-soft);border:1px solid var(--red);border-radius:10px;padding:12px 14px;font-size:13.5px}
+.login-err.show{display:block}
+.divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--ink-3);font-size:12px;font-weight:700}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.link-admin{display:block;text-align:center;font-weight:700;font-size:13.5px;text-decoration:none}
+.link-admin:hover{text-decoration:underline}
+
+/* catalog */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-items:center}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:none;background:transparent;color:var(--ink-2);font-weight:700;font-size:13px;padding:7px 14px;border-radius:999px}
+.seg button.on{background:var(--blue);color:#fff}
+@media (prefers-color-scheme: dark){.seg button.on{color:#081a2e}}
+.searchbox{flex:1;min-width:170px}
+.searchbox input{width:100%;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:999px;padding:9px 14px;font-size:13.5px;outline:none}
+.searchbox input:focus{border-color:var(--blue)}
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:12px}
+.exam{border:1.5px solid var(--line);border-radius:12px;padding:15px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.exam .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.exam .mapel{font-weight:800;font-size:15px;line-height:1.25}
+.exam .kelas{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.badge{flex:none;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;letter-spacing:.02em}
+.badge.live{background:var(--green-soft);color:var(--green)}
+.badge.siap{background:var(--blue-soft);color:var(--blue)}
+.badge.susun{background:var(--amber-soft);color:var(--amber)}
+.exam .meta{display:flex;gap:12px;font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.exam .meta span{display:inline-flex;gap:5px;align-items:center}
+.exam .meta svg{width:13px;height:13px}
+.exam button{margin-top:auto;border:1.5px solid var(--blue);background:var(--blue);color:#fff;border-radius:9px;padding:9px;font-weight:800;font-size:13px}
+.exam button.off{background:transparent;color:var(--ink-3);border-color:var(--line-strong);cursor:not-allowed}
+.exam.hidden{display:none}
+.catalog-note{font-size:12.5px;color:var(--ink-2);margin-top:12px}
+
+/* ---------- Exam room ---------- */
+.exam-shell{display:grid;grid-template-columns:1fr 264px;gap:16px;align-items:start}
+@media(max-width:900px){.exam-shell{grid-template-columns:1fr}}
+.exam-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.exam-title b{font-size:16px;display:block}
+.exam-title span{font-size:12.5px;color:var(--ink-2)}
+.timer{display:inline-flex;align-items:center;gap:8px;background:var(--blue-deep);color:#fff;border-radius:10px;padding:9px 14px;font-weight:700}
+@media (prefers-color-scheme: dark){.timer{background:#0a2547}}
+.timer .mono{font-size:17px}
+.timer.warn{background:var(--red)}
+.progress{height:9px;background:var(--surface-3);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.progress i{display:block;height:100%;background:var(--teal);width:0%;transition:width .3s}
+.q-type{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:var(--blue-soft);color:var(--blue);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+.q-text{font-size:16.5px;font-weight:600;line-height:1.6;margin:0 0 16px}
+.frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;margin:0 3px;font-size:.82em;line-height:1.15}
+.frac .num{border-bottom:1.6px solid currentColor;padding:0 4px}
+.q-text sup,.opt sup{font-size:.68em}
+.opts{display:grid;gap:9px}
+.opt{display:flex;gap:11px;align-items:flex-start;text-align:left;width:100%;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:11px;padding:12px 14px;font-size:14.5px;font-weight:600;transition:.12s}
+.opt .key{flex:none;width:26px;height:26px;border-radius:8px;background:var(--surface-2);display:grid;place-items:center;font-size:12.5px;font-weight:800}
+.opt:hover{border-color:var(--blue)}
+.opt.sel{border-color:var(--blue);background:var(--blue-soft)}
+.opt.sel .key{background:var(--blue);color:#fff}
+.opt .multi-key{border-radius:6px}
+.isian-input{width:100%;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:11px;padding:13px 14px;font-size:15px;outline:none}
+.isian-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.match-row{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}
+.match-row:last-child{border-bottom:none}
+.match-row span{font-size:14.5px;font-weight:600}
+.match-row select{border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px;font-size:14px;width:100%}
+.q-nav{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.q-nav .btn{width:auto;flex:1;min-width:130px}
+.navbox{position:sticky;top:76px}
+@media(max-width:900px){.navbox{position:static}}
+.navgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:10px 0 14px}
+.navgrid button{aspect-ratio:1;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink-2);border-radius:9px;font-weight:800;font-size:13px}
+.navgrid button.now{border-color:var(--blue);color:var(--blue);box-shadow:0 0 0 2px var(--blue-soft)}
+.navgrid button.done{background:var(--teal);border-color:var(--teal);color:#fff}
+.legend{font-size:12px;color:var(--ink-2);display:grid;gap:5px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.confirm-box{display:none;margin-top:16px;border:1.5px solid var(--amber);background:var(--amber-soft);border-radius:12px;padding:16px}
+.confirm-box.show{display:block}
+.confirm-box b{font-size:15px}
+.confirm-box p{margin:4px 0 12px;font-size:13.5px;color:var(--ink-2)}
+.confirm-box .row{display:flex;gap:9px;flex-wrap:wrap}
+.confirm-box .btn{width:auto}
+.result-box{display:none;text-align:center;padding:10px 0 4px}
+.result-box.show{display:block}
+.score-big{font-size:52px;font-weight:800;line-height:1;color:var(--blue)}
+.result-box .detail{color:var(--ink-2);font-size:14px;margin:8px 0 16px}
+.sent{color:var(--green);font-weight:700;font-size:13.5px}
+
+/* ---------- Dashboard ---------- */
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+@media(max-width:760px){.dash-stats{grid-template-columns:repeat(2,1fr)}}
+.dstat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+.dstat b{display:block;font-size:28px;line-height:1.05}
+.dstat span{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.dstat.blue b{color:var(--blue)} .dstat.green b{color:var(--green)} .dstat.amber b{color:var(--amber)}
+.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px;align-items:center}
+.toolbar .searchbox{max-width:280px}
+.toolbar select{border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:999px;padding:9px 12px;font-size:13.5px;font-weight:600}
+.toolbar .spacer{flex:1}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);padding:10px 12px;border-bottom:2px solid var(--line)}
+td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.status{font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.status.selesai{background:var(--green-soft);color:var(--green)}
+.status.proses{background:var(--amber-soft);color:var(--amber)}
+.status.belum{background:var(--surface-2);color:var(--ink-2)}
+.table-wrap{overflow:hidden}
+@media(max-width:700px){
+  .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:block;width:100%}
+  .table-wrap thead{display:none}
+  .table-wrap tr{border-bottom:1px solid var(--line);padding:8px 4px}
+  .table-wrap td{border:none;padding:4px 12px;display:flex;justify-content:space-between;gap:14px}
+  .table-wrap td::before{content:attr(data-l);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);padding-top:2px}
+}
+.approve-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px dashed var(--line)}
+.approve-row:last-child{border-bottom:none}
+.approve-row .info b{display:block;font-size:14.5px}
+.approve-row .info span{font-size:12.5px;color:var(--ink-2)}
+.pill-btn{border:1.5px solid var(--teal);color:var(--teal);background:transparent;border-radius:9px;padding:8px 14px;font-weight:800;font-size:12.5px}
+.pill-btn.done{background:var(--teal);color:#fff}
+.report{display:none;margin-top:16px;border:2px solid var(--line-strong);border-radius:12px;padding:20px;background:var(--surface)}
+.report.show{display:block}
+.report h4{margin:0 0 2px;font-size:16px;text-align:center}
+.report .rsub{text-align:center;color:var(--ink-2);font-size:12.5px;margin:0 0 14px}
+
+/* ---------- Roadmap ---------- */
+section.block{margin-top:38px}
+section.block>h2{font-size:clamp(20px,3vw,26px);margin:0 0 4px;letter-spacing:-.01em}
+section.block>p.intro{color:var(--ink-2);margin:0 0 18px;max-width:740px;font-size:14.5px}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.flow{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.flow{grid-template-columns:1fr}}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.step .num{width:32px;height:32px;border-radius:10px;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px;margin-bottom:10px}
+@media (prefers-color-scheme: dark){.step .num{color:#081a2e}}
+.step h3{font-size:15px;margin:0 0 5px}
+.step p{font-size:13px;color:var(--ink-2);margin:0}
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:820px){.phases{grid-template-columns:1fr}}
+.phase{border:1.5px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--surface)}
+.phase .tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
+.phase h3{font-size:15.5px;margin:6px 0}
+.phase ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-2);display:grid;gap:4px}
+.next-card{background:var(--blue-deep);color:#e6f0fa;border-radius:var(--radius);padding:22px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+@media(max-width:700px){.next-card{grid-template-columns:1fr}}
+.next-card h3{margin:0 0 5px;color:#fff;font-size:17px}
+.next-card p{margin:0;font-size:13.5px;color:#c3daef;max-width:640px}
+.next-card a.btn{width:auto;background:#f5b921;color:#0a3763;text-decoration:none;white-space:nowrap}
+footer{margin-top:36px;border-top:1px solid var(--line);padding:18px 0 30px;color:var(--ink-3);font-size:12.5px;text-align:center}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,80px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:999px;font-size:13.5px;font-weight:700;z-index:99;transition:.25s;box-shadow:var(--shadow);max-width:92vw;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="band">
+  <div class="wrap">
+    <div class="band-top">
+      <div class="school">
+        <div class="school-mark">CBT</div>
+        <div>
+          <small>Computer Based Test</small>
+          <strong>SMP Negeri 1 Terusan Nunyai</strong>
+        </div>
+      </div>
+      <span class="chip-demo"><i></i>PRATINJAU TAMPILAN — VERSI PENGEMBANGAN</span>
+    </div>
+    <h1>CBT SMPN 1 Terusan Nunyai</h1>
+    <p class="lead">Silakan coba ketiga tampilannya: halaman siswa, ruang ujian, dan dashboard guru/admin.</p>
+    <div class="motto">
+      <span>Motto: <b>“Belajar jujur itu sangat indah”</b></span>
+      <span>Dikembangkan oleh <b>Hardiansyah, S.Pd</b></span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>421</b><span>Siswa terdaftar (VII–IX)</span></div>
+      <div class="stat"><b>15</b><span>Rombel / kelas</span></div>
+      <div class="stat"><b>12</b><span>Mata pelajaran</span></div>
+      <div class="stat"><b>20</b><span>Guru pengampu</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= VIEW SWITCHER ================= -->
+<nav class="switcher" aria-label="Pilih tampilan pratinjau">
+  <div class="wrap" role="tablist">
+    <button class="view-btn" role="tab" aria-selected="true" data-view="siswa"><span class="n">1</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+      Halaman Siswa</button>
+    <button class="view-btn" role="tab" aria-selected="false" data-view="ujian"><span class="n">2</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      Ruang Ujian</button>
+    <button class="view-btn" role="tab" aria-selected="false" data-view="admin"><span class="n">3</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+      Dashboard Guru / Admin</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ================= VIEW 1: SISWA ================= -->
+  <section class="view active" id="view-siswa">
+    <div class="view-head">
+      <h2>Halaman muka siswa — login, lalu pilih ujian</h2>
+      <p>Siswa tidak lagi langsung masuk ke satu ujian. Setelah login dengan NIS, ia melihat katalog ujian sesuai jenjang dan kelasnya.</p>
+    </div>
+    <div class="grid-2">
+      <!-- Login -->
+      <div class="card card-pad">
+        <h3>Login Siswa</h3>
+        <p class="sub">Gunakan NIS, tanggal lahir, dan token ujian dari gurumu.</p>
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="nis">NIS (4 digit)</label>
+            <input id="nis" inputmode="numeric" maxlength="4" placeholder="Contoh: 0001" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="tgl">Tanggal Lahir</label>
+            <input id="tgl" type="date">
+          </div>
+          <div class="field">
+            <label for="token">Token Ujian</label>
+            <input id="token" placeholder="Contoh: DEMO2026" autocomplete="off" style="text-transform:uppercase">
+          </div>
+          <button class="btn" type="submit">Masuk &amp; Lihat Ujian Saya</button>
+        </form>
+        <div class="login-ok" id="loginOk"></div>
+        <div class="login-err" id="loginErr">NIS tidak ditemukan dalam database ujian. Periksa kembali NIS-mu, atau tanyakan kepada guru pengawas.</div>
+        <div class="hint">Untuk mencoba pratinjau ini: isi NIS contoh <b>0001</b>, tanggal lahir bebas, token contoh <b>DEMO2026</b>. Ini akun fiktif khusus pratinjau — NIS dan token asli siswa tidak ditampilkan di halaman ini. NIS lain akan ditolak, sama seperti CBT yang asli.</div>
+        <div class="divider">ATAU</div>
+        <a class="link-admin" href="#" id="goAdmin">Login Admin (Guru) →</a>
+      </div>
+
+      <!-- Catalog -->
+      <div class="card card-pad">
+        <h3>Katalog Ujian</h3>
+        <p class="sub">Saring menurut jenjang, atau cari nama mata pelajarannya.</p>
+        <div class="filters">
+          <div class="seg" id="jenjangSeg">
+            <button class="on" data-j="semua">Semua</button>
+            <button data-j="VII">VII</button>
+            <button data-j="VIII">VIII</button>
+            <button data-j="IX">IX</button>
+          </div>
+          <div class="searchbox"><input id="cariMapel" type="search" placeholder="Cari mapel… misalnya: IPA"></div>
+        </div>
+        <div class="exam-grid" id="examGrid"></div>
+        <p class="catalog-note" id="catalogNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 2: RUANG UJIAN ================= -->
+  <section class="view" id="view-ujian">
+    <div class="view-head">
+      <h2>Ruang ujian siswa</h2>
+      <p>Contoh 6 soal dari 5 jenis soal yang didukung CBT — Pilihan Ganda, PG Jamak, Benar/Salah, Menjodohkan, dan Isian Singkat. Jawablah, lalu kumpulkan untuk melihat penilaian otomatisnya.</p>
+    </div>
+    <div class="exam-shell">
+      <div class="card card-pad">
+        <div class="exam-top">
+          <div class="exam-title">
+            <b id="examName">ASAS Ganjil — Matematika Kelas VIII</b>
+            <span id="examMeta">Soal <span id="qPos">1</span> dari 6 contoh • Nama: Andi Pratama (siswa contoh) • Kelas VIIIA</span>
+          </div>
+          <div class="timer" id="timerBox">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Sisa waktu <span class="mono" id="timer">09:59</span>
+          </div>
+        </div>
+        <div class="progress"><i id="progressBar"></i></div>
+
+        <div id="questionArea"></div>
+
+        <div class="q-nav">
+          <button class="btn secondary" id="btnPrev">← Sebelumnya</button>
+          <button class="btn" id="btnNext">Berikutnya →</button>
+          <button class="btn ghost" id="btnSubmit">Kumpulkan Jawaban</button>
+        </div>
+
+        <div class="confirm-box" id="confirmBox">
+          <b>Kumpulkan jawaban sekarang?</b>
+          <p id="confirmText">Masih ada soal yang belum dijawab.</p>
+          <div class="row">
+            <button class="btn small" id="btnYesSubmit" style="width:auto">Ya, Tetap Kumpulkan</button>
+            <button class="btn secondary small" id="btnCancelSubmit">Batal</button>
+          </div>
+        </div>
+
+        <div class="result-box" id="resultBox">
+          <div class="score-big" id="scoreBig">0</div>
+          <p class="detail" id="scoreDetail"></p>
+          <p class="sent">✓ Hasil terkirim ke rekap guru &amp; tercatat per ujian</p>
+          <button class="btn small" id="btnRetry" style="margin-top:10px">Ulangi Contoh Ujian</button>
+        </div>
+      </div>
+
+      <aside class="card card-pad navbox">
+        <h3 style="font-size:14.5px">Navigasi Soal</h3>
+        <div class="navgrid" id="navGrid"></div>
+        <div class="legend">
+          <span><i style="background:var(--teal)"></i>Sudah dijawab</span>
+          <span><i style="background:var(--surface);border:1.5px solid var(--blue)"></i> Sedang dibuka</span>
+          <span><i style="background:var(--surface-2);border:1px solid var(--line)"></i>Belum dijawab</span>
+        </div>
+        <div class="hint" style="margin-top:14px">Pada ujian asli: <b>40 soal • 120 menit</b>. Status pengerjaan terkirim ke dashboard guru setiap 30 detik, dan jawaban dinilai otomatis.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 3: ADMIN ================= -->
+  <section class="view" id="view-admin">
+    <div class="view-head">
+      <h2>Dashboard guru / admin — pantau per ujian</h2>
+      <p>Setiap ujian punya rekapnya sendiri, jadi hasil Matematika Kelas VIII tidak tercampur dengan IPA Kelas VII. Angka dan nama di bawah ini adalah data contoh untuk pratinjau.</p>
+    </div>
+    <div class="dash-stats">
+      <div class="dstat"><b id="dTotal">28</b><span>Total peserta — Matematika VIIIA</span></div>
+      <div class="dstat green"><b id="dDone">0</b><span>Sudah mengumpulkan</span></div>
+      <div class="dstat amber"><b id="dDoing">0</b><span>Sedang mengerjakan</span></div>
+      <div class="dstat blue"><b id="dAvg">—</b><span>Rata-rata nilai terkumpul</span></div>
+    </div>
+
+    <div class="card card-pad">
+      <div class="toolbar">
+        <div class="searchbox"><input id="cariSiswa" type="search" placeholder="Cari nama / NIS…"></div>
+        <select id="filterStatus" aria-label="Saring status">
+          <option value="semua">Semua status</option>
+          <option value="selesai">Sudah mengumpulkan</option>
+          <option value="proses">Sedang mengerjakan</option>
+          <option value="belum">Belum mulai</option>
+        </select>
+        <select id="filterUjian" aria-label="Pilih ujian">
+          <option>Matematika — VIIIA</option>
+          <option>IPA — VIIIA</option>
+          <option>Bahasa Indonesia — VIIIA</option>
+          <option>Matematika — VIIA</option>
+          <option>IPA — IXB</option>
+        </select>
+        <div class="spacer"></div>
+        <button class="btn secondary small" id="btnReload">↻ Muat Ulang</button>
+        <button class="btn small" id="btnReport" style="width:auto">Cetak Hasil (PDF)</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>NIS</th><th>Nama Siswa</th><th>Kelas</th><th>Status</th><th>Dijawab</th><th>Sisa Waktu</th><th>Skor</th></tr></thead>
+          <tbody id="studentRows"></tbody>
+        </table>
+      </div>
+      <div class="report" id="reportBox">
+        <h4>Laporan Hasil Ujian — SMPN 1 Terusan Nunyai</h4>
+        <p class="rsub" id="reportSub"></p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>NIS</th><th>Nama</th><th>Status</th><th>Skor</th></tr></thead>
+            <tbody id="reportRows"></tbody>
+          </table>
+        </div>
+        <div style="text-align:center;margin-top:16px">
+          <button class="btn small" onclick="showToast('Di versi asli, tombol ini membuka dialog cetak — pilih “Save as PDF”.')" style="width:auto">Cetak / Simpan sebagai PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-pad" style="margin-top:16px">
+      <h3>Persetujuan ujian dari guru (jalur Template Sheets)</h3>
+      <p class="sub">Guru mengisi template Google Sheets mapelnya, admin memeriksa, lalu ujian terbit ke katalog siswa.</p>
+      <div id="approveList"></div>
+    </div>
+  </section>
+
+  <!-- ================= ROADMAP ================= -->
+  <section class="block">
+    <h2>Bagaimana rencana ini diwujudkan — jalur Template Sheets (Opsi B)</h2>
+    <p class="intro">Guru tidak perlu belajar aplikasi baru: soal ditulis di Google Sheets yang sudah mereka kenal, CBT yang membacanya dan mengubahnya menjadi ujian.</p>
+    <div class="flow">
+      <div class="step"><div class="num">1</div><h3>Guru isi template</h3><p>Satu Sheet per ujian: tab Soal (satu soal satu baris, lengkap dengan kunci &amp; pembahasan), tab Info Ujian, dan tab Panduan pengisian.</p></div>
+      <div class="step"><div class="num">2</div><h3>Admin memeriksa</h3><p>Hardiansyah memeriksa jumlah soal, kunci jawaban, dan token, lalu menyetujui dari dashboard — seperti daftar persetujuan di pratinjau di atas.</p></div>
+      <div class="step"><div class="num">3</div><h3>Ujian terbit otomatis</h3><p>CBT membaca Sheet yang disetujui dan ujian langsung muncul di katalog sesuai mapel, jenjang, dan kelasnya.</p></div>
+      <div class="step"><div class="num">4</div><h3>Nilai masuk per ujian</h3><p>Siswa mengerjakan, nilai dinilai otomatis dan tersimpan di rekap yang terpisah untuk setiap ujian — siap dicetak per kelas.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Tahapan pembangunan</h2>
+    <p class="intro">Dibangun bertahap agar CBT Matematika yang sedang berjalan tidak terganggu.</p>
+    <div class="phases">
+      <div class="phase">
+        <span class="tag">Tahap 1 — Kerangka</span>
+        <h3>Katalog ujian + 421 siswa</h3>
+        <ul>
+          <li>Halaman muka menjadi katalog ujian per mapel &amp; jenjang</li>
+          <li>Database siswa diperluas: 28 → 421 siswa, 15 kelas</li>
+          <li>Pembaca template Sheets (ujian dibaca dari Sheet)</li>
+          <li>Uji coba: 1 ujian percontohan di luar Matematika</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="tag">Tahap 2 — Kelas VIII dulu</span>
+        <h3>12 mapel untuk jenjang VIII</h3>
+        <ul>
+          <li>Jenjang yang paling dikuasai, roster &amp; guru sudah lengkap</li>
+          <li>20 guru mapel menerima template mapelnya masing-masing</li>
+          <li>Rekap &amp; cetak PDF per ujian dan per kelas</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="tag">Tahap 3 — Semua jenjang</span>
+        <h3>Kelas VII &amp; IX menyusul</h3>
+        <ul>
+          <li>Template yang sama dipakai ulang untuk VII dan IX</li>
+          <li>Jadwal &amp; token terpisah untuk tiap pelaksanaan</li>
+          <li>Siap untuk ASAS maupun ulangan harian semua mapel</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="next-card">
+      <div>
+        <h3>Langkah berikutnya: periksa templatenya</h3>
+        <p>Template soal untuk guru sudah dibuat — berisi 6 contoh soal asli (satu untuk tiap jenis soal), tab Info Ujian, dan panduan pengisian termasuk cara menulis rumus seperti 2^3 dan √144.</p>
+      </div>
+      <a class="btn" href="https://docs.google.com/spreadsheets/d/1aJlC8Pf--PI_HOrSFtb7zT9sh_2OgSUpuQOOEgTi4JM/edit" target="_blank" rel="noopener">Buka Template Soal CBT ↗</a>
+    </div>
+  </section>
+
+  <footer>
+    CBT • SMPN 1 Terusan Nunyai • Dikembangkan oleh Hardiansyah, S.Pd<br>
+    Angka peserta, guru, dan mapel mengikuti data sekolah yang sudah tercatat; daftar siswa pada dashboard adalah contoh untuk keperluan pratinjau.
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(id){ return document.getElementById(id); };
+
+/* ---------- Toast ---------- */
+var toastTimer=null;
+window.showToast=function(msg){
+  var t=$("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove("show");},3400);
+};
+
+/* ---------- View switcher ---------- */
+var viewBtns=document.querySelectorAll(".view-btn");
+function showView(name){
+  viewBtns.forEach(function(b){ b.setAttribute("aria-selected", b.getAttribute("data-view")===name ? "true":"false"); });
+  document.querySelectorAll(".view").forEach(function(v){ v.classList.toggle("active", v.id==="view-"+name); });
+  window.scrollTo({top: document.querySelector(".switcher").offsetTop, behavior:"smooth"});
+}
+viewBtns.forEach(function(b){ b.addEventListener("click", function(){ showView(b.getAttribute("data-view")); }); });
+$("goAdmin").addEventListener("click", function(e){ e.preventDefault(); showView("admin"); });
+
+/* ---------- Login demo ---------- */
+$("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var nis=$("nis").value.trim(), token=$("token").value.trim().toUpperCase();
+  var ok=$("loginOk"), err=$("loginErr");
+  ok.classList.remove("show"); err.classList.remove("show");
+  if(nis==="0001" && token==="DEMO2026"){
+    ok.innerHTML="<b>Login berhasil.</b> Halo, <b>ANDI PRATAMA (siswa contoh)</b> — Kelas VIIIA. Ujian yang tersedia untukmu ada di katalog di samping. Selamat mengerjakan dengan jujur!";
+    ok.classList.add("show");
+  } else if(nis==="0001"){
+    err.textContent="Token ujian tidak cocok. Minta token yang benar kepada guru pengawas.";
+    err.classList.add("show");
+  } else {
+    err.textContent="NIS tidak ditemukan dalam database ujian. Periksa kembali NIS-mu, atau tanyakan kepada guru pengawas.";
+    err.classList.add("show");
+  }
+});
+
+/* ---------- Catalog ---------- */
+var EXAMS=[
+  {mapel:"Matematika", jenjang:"VIII", kelas:"VIIIA", soal:40, menit:120, status:"live", label:"Sudah Live"},
+  {mapel:"Matematika", jenjang:"VII", kelas:"VIIA–E", soal:40, menit:120, status:"siap", label:"Siap Uji Coba"},
+  {mapel:"Matematika", jenjang:"IX", kelas:"IXA–E", soal:40, menit:120, status:"siap", label:"Siap Uji Coba"},
+  {mapel:"IPA", jenjang:"VIII", kelas:"VIIIA–E", soal:40, menit:120, status:"siap", label:"Siap Uji Coba"},
+  {mapel:"IPA", jenjang:"VII", kelas:"VIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"IPA", jenjang:"IX", kelas:"IXA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"Bahasa Indonesia", jenjang:"VIII", kelas:"VIIIA–E", soal:40, menit:120, status:"siap", label:"Siap Uji Coba"},
+  {mapel:"Bahasa Indonesia", jenjang:"VII", kelas:"VIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"Bahasa Inggris", jenjang:"IX", kelas:"IXA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"Bahasa Inggris", jenjang:"VIII", kelas:"VIIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"IPS", jenjang:"VIII", kelas:"VIIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"Informatika", jenjang:"VIII", kelas:"VIIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"PAI dan Budi Pekerti", jenjang:"VII", kelas:"VIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"Pendidikan Pancasila", jenjang:"IX", kelas:"IXA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"Seni Budaya", jenjang:"VIII", kelas:"VIIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"PJOK", jenjang:"VII", kelas:"VIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"Bahasa Lampung", jenjang:"IX", kelas:"IXA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"},
+  {mapel:"Pendidikan Anti Korupsi", jenjang:"VIII", kelas:"VIIIA–E", soal:40, menit:120, status:"susun", label:"Dalam Penyusunan"}
+];
+var jenjangAktif="semua";
+function renderCatalog(){
+  var q=$("cariMapel").value.trim().toLowerCase();
+  var grid=$("examGrid"); grid.innerHTML=""; var shown=0;
+  EXAMS.forEach(function(x){
+    if(jenjangAktif!=="semua" && x.jenjang!==jenjangAktif) return;
+    if(q && x.mapel.toLowerCase().indexOf(q)===-1) return;
+    shown++;
+    var d=document.createElement("div"); d.className="exam";
+    var canEnter = x.status!=="susun";
+    d.innerHTML =
+      '<div class="top"><div><div class="mapel"></div><div class="kelas">Kelas '+x.jenjang+' • Rombel '+x.kelas+'</div></div>'+
+      '<span class="badge '+x.status+'">'+x.label+'</span></div>'+
+      '<div class="meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>'+x.soal+' soal</span>'+
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'+x.menit+' menit</span></div>'+
+      '<button type="button" class="'+(canEnter?"":"off")+'">'+(canEnter?"Masuk Ujian":"Menunggu Soal dari Guru")+'</button>';
+    d.querySelector(".mapel").textContent=x.mapel;
+    if(canEnter){
+      d.querySelector("button").addEventListener("click", function(){
+        $("examName").textContent="ASAS Ganjil — "+x.mapel+" Kelas "+x.jenjang;
+        showView("ujian");
+        showToast("Membuka contoh ruang ujian: "+x.mapel+" Kelas "+x.jenjang);
+      });
+    }
+    grid.appendChild(d);
+  });
+  $("catalogNote").textContent = shown===0
+    ? "Tidak ada ujian yang cocok dengan pencarian itu."
+    : "Menampilkan "+shown+" ujian contoh. Pada versi penuh, katalog berisi ujian dari 12 mapel untuk jenjang VII, VIII, dan IX — yang tampil untuk siswa hanya ujian bagi kelasnya.";
+}
+document.querySelectorAll("#jenjangSeg button").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll("#jenjangSeg button").forEach(function(x){x.classList.remove("on");});
+    b.classList.add("on"); jenjangAktif=b.getAttribute("data-j"); renderCatalog();
+  });
+});
+$("cariMapel").addEventListener("input", renderCatalog);
+renderCatalog();
+
+/* ---------- Exam demo ---------- */
+var QUESTIONS=[
+  {type:"Pilihan Ganda", text:'Hasil dari 2<sup>3</sup> × 2<sup>2</sup> adalah …',
+   options:["16","32","64","12"], answer:1},
+  {type:"PG Jamak — pilih semua yang benar", text:"Manakah pernyataan yang benar tentang bilangan berpangkat? <span style='color:var(--ink-2);font-size:13.5px'>(Boleh lebih dari satu jawaban)</span>",
+   options:["5<sup>0</sup> = 1","2<sup>−2</sup> = <span class='frac'><span class='num'>1</span><span>4</span></span>","3<sup>2</sup> × 3<sup>3</sup> = 3<sup>6</sup>","10<sup>3</sup> = 1.000"], answer:[0,1,3], multi:true},
+  {type:"Benar / Salah", text:"Pernyataan: “Segitiga dengan sisi 6 cm, 8 cm, dan 10 cm adalah segitiga siku-siku.”",
+   options:["Benar","Salah"], answer:0},
+  {type:"Pilihan Ganda", text:'Nilai dari √144 + <span class="frac"><span class="num">1</span><span>2</span></span> × 10 adalah …',
+   options:["17","22","62","27"], answer:0},
+  {type:"Menjodohkan", text:"Pasangkan bentuk pangkat di kiri dengan nilainya di kanan.",
+   pairs:[{left:"2<sup>4</sup>", opts:["8","16","32"], answer:"16"},
+          {left:"3<sup>3</sup>", opts:["9","27","81"], answer:"27"},
+          {left:"10<sup>2</sup>", opts:["20","100","1.000"], answer:"100"}]},
+  {type:"Isian Singkat", text:"Gradien garis yang melalui titik (0, 3) dan (2, 7) adalah … <span style='color:var(--ink-2);font-size:13.5px'>(tulis angkanya saja)</span>",
+   answer:"2"}
+];
+var cur=0, answers={}, matchAnswers={}, timerSec=599, timerInt=null, submitted=false;
+
+function isAnswered(i){
+  var q=QUESTIONS[i];
+  if(q.pairs){ return q.pairs.every(function(p,j){ return (matchAnswers[i+":"+j]||"")!==""; }); }
+  if(q.multi){ return (answers[i]||[]).length>0; }
+  if(q.type==="Isian Singkat"){ return (answers[i]||"").toString().trim()!==""; }
+  return answers[i]!==undefined;
+}
+function answeredCount(){ var n=0; for(var i=0;i<QUESTIONS.length;i++) if(isAnswered(i)) n++; return n; }
+
+function renderNav(){
+  var g=$("navGrid"); g.innerHTML="";
+  QUESTIONS.forEach(function(q,i){
+    var b=document.createElement("button"); b.type="button"; b.textContent=i+1;
+    if(i===cur) b.classList.add("now");
+    if(isAnswered(i)) b.classList.add("done");
+    b.addEventListener("click", function(){ cur=i; renderQuestion(); });
+    g.appendChild(b);
+  });
+  $("progressBar").style.width=(answeredCount()/QUESTIONS.length*100)+"%";
+  $("qPos").textContent=cur+1;
+}
+
+function renderQuestion(){
+  submitted=false;
+  var q=QUESTIONS[cur], area=$("questionArea");
+  var html='<span class="q-type">'+q.type+'</span><p class="q-text">'+q.text+'</p>';
+  if(q.pairs){
+    html+='<div>'+q.pairs.map(function(p,j){
+      var sel=matchAnswers[cur+":"+j]||"";
+      return '<div class="match-row"><span>'+p.left+'</span><select data-pair="'+j+'"><option value="">— pilih —</option>'+
+        p.opts.map(function(o){ return '<option '+(sel===o?'selected':'')+' value="'+o+'">'+o+'</option>'; }).join("")+'</select></div>';
+    }).join("")+'</div>';
+  } else if(q.type==="Isian Singkat"){
+    html+='<input class="isian-input" id="isianInput" placeholder="Ketik jawabanmu di sini…" value="'+(answers[cur]||"")+'">';
+  } else {
+    html+='<div class="opts">'+q.options.map(function(o,i){
+      var sel = q.multi ? (answers[cur]||[]).indexOf(i)>-1 : answers[cur]===i;
+      var key = q.multi ? "▣" : "ABCD"[i];
+      return '<button type="button" class="opt'+(sel?" sel":"")+'" data-opt="'+i+'"><span class="key'+(q.multi?" multi-key":"")+'">'+key+'</span><span>'+o+'</span></button>';
+    }).join("")+'</div>';
+  }
+  area.innerHTML=html;
+  area.querySelectorAll(".opt").forEach(function(b){
+    b.addEventListener("click", function(){
+      var i=parseInt(b.getAttribute("data-opt"),10);
+      if(q.multi){
+        var arr=answers[cur]||[];
+        var ix=arr.indexOf(i); if(ix>-1) arr.splice(ix,1); else arr.push(i);
+        answers[cur]=arr;
+      } else { answers[cur]=i; }
+      renderQuestion();
+    });
+  });
+  area.querySelectorAll("select[data-pair]").forEach(function(s){
+    s.addEventListener("change", function(){
+      matchAnswers[cur+":"+s.getAttribute("data-pair")]=s.value; renderNav();
+    });
+  });
+  var inp=$("isianInput");
+  if(inp){ inp.addEventListener("input", function(){ answers[cur]=inp.value; renderNav(); }); }
+  $("btnPrev").disabled = cur===0;
+  $("btnNext").textContent = cur===QUESTIONS.length-1 ? "Soal Terakhir ✓" : "Berikutnya →";
+  renderNav();
+}
+$("btnPrev").addEventListener("click", function(){ if(cur>0){cur--; renderQuestion();} });
+$("btnNext").addEventListener("click", function(){ if(cur<QUESTIONS.length-1){cur++; renderQuestion();} else { openConfirm(); } });
+
+function openConfirm(){
+  var left=QUESTIONS.length-answeredCount();
+  $("confirmText").textContent = left>0
+    ? "Masih ada "+left+" soal yang belum dijawab. Soal kosong nilainya 0."
+    : "Semua soal sudah dijawab. Periksa lagi sebentar, lalu kumpulkan.";
+  $("confirmBox").classList.add("show");
+  $("confirmBox").scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+$("btnSubmit").addEventListener("click", openConfirm);
+$("btnCancelSubmit").addEventListener("click", function(){ $("confirmBox").classList.remove("show"); });
+$("btnYesSubmit").addEventListener("click", function(){
+  $("confirmBox").classList.remove("show");
+  var correct=0;
+  QUESTIONS.forEach(function(q,i){
+    if(q.pairs){
+      var ok=q.pairs.every(function(p,j){ return matchAnswers[i+":"+j]===p.answer; });
+      if(ok) correct++;
+    } else if(q.multi){
+      var a=(answers[i]||[]).slice().sort().join(","), k=q.answer.slice().sort().join(",");
+      if(a===k) correct++;
+    } else if(q.type==="Isian Singkat"){
+      if((answers[i]||"").toString().trim()===q.answer) correct++;
+    } else if(answers[i]===q.answer){ correct++; }
+  });
+  var score=Math.round(correct/QUESTIONS.length*100);
+  submitted=true;
+  $("scoreBig").textContent=score;
+  $("scoreDetail").innerHTML="Kamu menjawab benar <b>"+correct+" dari "+QUESTIONS.length+" soal contoh</b>. Pada ujian asli, skor dihitung dari seluruh soal (benar ÷ total × 100).";
+  $("resultBox").classList.add("show");
+  $("resultBox").scrollIntoView({behavior:"smooth", block:"nearest"});
+  clearInterval(timerInt);
+  showToast("Jawaban terkumpul — hasil tercatat di rekap guru.");
+});
+$("btnRetry").addEventListener("click", function(){
+  answers={}; matchAnswers={}; cur=0; timerSec=599;
+  $("resultBox").classList.remove("show");
+  startTimer(); renderQuestion();
+});
+
+/* timer */
+function startTimer(){
+  clearInterval(timerInt);
+  timerInt=setInterval(function(){
+    if(submitted) return;
+    timerSec=Math.max(0,timerSec-1);
+    var m=Math.floor(timerSec/60), s=timerSec%60;
+    $("timer").textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+    $("timerBox").classList.toggle("warn", timerSec<=60);
+    if(timerSec===0){ clearInterval(timerInt); openConfirm(); }
+  },1000);
+}
+renderQuestion(); startTimer();
+
+/* ---------- Dashboard demo ---------- */
+var STUDENTS=[
+  {nis:"0003", nama:"Siswa Contoh — Rizky A.", kelas:"VIIIA", status:"selesai", jawab:"40/40", sisa:"—", skor:98},
+  {nis:"0001", nama:"Siswa Contoh — Andi P.", kelas:"VIIIA", status:"proses", jawab:"17/40", sisa:"42 mnt", skor:null},
+  {nis:"0002", nama:"Siswa Contoh — Nadia P.", kelas:"VIIIA", status:"selesai", jawab:"40/40", sisa:"—", skor:85},
+  {nis:"0004", nama:"Siswa Contoh — Sari W.", kelas:"VIIIA", status:"selesai", jawab:"39/40", sisa:"—", skor:78},
+  {nis:"0005", nama:"Siswa Contoh — Salsa N.", kelas:"VIIIA", status:"proses", jawab:"28/40", sisa:"25 mnt", skor:null},
+  {nis:"0006", nama:"Siswa Contoh — Bima S.", kelas:"VIIIA", status:"proses", jawab:"9/40", sisa:"58 mnt", skor:null},
+  {nis:"0007", nama:"Siswa Contoh — Dewi L.", kelas:"VIIIA", status:"belum", jawab:"0/40", sisa:"—", skor:null},
+  {nis:"0008", nama:"Siswa Contoh — Fajar H.", kelas:"VIIIA", status:"belum", jawab:"0/40", sisa:"—", skor:null}
+];
+var STATUS_LABEL={selesai:"Sudah Mengumpulkan", proses:"Sedang Mengerjakan", belum:"Belum Mulai"};
+function renderStudents(){
+  var q=$("cariSiswa").value.trim().toLowerCase(), f=$("filterStatus").value;
+  var tb=$("studentRows"); tb.innerHTML=""; var shown=[];
+  STUDENTS.forEach(function(s){
+    if(f!=="semua" && s.status!==f) return;
+    if(q && (s.nama.toLowerCase().indexOf(q)===-1 && s.nis.indexOf(q)===-1)) return;
+    shown.push(s);
+    var tr=document.createElement("tr");
+    tr.innerHTML='<td data-l="NIS" class="mono">'+s.nis+'</td><td data-l="Nama"><b></b></td><td data-l="Kelas">'+s.kelas+'</td>'+
+      '<td data-l="Status"><span class="status '+s.status+'">'+STATUS_LABEL[s.status]+'</span></td>'+
+      '<td data-l="Dijawab">'+s.jawab+'</td><td data-l="Sisa Waktu">'+s.sisa+'</td>'+
+      '<td data-l="Skor"><b>'+(s.skor===null?"—":s.skor)+'</b></td>';
+    tr.querySelector("b").textContent=s.nama;
+    tb.appendChild(tr);
+  });
+  if(shown.length===0){ tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--ink-2);padding:20px">Tidak ada siswa yang cocok dengan saringan itu.</td></tr>'; }
+  var done=STUDENTS.filter(function(s){return s.status==="selesai";});
+  var doing=STUDENTS.filter(function(s){return s.status==="proses";});
+  $("dTotal").textContent=28;
+  $("dDone").textContent=done.length+" dari contoh 8";
+  $("dDoing").textContent=doing.length;
+  var avg=done.length? Math.round(done.reduce(function(a,s){return a+s.skor;},0)/done.length) : null;
+  $("dAvg").textContent= avg===null? "—" : avg;
+  return shown;
+}
+$("cariSiswa").addEventListener("input", renderStudents);
+$("filterStatus").addEventListener("change", renderStudents);
+$("filterUjian").addEventListener("change", function(){ showToast("Rekap diganti ke: "+this.value+" (data contoh tetap sama di pratinjau ini)."); });
+$("btnReload").addEventListener("click", function(){ renderStudents(); showToast("Data dimuat ulang — pada versi asli, status siswa diperbarui tiap 30 detik."); });
+$("btnReport").addEventListener("click", function(){
+  var rows=renderStudents();
+  $("reportSub").textContent=$("filterUjian").value+" • SMPN 1 Terusan Nunyai • Mengikuti saringan yang sedang aktif ("+rows.length+" siswa contoh)";
+  var rb=$("reportRows"); rb.innerHTML="";
+  rows.forEach(function(s){
+    var tr=document.createElement("tr");
+    tr.innerHTML='<td class="mono">'+s.nis+'</td><td></td><td>'+STATUS_LABEL[s.status]+'</td><td><b>'+(s.skor===null?"—":s.skor)+'</b></td>';
+    tr.children[1].textContent=s.nama; rb.appendChild(tr);
+  });
+  $("reportBox").classList.add("show");
+  $("reportBox").scrollIntoView({behavior:"smooth", block:"nearest"});
+});
+renderStudents();
+
+/* ---------- Approvals ---------- */
+var APPROVALS=[
+  {judul:"IPA — Kelas VIIIA–E", guru:"Guru IPA • Template Sheets • 40 soal", done:false},
+  {judul:"Bahasa Indonesia — Kelas VIIIA–E", guru:"Guru Bahasa Indonesia • Template Sheets • 40 soal", done:false},
+  {judul:"Matematika — Kelas VIIA–E", guru:"Guru Matematika • Template Sheets • 40 soal", done:true}
+];
+function renderApprovals(){
+  var box=$("approveList"); box.innerHTML="";
+  APPROVALS.forEach(function(a,i){
+    var row=document.createElement("div"); row.className="approve-row";
+    row.innerHTML='<div class="info"><b></b><span></span></div>';
+    row.querySelector("b").textContent=a.judul;
+    row.querySelector("span").textContent=a.guru+" • "+(a.done?"Sudah terbit di katalog":"Menunggu persetujuan admin");
+    var btn=document.createElement("button"); btn.type="button";
+    btn.className="pill-btn"+(a.done?" done":""); btn.textContent=a.done?"✓ Sudah Disetujui":"Setujui & Terbitkan";
+    btn.addEventListener("click", function(){
+      a.done=!a.done; renderApprovals();
+      showToast(a.done? "Ujian diterbitkan ke katalog siswa." : "Persetujuan dibatalkan.");
+    });
+    row.appendChild(btn); box.appendChild(row);
+  });
+}
+renderApprovals();
+})();
+</script>
+</body>
+</html>
