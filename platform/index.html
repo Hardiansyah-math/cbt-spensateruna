@@ -29,8 +29,6 @@ input[type=text],input[type=date],input[type=password],select{width:100%;padding
 .login-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:14px}
 @media(max-width:720px){.login-grid{grid-template-columns:1fr}}
 .login-form h2,.login-info h3{margin-top:0}
-.token-box{background:#fff8e1;border:1px dashed #d9a400;border-radius:10px;padding:12px 14px;margin:12px 0;text-align:center}
-.token-box .token{font-size:1.5rem;font-weight:800;letter-spacing:.18em;color:var(--blue)}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .info-item{background:#f2f7ff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .info-item b{display:block;font-size:.8rem;color:#43586e;text-transform:uppercase;letter-spacing:.04em}
@@ -114,11 +112,10 @@ sup,sub{font-size:.78em;line-height:0}
 <div class="steps"><span>1 &middot; Pilih Ujian</span><span class="on">2 &middot; Login Peserta</span><span>3 &middot; Mengerjakan Soal</span></div>
 <h2 style="margin-top:10px">Login Peserta</h2>
 <div id="loginExamInfo"></div>
-<div class="token-box"><div class="small">TOKEN UJIAN</div><div class="token" id="loginToken"></div><div class="small">Salin token di atas ke kolom Token Ujian.</div></div>
 <label for="nis">NIS / No. Peserta</label>
 <input type="text" id="nis" placeholder="Contoh: 8192" autocomplete="off">
 <label for="token">Token Ujian</label>
-<input type="text" id="token" placeholder="Contoh: ASAS2026" autocomplete="off">
+<input type="password" id="token" placeholder="Masukkan token ujian" autocomplete="off">
 <div class="rules"><strong>Tata Tertib Peserta</strong><ol style="margin:8px 0 0;padding-left:18px"><li>Kerjakan soal secara mandiri dan jujur.</li><li>Dilarang membuka catatan, buku, atau aplikasi lain selama ujian.</li><li>Waktu ujian sesuai durasi yang tertera. Jawaban terkumpul otomatis saat waktu habis.</li><li>Periksa kembali jawaban sebelum menekan tombol Kumpulkan Jawaban.</li></ol></div>
 <label class="check"><input type="checkbox" id="setuju"> Saya sudah membaca tata tertib di atas dan akan mengerjakan ujian ini dengan jujur.</label>
 <div id="loginErr" class="err"></div>
@@ -138,7 +135,6 @@ sup,sub{font-size:.78em;line-height:0}
 <tr><td>Mata Pelajaran</td><td id="confMapel"></td></tr>
 <tr><td>Jumlah Soal</td><td id="confSoal"></td></tr>
 <tr><td>Waktu Ujian</td><td id="confDurasi"></td></tr>
-<tr><td>Token Ujian</td><td id="confToken"></td></tr>
 </table>
 <p><button id="btnConfirm" class="btn-block">Data Benar &mdash; Mulai Ujian</button></p>
 <p><button class="ghost" id="btnBack" type="button">Kembali &mdash; Ubah Data</button></p>
@@ -432,7 +428,6 @@ function pilihUjian(id){
   if(!u) return;
   currentUjian=u;
   $("loginExamInfo").innerHTML=`<div class="info-grid"><div class="info-item"><b>Ujian</b><span>${esc(u.nama)}</span></div><div class="info-item"><b>Mata Pelajaran</b><span>${esc(u.mapel)}</span></div><div class="info-item"><b>Kelas</b><span>${esc(u.kelas)}</span></div><div class="info-item"><b>Waktu</b><span>${u.durasi} menit</span></div></div>`;
-  $("loginToken").textContent=u.token;
   $("loginErr").textContent="";
   showSection("loginCard");
 }
@@ -450,7 +445,7 @@ $("btnStart").onclick=async()=>{
   if(!currentUjian){err.textContent="Pilih ujian dulu dari daftar ujian.";return;}
   if(!nis){err.textContent="Isi NIS / No. Peserta dulu.";$("nis").focus();return;}
   if(!token){err.textContent="Isi Token Ujian dulu.";$("token").focus();return;}
-  if(token!==String(currentUjian.token).toUpperCase().replace(/[\s-]/g,"")){err.textContent="Token ujian salah. Periksa token pada kotak Token Ujian di atas.";$("token").focus();return;}
+  if(token!==String(currentUjian.token).toUpperCase().replace(/[\s-]/g,"")){err.textContent="Token ujian salah. Periksa kembali token yang diberikan gurumu.";$("token").focus();return;}
   if(!$("setuju").checked){err.textContent="Centang dulu pernyataan bahwa kamu akan mengerjakan ujian ini dengan jujur.";return;}
   err.textContent="Memeriksa NIS ke database ujian...";
   let db=null;
@@ -493,7 +488,6 @@ function tampilKonfirmasi(nama,nis,kelas){
   $("confMapel").textContent=examInfo.mapel+" \u00b7 Kelas "+examInfo.kelas;
   $("confSoal").textContent=QUIZ.length+" soal";
   $("confDurasi").textContent=Math.round(DUR/60)+" menit";
-  $("confToken").textContent=currentUjian.token;
   showSection("confirmCard");
 }
 $("btnBack").onclick=()=>showSection("loginCard");
