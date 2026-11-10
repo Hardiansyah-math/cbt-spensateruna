@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBT SMPN 1 Terusan Nunyai</title>
+<style>
+
+:root{--blue:#004e9e;--blue2:#005eb8;--bg:#d3e7fd;--ink:#0b2a4a;--card:#fff;--line:#bcd6f5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:20px}
+header{background:var(--blue);color:#fff;padding:28px 20px}.wrap2{max-width:860px;margin:0 auto;padding:0 20px}
+h1{margin:0 0 6px;font-size:1.5rem}header p{margin:4px 0;opacity:.95}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input[type=text],input[type=date],input[type=password],select{width:100%;padding:11px 12px;border:1px solid #9db8d6;border-radius:8px;font-size:1rem}
+.topbar-in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.emblem{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--blue);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:.95rem;line-height:1.1;flex-shrink:0;border:3px solid #ffd166}
+.brand-name{font-weight:800;letter-spacing:.05em;font-size:1.05rem}
+.brand-sub{font-size:.88rem;opacity:.92}
+.top-right{text-align:right;font-weight:800;line-height:1.2}
+.top-right span{font-weight:400;font-size:.85rem;opacity:.92}
+.login-head{text-align:center;padding:6px 0 2px}
+.login-head .emblem{width:76px;height:76px;font-size:1.15rem;margin:0 auto 10px}
+.steps{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.steps span{background:#e8f2fd;border:1px solid var(--line);color:var(--blue);border-radius:20px;padding:4px 12px;font-size:.82rem;font-weight:700}
+.steps span.on{background:var(--blue);color:#fff}
+.login-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:14px}
+@media(max-width:720px){.login-grid{grid-template-columns:1fr}}
+.login-form h2,.login-info h3{margin-top:0}
+.token-box{background:#fff8e1;border:1px dashed #d9a400;border-radius:10px;padding:12px 14px;margin:12px 0;text-align:center}
+.token-box .token{font-size:1.5rem;font-weight:800;letter-spacing:.18em;color:var(--blue)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-item{background:#f2f7ff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.info-item b{display:block;font-size:.8rem;color:#43586e;text-transform:uppercase;letter-spacing:.04em}
+.info-item span{font-weight:700}
+.rules{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0;font-size:.93rem}
+.rules li{margin:4px 0}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:600;cursor:pointer}
+.check input{width:auto;margin-top:4px}
+.btn-block{width:100%;padding:14px;font-weight:700}
+.confirm-table{width:100%;border-collapse:collapse;margin:12px 0}
+.confirm-table td{padding:10px 8px;border-bottom:1px solid var(--line)}
+.confirm-table td:first-child{font-weight:700;width:42%;color:#43586e}
+.login-foot{text-align:center;color:#43586e;font-size:.88rem;margin-top:6px}
+button{background:var(--blue2);color:#fff;border:0;border-radius:8px;padding:12px 20px;font-size:1rem;cursor:pointer}
+button:hover{background:var(--blue)}button.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+.timer{position:sticky;top:0;background:var(--blue);color:#fff;padding:10px 16px;border-radius:8px;display:flex;justify-content:space-between;font-weight:700;margin:12px 0;z-index:5}
+.q{border-top:1px solid var(--line);padding:16px 0}.q h3{margin:0 0 10px}
+.opt{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:8px;margin:6px 0;cursor:pointer}
+.opt:has(input:checked){border-color:var(--blue2);background:#e8f2fd}
+.opt input{width:auto;margin-right:8px}
+.matchrow{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.matchrow .left{flex:1;min-width:180px;font-weight:600}
+.matchrow select{flex:1;min-width:180px}
+.badge{display:inline-block;background:#e8f2fd;color:var(--blue);border:1px solid var(--line);border-radius:20px;padding:2px 10px;font-size:.82rem;font-weight:700;margin-bottom:6px}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.nav button{padding:8px 12px;background:#fff;color:var(--blue);border:1px solid var(--blue)}
+.nav button.done{background:var(--blue2);color:#fff}
+.correct{color:#0a6b2e;font-weight:700}.wrong{color:#b00020;font-weight:700}
+.why{background:#f2f7ff;border-left:4px solid var(--blue2);padding:10px 12px;margin:8px 0}
+.small{color:#43586e;font-size:.92rem}.hidden{display:none}
+.score{font-size:2rem;font-weight:800;color:var(--blue)}
+.frac{display:inline-block;vertical-align:middle;text-align:center;margin:0 2px;line-height:1.25}
+.frac .num{display:block;padding:0 4px}
+.frac .den{display:block;border-top:1.5px solid currentColor;padding:0 4px}
+.rad{border-top:1.5px solid currentColor;padding:0 1px}
+sup,sub{font-size:.78em;line-height:0}
+@media print{.no-print{display:none}}
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:12px 0}
+.exam-card{text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;font-family:inherit;color:var(--ink)}
+.exam-card:hover{border-color:var(--blue2);box-shadow:0 2px 8px rgba(0,78,158,.15)}
+.exam-card h3{margin:6px 0;color:var(--blue);font-size:1.05rem}
+.exam-card .meta{font-size:.9rem;color:#43586e;margin:2px 0}
+.badge-live{background:#e6f4ea;color:#0a6b2e;border-color:#b7e0c2}
+.jenjang-title{margin:22px 0 4px;color:var(--blue)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.toolbar input,.toolbar select{flex:1;min-width:160px}
+.err{background:#fdecea;border:1px solid #f5c6cb;color:#7a0c1a;border-radius:8px;padding:10px 12px;margin:10px 0}
+.err:empty{display:none}
+</style>
+</head>
+<body>
+<header><div class="wrap2 topbar-in">
+<div class="brand"><div class="emblem">SMPN<br>1</div><div><div class="brand-name">CBT SMPN 1 TERUSAN NUNYAI</div><div class="brand-sub">Tahun Pelajaran 2026/2027</div></div></div>
+<div class="top-right">CBT<br><span>Semua Mapel &middot; Kelas VII&ndash;IX</span></div>
+</div></header>
+<div class="wrap">
+
+<section id="catalogCard">
+<div class="login-head">
+<div class="emblem">SMPN<br>1</div>
+<h1 style="color:var(--blue);margin:6px 0 2px">CBT SMPN 1 Terusan Nunyai</h1>
+<p style="margin:2px 0"><em>&ldquo;Belajar jujur itu sangat indah&rdquo;</em></p>
+<p style="margin:6px 0 2px" class="small">Dikembangkan oleh <strong>Hardiansyah, S.Pd</strong></p>
+<div class="steps"><span class="on">1 &middot; Pilih Ujian</span><span>2 &middot; Login Peserta</span><span>3 &middot; Mengerjakan Soal</span></div>
+</div>
+<div class="card">
+<h2 style="margin-top:0">Daftar Ujian</h2>
+<p class="small">Pilih ujian yang akan dikerjakan. Ujian hanya dapat dibuka bila sudah berstatus Live dan kamu memiliki tokennya.</p>
+<div class="toolbar">
+<input type="text" id="katSearch" placeholder="Cari ujian / mapel..." autocomplete="off">
+<select id="katJenjang"><option value="">Semua Jenjang</option><option>VII</option><option>VIII</option><option>IX</option></select>
+<button class="ghost" id="btnKatRefresh" type="button">Muat Ulang</button>
+</div>
+<div id="katalogErr" class="err"></div>
+<div id="katalogBox"><p class="small">Memuat daftar ujian...</p></div>
+<p class="small" style="text-align:center"><a href="#" id="linkAdmin">Login Admin (Guru)</a></p>
+</div>
+<p class="login-foot">&copy; 2026 CBT SMPN 1 Terusan Nunyai</p>
+</section>
+
+<section class="card hidden" id="loginCard">
+<div class="steps"><span>1 &middot; Pilih Ujian</span><span class="on">2 &middot; Login Peserta</span><span>3 &middot; Mengerjakan Soal</span></div>
+<h2 style="margin-top:10px">Login Peserta</h2>
+<div id="loginExamInfo"></div>
+<div class="token-box"><div class="small">TOKEN UJIAN</div><div class="token" id="loginToken"></div><div class="small">Salin token di atas ke kolom Token Ujian.</div></div>
+<label for="nis">NIS / No. Peserta</label>
+<input type="text" id="nis" placeholder="Contoh: 8192" autocomplete="off">
+<label for="token">Token Ujian</label>
+<input type="text" id="token" placeholder="Contoh: ASAS2026" autocomplete="off">
+<div class="rules"><strong>Tata Tertib Peserta</strong><ol style="margin:8px 0 0;padding-left:18px"><li>Kerjakan soal secara mandiri dan jujur.</li><li>Dilarang membuka catatan, buku, atau aplikasi lain selama ujian.</li><li>Waktu ujian sesuai durasi yang tertera. Jawaban terkumpul otomatis saat waktu habis.</li><li>Periksa kembali jawaban sebelum menekan tombol Kumpulkan Jawaban.</li></ol></div>
+<label class="check"><input type="checkbox" id="setuju"> Saya sudah membaca tata tertib di atas dan akan mengerjakan ujian ini dengan jujur.</label>
+<div id="loginErr" class="err"></div>
+<p><button id="btnStart" class="btn-block">Login &rarr; Lanjut ke Konfirmasi Data</button></p>
+<p><button class="ghost" id="btnBackKatalog" type="button">&larr; Kembali ke Daftar Ujian</button></p>
+</section>
+
+<section class="card hidden" id="confirmCard">
+<div class="steps"><span>1 &middot; Pilih Ujian</span><span>2 &middot; Login Peserta</span><span class="on">3 &middot; Mengerjakan Soal</span></div>
+<h2 style="margin-top:10px">Konfirmasi Data Peserta</h2>
+<p class="small">Periksa kembali data di bawah ini. Pastikan nama, NIS, dan kelas sudah benar sebelum memulai ujian.</p>
+<table class="confirm-table">
+<tr><td>Nama Peserta</td><td id="confNama"></td></tr>
+<tr><td>NIS / No. Peserta</td><td id="confNis"></td></tr>
+<tr><td>Kelas</td><td id="confKelas"></td></tr>
+<tr><td>Ujian</td><td id="confUjian"></td></tr>
+<tr><td>Mata Pelajaran</td><td id="confMapel"></td></tr>
+<tr><td>Jumlah Soal</td><td id="confSoal"></td></tr>
+<tr><td>Waktu Ujian</td><td id="confDurasi"></td></tr>
+<tr><td>Token Ujian</td><td id="confToken"></td></tr>
+</table>
+<p><button id="btnConfirm" class="btn-block">Data Benar &mdash; Mulai Ujian</button></p>
+<p><button class="ghost" id="btnBack" type="button">Kembali &mdash; Ubah Data</button></p>
+</section>
+
+<section id="examCard" class="hidden">
+<div class="timer"><span id="timerLabel">Sisa waktu: --:--</span><span id="progressLabel">0 / 0 dijawab</span></div>
+<div class="nav no-print" id="navBox"></div>
+<div id="qBox"></div>
+<p class="no-print"><button id="btnSubmit">Kumpulkan Jawaban</button>
+<button class="ghost" id="btnReset" type="button">Ulangi dari Awal</button></p>
+</section>
+
+<section class="card hidden" id="confirmSubmitCard">
+<h2 style="margin-top:0" id="confirmSubmitTitle">Kumpulkan Jawaban?</h2>
+<p id="confirmSubmitText"></p>
+<p><button id="btnConfirmSubmit" class="btn-block">Ya, Kumpulkan Jawaban</button></p>
+<p><button class="ghost" id="btnCancelSubmit" type="button">Batal &mdash; Lanjut Mengerjakan</button></p>
+</section>
+
+<section class="card hidden" id="resultCard">
+<h2 style="margin-top:0">Hasil Ujian</h2>
+<p><strong id="resNama"></strong> &middot; <span id="resKelas"></span></p>
+<p class="small" id="resUjian"></p>
+<p class="score" id="resScore"></p>
+<p id="resDetail"></p>
+<p id="rekapStatus" class="small"></p>
+<p class="no-print hidden" id="rekapRetryWrap"><button class="ghost" id="btnKirimUlang" type="button">Coba Kirim Ulang ke Rekap Guru</button></p>
+<div id="resReview"></div>
+<p class="no-print"><button onclick="window.print()">Cetak / Simpan PDF</button>
+<button class="ghost" onclick="location.reload()">Ujian Baru</button></p>
+</section>
+
+<section class="card hidden" id="adminLoginCard">
+<h2 style="margin-top:0">Login Admin</h2>
+<p class="small">Khusus guru / pengawas. Masukkan kata sandi admin untuk memantau jalannya ujian.</p>
+<label for="adminPass">Kata Sandi Admin</label>
+<input type="password" id="adminPass" placeholder="Kata sandi admin" autocomplete="off">
+<p id="adminErr" class="small" style="color:#b00020"></p>
+<p><button id="btnAdminLogin" class="btn-block">Masuk Dashboard Admin</button></p>
+<p><button class="ghost" id="btnAdminBack" type="button">Kembali ke Daftar Ujian</button></p>
+</section>
+
+<section class="card hidden" id="adminCard">
+<h2 style="margin-top:0">Dashboard Admin &mdash; Pantau Ujian</h2>
+<p class="small">Data diperbarui otomatis tiap 30 detik. <span id="adminUpdated"></span></p>
+<p>
+<label for="adminUjian" style="display:inline">Ujian:</label>
+<select id="adminUjian" style="max-width:340px;display:inline-block"></select>
+<button class="ghost" id="btnAdminRefresh" type="button">Muat Ulang</button>
+<button class="ghost" id="btnCetakHasil" type="button">Cetak Hasil (PDF)</button>
+</p>
+<div class="info-grid" id="adminSummary"></div>
+<p>
+<input type="text" id="adminSearch" placeholder="Cari nama / NIS..." autocomplete="off" style="max-width:240px;display:inline-block">
+<select id="adminFilterKelas" style="max-width:150px;display:inline-block"><option value="">Semua Kelas</option></select>
+</p>
+<div style="overflow-x:auto"><table class="confirm-table" id="adminTable"></table></div>
+<div id="adminErr" class="err"></div>
+<h3>Persetujuan Ujian</h3>
+<p class="small">Ubah status ujian di Katalog. Hanya ujian berstatus <strong>Live</strong> yang tampil di daftar ujian siswa.</p>
+<div style="overflow-x:auto"><table class="confirm-table" id="approvalTable"></table></div>
+<p class="no-print"><button class="ghost" id="btnAdminLogout" type="button">Keluar Dashboard</button></p>
+</section>
+</div>
+<script>
+const REKAP_URL = "https://script.google.com/macros/s/AKfycbwJxErBadyvgt7sW7p861Qeb-LGEBES9yywHKooeS0HJgFS1g_1A-L7pN-LcONrd8in/exec"; // Web App Apps Script (v3 untuk platform; v2 masih dilayani sampai v3 dideploy)
+const ADMIN_PASS = "Admin1979";
+let QUIZ = [];
+let answers = [];
+let DUR = 120*60, left = DUR, timerId = null, startedAt = null;
+let katalog = [], currentUjian = null, examInfo = null, siswaDB = null, lastPayload = null;
+let statusTimerId = null, adminData = null, adminTimerId = null, backendV3 = false, adminUjianId = "";
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+// Mini-renderer LaTeX: \\frac{a}{b}, \\sqrt{x}, x^2, x_{1}, \\times \div \le \ge \ne \pm \cdot \rightarrow
+const SUPMAP={"0":"\u2070","1":"\u00b9","2":"\u00b2","3":"\u00b3","4":"\u2074","5":"\u2075","6":"\u2076","7":"\u2077","8":"\u2078","9":"\u2079","-":"\u207b","+":"\u207a"};
+const SUBMAP={"0":"\u2080","1":"\u2081","2":"\u2082","3":"\u2083","4":"\u2084","5":"\u2085","6":"\u2086","7":"\u2087","8":"\u2088","9":"\u2089","-":"\u208b","+":"\u208a"};
+function tex(s){
+  let i=0;
+  function parse(stop){
+    let out="";
+    while(i<s.length){
+      const c=s[i];
+      if(stop && c===stop){i++;return out;}
+      if(c==="\\"){
+        const m=s.slice(i+1).match(/^(frac|sqrt|times|div|ldots|rightarrow|ge|le|ne|pm|cdot|text)/);
+        if(m){
+          const cmd=m[1]; i+=1+cmd.length;
+          if(cmd==="frac"){const a=group(), b=group(); out+='<span class="frac"><span class="num">'+a+'</span><span class="den">'+b+'</span></span>';}
+          else if(cmd==="sqrt"){out+="\u221a<span class=\"rad\">"+group()+"</span>";}
+          else if(cmd==="text"){out+=esc(group());}
+          else out+=({times:"\u00d7",div:"\u00f7",ge:"\u2265",le:"\u2264",ne:"\u2260",pm:"\u00b1",cdot:"\u00b7",ldots:"\u2026",rightarrow:"\u2192"})[cmd];
+        } else { out+=esc("\\"); i++; }
+      } else if(c==="^"||c==="_"){
+        const tag=c==="^"?"sup":"sub"; i++;
+        let inner="";
+        if(s[i]==="{"){i++; inner=parse("}");}
+        else {
+          let j=i;
+          if(s[j]==="-"||s[j]==="+") j++;
+          if(j<s.length && /[0-9]/.test(s[j])){ while(j<s.length && /[0-9]/.test(s[j])) j++; }
+          else if(j<s.length && /[a-zA-Z]/.test(s[j])){ j++; }
+          inner=esc(s.slice(i,j)); i=j;
+        }
+        out+="<"+tag+">"+inner+"</"+tag+">";
+      } else if(c==="{"||c==="}"){
+        i++;
+      } else {
+        out+=esc(c); i++;
+      }
+    }
+    return out;
+  }
+  function group(){
+    if(s[i]==="{"){i++; return parse("}");}
+    return esc(s[i++]||"");
+  }
+  return parse(null);
+}
+function texPlain(s){
+  let i=0;
+  function parse(stop){
+    let out="";
+    while(i<s.length){
+      const c=s[i];
+      if(stop && c===stop){i++;return out;}
+      if(c==="\\"){
+        const m=s.slice(i+1).match(/^(frac|sqrt|times|div|ldots|rightarrow|ge|le|ne|pm|cdot|text)/);
+        if(m){
+          const cmd=m[1]; i+=1+cmd.length;
+          if(cmd==="frac"){out+=group()+"/"+group();}
+          else if(cmd==="sqrt"){out+="\u221a"+group();}
+          else if(cmd==="text"){out+=group();}
+          else out+=({times:"\u00d7",div:"\u00f7",ge:"\u2265",le:"\u2264",ne:"\u2260",pm:"\u00b1",cdot:"\u00b7",ldots:"\u2026",rightarrow:"\u2192"})[cmd];
+        } else { out+="\\"; i++; }
+      } else if(c==="^"||c==="_"){
+        const map=c==="^"?SUPMAP:SUBMAP; i++;
+        let inner="";
+        if(s[i]==="{"){i++; inner=parse("}");}
+        else {
+          let j=i;
+          if(s[j]==="-"||s[j]==="+") j++;
+          if(j<s.length && /[0-9]/.test(s[j])){ while(j<s.length && /[0-9]/.test(s[j])) j++; }
+          else if(j<s.length && /[a-zA-Z]/.test(s[j])){ j++; }
+          inner=s.slice(i,j); i=j;
+        }
+        out+=inner.split("").map(ch=>map[ch]||ch).join("");
+      } else if(c==="{"||c==="}"){
+        i++;
+      } else {
+        out+=c; i++;
+      }
+    }
+    return out;
+  }
+  function group(){
+    if(s[i]==="{"){i++; return parse("}");}
+    return s[i++]||"";
+  }
+  return esc(parse(null));
+}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+const TYPE_LABEL = {mc:"Pilihan Ganda", multi:"Pilihan Ganda Jamak", tf:"Benar / Salah", match:"Menjodohkan", fill:"Isian"};
+function isAnswered(i){
+  const it=QUIZ[i], a=answers[i];
+  if(it.t==="multi") return a.length>0;
+  if(it.t==="match") return a.every(v=>v!==null && v!=="");
+  if(it.t==="fill") return a!==null && String(a).trim()!=="";
+  return a!==null;
+}
+function normFill(s){return String(s).trim().replace(/\s/g,"").replace(",",".");}
+function isCorrect(i){
+  const it=QUIZ[i], a=answers[i];
+  if(!isAnswered(i)) return false;
+  if(it.t==="multi"){ if(a.length!==it.ans.length) return false; return it.ans.every(v=>a.includes(v)); }
+  if(it.t==="match"){ return it.ans.every((v,j)=>a[j]===v); }
+  if(it.t==="fill"){ return normFill(a)===normFill(it.ans); }
+  return a===it.ans;
+}
+function renderNav(){
+  $("navBox").innerHTML = QUIZ.map((_,i)=>`<button type="button" data-i="${i}" class="${isAnswered(i)?"done":""}">${i+1}</button>`).join("");
+  document.querySelectorAll("#navBox button").forEach(b=>b.onclick=()=>{document.getElementById("q"+b.dataset.i).scrollIntoView({behavior:"smooth",block:"center"});});
+  $("progressLabel").textContent = answers.filter((_,i)=>isAnswered(i)).length+" / "+QUIZ.length+" dijawab";
+}
+function renderQ(){
+  $("qBox").innerHTML = QUIZ.map((it,i)=>{
+    let body="";
+    if(it.t==="mc" || it.t==="tf"){
+      body = it.opts.map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}" ${answers[i]===j?"checked":""}> ${it.t==="mc"?"ABCD"[j]+". ":""}${tex(o)}</label>`).join("");
+    } else if(it.t==="multi"){
+      body = it.opts.map((o,j)=>`<label class="opt"><input type="checkbox" name="q${i}" value="${j}" ${answers[i].includes(j)?"checked":""}> ${"ABCD"[j]}. ${tex(o)}</label>`).join("");
+    } else if(it.t==="match"){
+      body = it.left.map((l,j)=>`<div class="matchrow"><span class="left">${tex(l)}</span><span>\u2192</span><select data-i="${i}" data-j="${j}"><option value="">-- pilih pasangan --</option>${it.rights.map((r,k)=>`<option value="${k}" ${answers[i][j]===k?"selected":""}>${texPlain(r)}</option>`).join("")}</select></div>`).join("");
+    } else if(it.t==="fill"){
+      body = `<input type="text" data-fill="${i}" value="${answers[i]===null?"":String(answers[i]).replace(/"/g,"&quot;")}" placeholder="Tulis jawabanmu di sini" autocomplete="off">`;
+    }
+    return `<div class="q" id="q${i}"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. ${tex(it.q)}</h3>${body}</div>`;
+  }).join("");
+  QUIZ.forEach((it,i)=>{
+    if(it.t==="mc" || it.t==="tf"){
+      document.querySelectorAll(`input[name=q${i}]`).forEach(r=>r.onchange=()=>{answers[i]=+r.value;renderNav();});
+    } else if(it.t==="multi"){
+      document.querySelectorAll(`input[name=q${i}]`).forEach(r=>r.onchange=()=>{
+        const v=+r.value;
+        if(r.checked){ if(!answers[i].includes(v)) answers[i].push(v); }
+        else { answers[i]=answers[i].filter(x=>x!==v); }
+        renderNav();
+      });
+    } else if(it.t==="match"){
+      document.querySelectorAll(`select[data-i="${i}"]`).forEach(s=>s.onchange=()=>{answers[i][+s.dataset.j]=s.value===""?null:+s.value;renderNav();});
+    } else if(it.t==="fill"){
+      const inp=document.querySelector(`input[data-fill="${i}"]`);
+      if(inp) inp.oninput=()=>{answers[i]=inp.value;renderNav();};
+    }
+  });
+}
+function fmtUser(it,a){
+  if(a===null || a===undefined) return "\u2014";
+  let s;
+  if(it.t==="mc" || it.t==="tf") s=it.opts[a];
+  else if(it.t==="multi") s=a.length? a.slice().sort().map(v=>it.opts[v]).join(", ") : "\u2014";
+  else if(it.t==="match") s=it.left.map((l,j)=>l+" \u2192 "+(a[j]===null?"\u2014":it.rights[a[j]])).join("; ");
+  else if(it.t==="fill") s=String(a).trim()===""?"\u2014":String(a);
+  else s="\u2014";
+  return tex(s);
+}
+function fmtKey(it){
+  let s;
+  if(it.t==="mc" || it.t==="tf") s=it.opts[it.ans];
+  else if(it.t==="multi") s=it.ans.map(v=>it.opts[v]).join(", ");
+  else if(it.t==="match") s=it.left.map((l,j)=>l+" \u2192 "+it.rights[it.ans[j]]).join("; ");
+  else if(it.t==="fill") s=it.ans;
+  else s="";
+  return tex(s);
+}
+function fmtAnswerCode(it,a){
+  if(a===null || a===undefined) return "-";
+  if(it.t==="mc") return "ABCD"[a];
+  if(it.t==="tf") return a===0?"Benar":"Salah";
+  if(it.t==="multi") return a.length? a.slice().sort().map(v=>"ABCD"[v]).join("") : "-";
+  if(it.t==="match") return a.map(v=>v===null?"-":"ABC"[v]).join("");
+  if(it.t==="fill") return String(a).trim()===""?"-":String(a).trim();
+  return "-";
+}
+
+// ---------- Navigasi antar-tampilan ----------
+const SECTIONS = ["catalogCard","loginCard","confirmCard","examCard","confirmSubmitCard","resultCard","adminLoginCard","adminCard"];
+function showSection(id){ SECTIONS.forEach(s=>$(s).classList.toggle("hidden", s!==id)); window.scrollTo({top:0,behavior:"smooth"}); }
+
+// ---------- Katalog ujian ----------
+async function muatKatalog(){
+  const box=$("katalogBox"), err=$("katalogErr");
+  box.innerHTML='<p class="small">Memuat daftar ujian...</p>'; err.textContent="";
+  try{
+    const r=await fetch(REKAP_URL+"?action=katalog");
+    const d=await r.json();
+    if(!d || !d.ok || !Array.isArray(d.ujian)) throw new Error("katalog tidak tersedia");
+    backendV3=true;
+    katalog=d.ujian;
+    renderKatalog();
+  }catch(e){
+    backendV3=false; katalog=[];
+    box.innerHTML="";
+    err.textContent="Daftar ujian tidak dapat dimuat. Backend CBT (Apps Script v3) belum aktif atau tidak dapat dihubungi. Periksa deployment Apps Script, lalu tekan Muat Ulang.";
+  }
+}
+function renderKatalog(){
+  const q=($("katSearch").value||"").toLowerCase();
+  const fj=$("katJenjang").value;
+  const list=katalog.filter(u=>{
+    if(fj && u.jenjang!==fj) return false;
+    if(q && !(String(u.nama).toLowerCase().includes(q)||String(u.mapel).toLowerCase().includes(q)||String(u.kelas).toLowerCase().includes(q))) return false;
+    return true;
+  });
+  const box=$("katalogBox");
+  if(!list.length){ box.innerHTML='<p class="small">Tidak ada ujian yang cocok. '+(katalog.length?'Coba ubah pencarian atau saringan.':'Belum ada ujian yang dibuka (Live).')+'</p>'; return; }
+  const order=["VII","VIII","IX"];
+  let html="";
+  order.forEach(j=>{
+    const items=list.filter(u=>u.jenjang===j);
+    if(!items.length) return;
+    html+=`<h3 class="jenjang-title">Kelas ${j}</h3><div class="exam-grid">`+
+      items.map(u=>`<button type="button" class="exam-card" data-id="${esc(u.id)}"><span class="badge badge-live">Live</span><h3>${esc(u.nama)}</h3><p class="meta"><strong>${esc(u.mapel)}</strong> &middot; Kelas ${esc(u.kelas)}</p><p class="meta">Durasi: ${u.durasi} menit</p></button>`).join("")+`</div>`;
+  });
+  box.innerHTML=html;
+  box.querySelectorAll(".exam-card").forEach(b=>b.onclick=()=>pilihUjian(b.dataset.id));
+}
+function pilihUjian(id){
+  const u=katalog.find(x=>x.id===id);
+  if(!u) return;
+  currentUjian=u;
+  $("loginExamInfo").innerHTML=`<div class="info-grid"><div class="info-item"><b>Ujian</b><span>${esc(u.nama)}</span></div><div class="info-item"><b>Mata Pelajaran</b><span>${esc(u.mapel)}</span></div><div class="info-item"><b>Kelas</b><span>${esc(u.kelas)}</span></div><div class="info-item"><b>Waktu</b><span>${u.durasi} menit</span></div></div>`;
+  $("loginToken").textContent=u.token;
+  $("loginErr").textContent="";
+  showSection("loginCard");
+}
+$("katSearch").oninput=()=>renderKatalog();
+$("katJenjang").onchange=()=>renderKatalog();
+$("btnKatRefresh").onclick=()=>muatKatalog();
+$("btnBackKatalog").onclick=()=>showSection("catalogCard");
+
+// ---------- Login siswa (NIS + token, tanpa tanggal lahir) ----------
+$("btnStart").onclick=async()=>{
+  const nis=$("nis").value.trim();
+  const token=$("token").value.trim().toUpperCase().replace(/[\s-]/g,"");
+  const err=$("loginErr");
+  err.textContent="";
+  if(!currentUjian){err.textContent="Pilih ujian dulu dari daftar ujian.";return;}
+  if(!nis){err.textContent="Isi NIS / No. Peserta dulu.";$("nis").focus();return;}
+  if(!token){err.textContent="Isi Token Ujian dulu.";$("token").focus();return;}
+  if(token!==String(currentUjian.token).toUpperCase().replace(/[\s-]/g,"")){err.textContent="Token ujian salah. Periksa token pada kotak Token Ujian di atas.";$("token").focus();return;}
+  if(!$("setuju").checked){err.textContent="Centang dulu pernyataan bahwa kamu akan mengerjakan ujian ini dengan jujur.";return;}
+  err.textContent="Memeriksa NIS ke database ujian...";
+  let db=null;
+  try{
+    const r=await fetch(REKAP_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"login",nis:nis})});
+    db=await r.json();
+  }catch(e){ db=null; }
+  if(db && db.ok){
+    siswaDB={nama:db.nama,kelas:db.kelas};
+    err.textContent="Memuat soal ujian...";
+    const ok=await muatSoal();
+    if(ok){ err.textContent=""; tampilKonfirmasi(db.nama,nis,db.kelas); }
+  } else if(db && !db.ok){
+    err.textContent=db.error||"Login gagal. Periksa NIS kamu.";
+  } else {
+    err.textContent="Database ujian tidak dapat dihubungi. Periksa internet lalu coba lagi.";
+  }
+};
+async function muatSoal(){
+  try{
+    const r=await fetch(REKAP_URL+"?action=soal&ujian="+encodeURIComponent(currentUjian.id)+"&token="+encodeURIComponent(currentUjian.token));
+    const d=await r.json();
+    if(!d || !d.ok || !Array.isArray(d.soal)) throw new Error((d&&d.error)||"Soal tidak dapat dimuat.");
+    QUIZ=d.soal;
+    answers=QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);
+    DUR=(Number(d.info&&d.info.durasi)||currentUjian.durasi||120)*60;
+    left=DUR;
+    examInfo=d.info||{nama:currentUjian.nama,mapel:currentUjian.mapel,kelas:currentUjian.kelas,durasi:currentUjian.durasi};
+    return true;
+  }catch(e){
+    $("loginErr").textContent="Soal ujian tidak dapat dimuat: "+(e.message||"periksa internet lalu coba lagi.");
+    return false;
+  }
+}
+function tampilKonfirmasi(nama,nis,kelas){
+  $("confNama").textContent=nama;
+  $("confNis").textContent=nis;
+  $("confKelas").textContent=kelas;
+  $("confUjian").textContent=examInfo.nama;
+  $("confMapel").textContent=examInfo.mapel+" \u00b7 Kelas "+examInfo.kelas;
+  $("confSoal").textContent=QUIZ.length+" soal";
+  $("confDurasi").textContent=Math.round(DUR/60)+" menit";
+  $("confToken").textContent=currentUjian.token;
+  showSection("confirmCard");
+}
+$("btnBack").onclick=()=>showSection("loginCard");
+
+// ---------- Ruang ujian ----------
+$("btnConfirm").onclick=()=>{
+  showSection("examCard");
+  startedAt=new Date(); renderQ(); renderNav();
+  $("timerLabel").textContent="Sisa waktu: "+fmt(Math.max(left,0));
+  kirimStatus();
+  statusTimerId=setInterval(kirimStatus,30000);
+  timerId=setInterval(()=>{left--; $("timerLabel").textContent="Sisa waktu: "+fmt(Math.max(left,0));
+    if(left<=0){clearInterval(timerId); submit(true);}},1000);
+};
+function kirimStatus(){
+  if(!REKAP_URL||!siswaDB||!currentUjian) return;
+  const dijawab=answers.filter((_,i)=>isAnswered(i)).length;
+  fetch(REKAP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"status",nis:$("nis").value.trim(),nama:siswaDB.nama,kelas:siswaDB.kelas,status:"mengerjakan",dijawab:dijawab,sisa:Math.max(left,0),ujian:currentUjian.id})}).catch(()=>{});
+}
+function peserta(){ return {nama: siswaDB ? siswaDB.nama : "", kelas: siswaDB ? siswaDB.kelas : "", nis: $("nis").value.trim()}; }
+async function kirimRekap(){
+  const st=$("rekapStatus");
+  if(!REKAP_URL){ st.textContent="Rekap guru belum diaktifkan untuk ujian ini."; return; }
+  st.textContent="Mengirim hasil ke rekap guru\u2026";
+  try{
+    await fetch(REKAP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(lastPayload)});
+    st.textContent="\u2713 Hasil sudah terkirim ke rekap guru.";
+    $("rekapRetryWrap").classList.add("hidden");
+  }catch(e){
+    st.textContent="\u26a0 Hasil belum terkirim ke rekap guru (internet bermasalah). Nilai tetap tersimpan di perangkat ini \u2014 tekan tombol di bawah untuk mencoba kirim ulang.";
+    $("rekapRetryWrap").classList.remove("hidden");
+  }
+}
+$("btnKirimUlang").onclick=()=>{kirimRekap();};
+function submit(auto){
+  clearInterval(timerId);
+  if(statusTimerId) clearInterval(statusTimerId);
+  let correct=0; QUIZ.forEach((_,i)=>{if(isCorrect(i))correct++;});
+  const score=QUIZ.length?Math.round(correct/QUIZ.length*100):0;
+  const mins=startedAt?Math.round((new Date()-startedAt)/60000):0;
+  const ps=peserta();
+  $("resNama").textContent=ps.nama;
+  $("resKelas").textContent="Kelas "+ps.kelas+" \u00b7 NIS "+ps.nis;
+  $("resUjian").textContent=examInfo?examInfo.nama:"";
+  $("resScore").textContent=score+"  ("+correct+" benar dari "+QUIZ.length+" soal)";
+  $("resDetail").textContent=(auto?"Waktu habis \u2014 jawaban dikumpulkan otomatis. ":"")+"Waktu pengerjaan: \u00b1"+mins+" menit. Tanggal: "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+".";
+  $("resReview").innerHTML=QUIZ.map((it,i)=>{
+    const ok=isCorrect(i);
+    return `<div class="q"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. <span class="${ok?"correct":"wrong"}">${ok?"Benar":"Salah"}</span>${!isAnswered(i)?" (tidak dijawab)":""}</h3>
+    <p>Jawabanmu: <strong>${fmtUser(it,answers[i])}</strong><br>Kunci: <strong>${fmtKey(it)}</strong></p>
+    <div class="why">${tex(it.why)}</div></div>`;}).join("");
+  try{localStorage.setItem("cbt-platform-terakhir",JSON.stringify({ujian:currentUjian.id,nama:ps.nama,kelas:ps.kelas,skor:score,benar:correct,tanggal:new Date().toISOString()}));}catch(e){}
+  lastPayload={waktu:new Date().toISOString(),nama:ps.nama,nis:ps.nis,kelas:ps.kelas,tglLahir:"",skor:score,benar:correct,jawaban:QUIZ.map((it,i)=>fmtAnswerCode(it,answers[i])).join("; "),durasi:mins,ujian:currentUjian.id};
+  kirimRekap();
+  showSection("resultCard");
+}
+let pendingAction=null;
+function showConfirm(title,text,btnLabel,action){
+  $("confirmSubmitTitle").textContent=title;
+  $("confirmSubmitText").textContent=text;
+  $("btnConfirmSubmit").textContent=btnLabel;
+  pendingAction=action;
+  $("examCard").classList.add("hidden");
+  $("confirmSubmitCard").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("btnCancelSubmit").onclick=()=>{$("confirmSubmitCard").classList.add("hidden");$("examCard").classList.remove("hidden");pendingAction=null;};
+$("btnConfirmSubmit").onclick=()=>{
+  const a=pendingAction; pendingAction=null;
+  $("confirmSubmitCard").classList.add("hidden");
+  if(a==="submit"){ submit(false); }
+  else if(a==="reset"){
+    answers=QUIZ.map(it => it.t==="multi" ? [] : it.t==="match" ? Array(it.left.length).fill(null) : null);
+    left=DUR; renderQ(); renderNav(); $("timerLabel").textContent="Sisa waktu: "+fmt(left);
+    $("examCard").classList.remove("hidden");
+  }
+};
+$("btnSubmit").onclick=()=>{
+  const un=QUIZ.filter((_,i)=>!isAnswered(i)).length;
+  if(un>0) showConfirm("Kumpulkan Jawaban?","Masih ada "+un+" soal belum dijawab. Soal yang tidak dijawab dihitung salah.","Ya, Tetap Kumpulkan","submit");
+  else showConfirm("Kumpulkan Jawaban?","Semua "+QUIZ.length+" soal sudah dijawab. Periksa kembali sebelum mengumpulkan.","Ya, Kumpulkan Jawaban","submit");
+};
+$("btnReset").onclick=()=>{showConfirm("Ulangi dari Awal?","Semua jawaban akan dihapus dan ujian dimulai lagi dari awal.","Ya, Hapus Semua Jawaban","reset");};
+
+// ---------- Admin ----------
+$("linkAdmin").onclick=(e)=>{e.preventDefault();showSection("adminLoginCard");};
+$("btnAdminBack").onclick=()=>showSection("catalogCard");
+$("btnAdminLogin").onclick=()=>{
+  if($("adminPass").value!==ADMIN_PASS){$("adminErr").textContent="Kata sandi admin salah.";$("adminPass").focus();return;}
+  $("adminErr").textContent="";
+  showSection("adminCard");
+  isiPilihUjianAdmin();
+  muatAdmin(); adminTimerId=setInterval(muatAdmin,30000);
+};
+$("btnAdminLogout").onclick=()=>{if(adminTimerId)clearInterval(adminTimerId);showSection("catalogCard");};
+$("btnAdminRefresh").onclick=()=>muatAdmin();
+$("btnCetakHasil").onclick=()=>cetakHasil();
+$("adminUjian").onchange=()=>{adminUjianId=$("adminUjian").value;muatAdmin();};
+$("adminSearch").oninput=()=>renderAdminTable();
+$("adminFilterKelas").onchange=()=>renderAdminTable();
+function isiPilihUjianAdmin(){
+  const sel=$("adminUjian");
+  const sumber=(adminData&&adminData.katalog&&adminData.katalog.length?adminData.katalog.map(r=>({id:String(r[0]),nama:String(r[1])})):katalog.map(u=>({id:u.id,nama:u.nama})));
+  sel.innerHTML=sumber.map(u=>`<option value="${esc(u.id)}">${esc(u.id)} \u2014 ${esc(u.nama)}</option>`).join("");
+  if(!adminUjianId || !sumber.some(u=>u.id===adminUjianId)) adminUjianId=sumber.length?sumber[0].id:"";
+  sel.value=adminUjianId;
+}
+async function muatAdmin(){
+  const upd=$("adminUpdated"), err=$("adminErr");
+  try{
+    const url=REKAP_URL+"?action=data"+(adminUjianId?("&ujian="+encodeURIComponent(adminUjianId)):"");
+    const r=await fetch(url);
+    const d=await r.json();
+    if(!d||!d.ok) throw new Error("data tidak tersedia");
+    adminData=d; renderAdminTable(); renderApproval(); isiPilihUjianAdmin();
+    upd.textContent="Terakhir diperbarui: "+new Date().toLocaleTimeString("id-ID");
+    err.textContent="";
+  }catch(e){
+    upd.textContent="Gagal memuat data \u2014 periksa internet lalu tekan Muat Ulang.";
+  }
+}
+function renderAdminTable(){
+  if(!adminData) return;
+  const hasilByNis={}, statusByNis={};
+  adminData.hasil.forEach(row=>{hasilByNis[row[2]]=row;});
+  adminData.status.forEach(row=>{statusByNis[row[0]]=row;});
+  let total=adminData.siswa.length, sedang=0, selesai=0, belum=0;
+  adminData.siswa.forEach(r=>{ if(hasilByNis[r[0]]) selesai++; else if(statusByNis[r[0]]) sedang++; else belum++; });
+  $("adminSummary").innerHTML=
+    `<div class="info-item"><b>Total Siswa</b><span>${total}</span></div>`+
+    `<div class="info-item"><b>Sedang Mengerjakan</b><span>${sedang}</span></div>`+
+    `<div class="info-item"><b>Sudah Mengumpulkan</b><span>${selesai}</span></div>`+
+    `<div class="info-item"><b>Belum Mulai</b><span>${belum}</span></div>`;
+  const sel=$("adminFilterKelas");
+  if(sel.options.length<=1){
+    [...new Set(adminData.siswa.map(r=>r[2]))].sort().forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k;sel.appendChild(o);});
+  }
+  const q=($("adminSearch").value||"").toLowerCase();
+  const fk=sel.value;
+  const rows=adminData.siswa.filter(r=>{
+    if(fk && r[2]!==fk) return false;
+    if(q && !(String(r[1]).toLowerCase().includes(q)||String(r[0]).toLowerCase().includes(q))) return false;
+    return true;
+  }).map(r=>{
+    const nis=r[0], nama=r[1], kelas=r[2];
+    const st=statusByNis[nis], hs=hasilByNis[nis];
+    let status="Belum mulai", dijawab="-", sisa="-", skor="-", aktif="-";
+    if(hs){status="Sudah mengumpulkan"; skor=hs[5]+" ("+hs[6]+" benar)"; dijawab=st?st[4]:"\u2014"; sisa="0:00"; aktif=hs[0];}
+    else if(st){status="Sedang mengerjakan"; dijawab=st[4]; sisa=fmt(+st[5]||0); aktif=st[6];}
+    return `<tr><td>${esc(nama)}</td><td>${esc(nis)}</td><td>${esc(kelas)}</td><td>${status}</td><td>${dijawab}</td><td>${sisa}</td><td>${skor}</td><td>${esc(aktif)}</td></tr>`;
+  });
+  $("adminTable").innerHTML=`<tr><td><strong>Nama</strong></td><td><strong>NIS</strong></td><td><strong>Kelas</strong></td><td><strong>Status</strong></td><td><strong>Dijawab</strong></td><td><strong>Sisa Waktu</strong></td><td><strong>Skor</strong></td><td><strong>Terakhir Aktif</strong></td></tr>`+rows.join("");
+}
+function renderApproval(){
+  const box=$("approvalTable");
+  if(!adminData || !adminData.katalog || !adminData.katalog.length){
+    box.innerHTML="<tr><td>Belum ada data Katalog. (Membutuhkan Apps Script v3.)</td></tr>";
+    return;
+  }
+  const rows=adminData.katalog.map(r=>{
+    const id=String(r[0]), nama=String(r[1]), mapel=String(r[2]), jenjang=String(r[3]), kelas=String(r[4]), durasi=String(r[5]), status=String(r[8]||"Draft");
+    const btn=s=>`<button type="button" class="ghost" style="padding:6px 10px;margin:2px" data-id="${esc(id)}" data-status="${s}" ${s===status?"disabled":""}>${s}</button>`;
+    return `<tr><td><strong>${esc(id)}</strong></td><td>${esc(nama)}</td><td>${esc(mapel)}</td><td>${esc(jenjang)}</td><td>${esc(kelas)}</td><td>${esc(durasi)} mnt</td><td><span class="badge ${status==="Live"?"badge-live":""}">${esc(status)}</span></td><td>${btn("Draft")}${btn("Disetujui")}${btn("Live")}</td></tr>`;
+  }).join("");
+  box.innerHTML=`<tr><td><strong>ID</strong></td><td><strong>Nama Ujian</strong></td><td><strong>Mapel</strong></td><td><strong>Jenjang</strong></td><td><strong>Kelas</strong></td><td><strong>Durasi</strong></td><td><strong>Status</strong></td><td><strong>Ubah Status</strong></td></tr>`+rows;
+  box.querySelectorAll("button[data-id]").forEach(b=>b.onclick=()=>setujuiUjian(b.dataset.id,b.dataset.status));
+}
+async function setujuiUjian(id,status){
+  const err=$("adminErr");
+  if(!backendV3){ err.textContent="Fitur persetujuan membutuhkan Apps Script v3 yang belum dideploy. Periksa deployment, lalu muat ulang."; return; }
+  err.textContent="Mengubah status "+id+" menjadi "+status+"...";
+  try{
+    const r=await fetch(REKAP_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"setujui",id:id,status:status})});
+    const d=await r.json();
+    if(d&&d.ok){ err.textContent=""; await muatAdmin(); await muatKatalog(); }
+    else err.textContent=(d&&d.error)||"Gagal mengubah status.";
+  }catch(e){ err.textContent="Tidak dapat menghubungi backend. Periksa internet lalu coba lagi."; }
+}
+async function cetakHasil(){
+  const w=window.open("","_blank");
+  if(!w){$("adminErr").textContent="Jendela cetak diblokir browser. Izinkan pop-up untuk situs ini lalu coba lagi.";return;}
+  w.document.write("<p style='font-family:sans-serif'>Memuat data hasil ujian...</p>"); w.document.close();
+  await muatAdmin();
+  if(!adminData){ w.document.open(); w.document.write("<p style='font-family:sans-serif'>Gagal memuat data hasil. Periksa internet lalu coba lagi.</p>"); w.document.close(); return; }
+  const hasilByNis={}, statusByNis={};
+  adminData.hasil.forEach(row=>{hasilByNis[row[2]]=row;});
+  adminData.status.forEach(row=>{statusByNis[row[0]]=row;});
+  let total=adminData.siswa.length, sedang=0, selesai=0, belum=0;
+  adminData.siswa.forEach(r=>{ if(hasilByNis[r[0]]) selesai++; else if(statusByNis[r[0]]) sedang++; else belum++; });
+  const q=($("adminSearch").value||"").trim();
+  const fk=$("adminFilterKelas").value;
+  const list=adminData.siswa.filter(r=>{
+    if(fk && r[2]!==fk) return false;
+    if(q && !(String(r[1]).toLowerCase().includes(q.toLowerCase())||String(r[0]).includes(q))) return false;
+    return true;
+  });
+  const rows=list.map((r,i)=>{
+    const nis=r[0], nama=r[1], kelas=r[2];
+    const st=statusByNis[nis], hs=hasilByNis[nis];
+    let status="Belum mulai", dijawab="-", skor="-";
+    if(hs){status="Sudah mengumpulkan"; skor=hs[5]+" ("+hs[6]+" benar)"; dijawab=st?st[4]:"\u2014";}
+    else if(st){status="Sedang mengerjakan"; dijawab=st[4];}
+    return `<tr><td>${i+1}</td><td>${esc(nis)}</td><td>${esc(nama)}</td><td>${esc(kelas)}</td><td>${status}</td><td>${dijawab}</td><td>${skor}</td></tr>`;
+  }).join("");
+  const katRow=(adminData.katalog||[]).find(r=>String(r[0])===adminUjianId);
+  const examNama=katRow?String(katRow[1]):(adminUjianId||"Semua Ujian");
+  const tgl=new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+  const filterTxt=(fk||q)?("Filter: "+(fk?("Kelas "+esc(fk)):"")+((fk&&q)?" \u00b7 ":"")+(q?("Pencarian \u201c"+esc(q)+"\u201d"):"")):"Semua siswa";
+  const html=`<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><title>Rekap Hasil CBT \u2014 ${esc(examNama)}</title><style>
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:16px}
+  h1{font-size:18px;margin:0 0 2px} h2{font-size:14px;margin:0 0 2px;font-weight:normal} p{margin:2px 0 10px;font-size:12px;color:#444}
+  .ringkasan{font-size:13px;margin:8px 0 12px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th,td{border:1px solid #999;padding:5px 7px;text-align:left}
+  th{background:#eaf2ff} tr:nth-child(even) td{background:#f7f7f7}
+  .tombol{margin:0 0 14px}
+  @page{size:A4 landscape;margin:12mm}
+  @media print{.no-print{display:none!important} body{margin:0}}
+  </style></head><body>
+  <div class="no-print tombol"><button onclick="window.print()" style="padding:8px 16px;font-size:14px">Cetak / Simpan sebagai PDF</button> <span style="font-size:12px;color:#555">Pada dialog cetak, pilih tujuan \u201cSave as PDF\u201d.</span></div>
+  <h1>Rekap Hasil CBT \u2014 SMPN 1 Terusan Nunyai</h1>
+  <h2>${esc(examNama)}</h2>
+  <p>Dicetak: ${tgl} &middot; ${filterTxt} &middot; Dikembangkan oleh Hardiansyah, S.Pd</p>
+  <div class="ringkasan">Total siswa: <b>${total}</b> &middot; Sudah mengumpulkan: <b>${selesai}</b> &middot; Sedang mengerjakan: <b>${sedang}</b> &middot; Belum mulai: <b>${belum}</b></div>
+  <table><thead><tr><th>No</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Dijawab</th><th>Skor (0\u2013100)</th></tr></thead><tbody>${rows}</tbody></table>
+  </body></html>`;
+  w.document.open(); w.document.write(html); w.document.close(); w.focus();
+  setTimeout(()=>{try{w.print();}catch(e){}},600);
+}
+
+// ---------- Muat awal ----------
+muatKatalog();
+</script>
+</body>
+</html>
