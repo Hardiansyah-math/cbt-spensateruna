@@ -326,15 +326,11 @@ footer{margin-top:36px;border-top:1px solid var(--line);padding:18px 0 30px;colo
       <!-- Login -->
       <div class="card card-pad">
         <h3>Login Siswa</h3>
-        <p class="sub">Gunakan NIS, tanggal lahir, dan token ujian dari gurumu.</p>
+        <p class="sub">Gunakan NIS dan token ujian dari gurumu.</p>
         <form id="loginForm" novalidate>
           <div class="field">
             <label for="nis">NIS (4 digit)</label>
             <input id="nis" inputmode="numeric" maxlength="4" placeholder="Contoh: 0001" autocomplete="off">
-          </div>
-          <div class="field">
-            <label for="tgl">Tanggal Lahir</label>
-            <input id="tgl" type="date">
           </div>
           <div class="field">
             <label for="token">Token Ujian</label>
@@ -344,7 +340,7 @@ footer{margin-top:36px;border-top:1px solid var(--line);padding:18px 0 30px;colo
         </form>
         <div class="login-ok" id="loginOk"></div>
         <div class="login-err" id="loginErr">NIS tidak ditemukan dalam database ujian. Periksa kembali NIS-mu, atau tanyakan kepada guru pengawas.</div>
-        <div class="hint">Untuk mencoba pratinjau ini: isi NIS contoh <b>0001</b>, tanggal lahir bebas, token contoh <b>DEMO2026</b>. Ini akun fiktif khusus pratinjau — NIS dan token asli siswa tidak ditampilkan di halaman ini. NIS lain akan ditolak, sama seperti CBT yang asli.</div>
+        <div class="hint">Untuk mencoba pratinjau ini: isi NIS contoh <b>0001</b> dan token contoh <b>DEMO2026</b>. Ini akun fiktif khusus pratinjau — NIS dan token asli siswa tidak ditampilkan di halaman ini. NIS lain akan ditolak, sama seperti CBT yang asli.</div>
         <div class="divider">ATAU</div>
         <a class="link-admin" href="#" id="goAdmin">Login Admin (Guru) →</a>
       </div>
