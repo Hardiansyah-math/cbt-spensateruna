@@ -65,6 +65,7 @@ button:hover{background:var(--blue)}button.ghost{background:#fff;color:var(--blu
 .rad{border-top:1.5px solid currentColor;padding:0 1px}
 sup,sub{font-size:.78em;line-height:0}
 @media print{.no-print{display:none}}
+.fig{margin:12px 0}.fig svg{max-width:100%;height:auto;display:block}.fig figcaption{font-size:.85rem;color:#43586e;text-align:center;margin-top:4px}
 .exam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:12px 0}
 .exam-card{text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;font-family:inherit;color:var(--ink)}
 .exam-card:hover{border-color:var(--blue2);box-shadow:0 2px 8px rgba(0,78,158,.15)}
@@ -156,16 +157,18 @@ sup,sub{font-size:.78em;line-height:0}
 </section>
 
 <section class="card hidden" id="resultCard">
-<h2 style="margin-top:0">Hasil Ujian</h2>
+<h2 style="margin-top:0" id="resTitle">Hasil Ujian</h2>
 <p><strong id="resNama"></strong> &middot; <span id="resKelas"></span></p>
 <p class="small" id="resUjian"></p>
 <p class="score" id="resScore"></p>
 <p id="resDetail"></p>
+<p class="small hidden" id="resNoScore">Nilai akan diumumkan oleh gurumu. Jangan membagikan jawabanmu kepada teman yang belum ujian.</p>
 <p id="rekapStatus" class="small"></p>
 <p class="no-print hidden" id="rekapRetryWrap"><button class="ghost" id="btnKirimUlang" type="button">Coba Kirim Ulang ke Rekap Guru</button></p>
 <div id="resReview"></div>
-<p class="no-print"><button onclick="window.print()">Cetak / Simpan PDF</button>
+<p class="no-print" id="resButtons"><button onclick="window.print()">Cetak / Simpan PDF</button>
 <button class="ghost" onclick="location.reload()">Ujian Baru</button></p>
+<p class="no-print hidden" id="resDoneWrap"><button class="ghost" onclick="location.reload()">Selesai</button></p>
 </section>
 
 <section class="card hidden" id="adminLoginCard">
@@ -303,6 +306,7 @@ function texPlain(s){
 }
 function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 const TYPE_LABEL = {mc:"Pilihan Ganda", multi:"Pilihan Ganda Jamak", tf:"Benar / Salah", match:"Menjodohkan", fill:"Isian"};
+const FIGS={G1:`<figure class="fig"><svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Garis waktu pergerakan kebangsaan"><line x1="40" y1="85" x2="600" y2="85" stroke="#0f4c9c" stroke-width="3"/><circle cx="90" cy="85" r="10" fill="#0f4c9c"/><circle cx="250" cy="85" r="10" fill="#0f4c9c"/><circle cx="410" cy="85" r="14" fill="#fff" stroke="#d9a400" stroke-width="4"/><circle cx="570" cy="85" r="10" fill="#0f4c9c"/><text x="90" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#17222e">20 Mei 1908</text><text x="90" y="120" text-anchor="middle" font-size="12" fill="#17222e">Budi Utomo</text><text x="250" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#17222e">28 Okt 1928</text><text x="250" y="120" text-anchor="middle" font-size="12" fill="#17222e">Sumpah Pemuda</text><text x="410" y="55" text-anchor="middle" font-size="16" font-weight="800" fill="#b00020">?</text><text x="410" y="120" text-anchor="middle" font-size="12" fill="#17222e">(peristiwa ?)</text><text x="570" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#17222e">17 Agu 1945</text><text x="570" y="120" text-anchor="middle" font-size="12" fill="#17222e">Proklamasi</text><text x="570" y="136" text-anchor="middle" font-size="12" fill="#17222e">Kemerdekaan</text></svg><figcaption>Gambar 1. Garis waktu pergerakan kebangsaan menuju kemerdekaan.</figcaption></figure>`,G2:`<figure class="fig"><svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram kontribusi PDB menurut pulau"><text x="10" y="18" font-size="14" font-weight="700" fill="#0f4c9c">Kontribusi PDB menurut Pulau (data ilustrasi, %)</text><text x="10" y="59" font-size="12" fill="#17222e">Jawa</text><rect x="150" y="44" width="262.2" height="16" rx="3" fill="#0f4c9c"/><text x="420.2" y="59" font-size="12" font-weight="700" fill="#17222e">57%</text><text x="10" y="94" font-size="12" fill="#17222e">Sumatera</text><rect x="150" y="79" width="101.19999999999999" height="16" rx="3" fill="#2f7fe0"/><text x="259.2" y="94" font-size="12" font-weight="700" fill="#17222e">22%</text><text x="10" y="129" font-size="12" fill="#17222e">Kalimantan</text><rect x="150" y="114" width="36.8" height="16" rx="3" fill="#7fb3ec"/><text x="194.8" y="129" font-size="12" font-weight="700" fill="#17222e">8%</text><text x="10" y="164" font-size="12" fill="#17222e">Sulawesi</text><rect x="150" y="149" width="32.199999999999996" height="16" rx="3" fill="#7fb3ec"/><text x="190.2" y="164" font-size="12" font-weight="700" fill="#17222e">7%</text><text x="10" y="199" font-size="12" fill="#17222e">Bali–Nusa Tenggara</text><rect x="150" y="184" width="13.799999999999999" height="16" rx="3" fill="#bcd6f5"/><text x="171.8" y="199" font-size="12" font-weight="700" fill="#17222e">3%</text><text x="10" y="234" font-size="12" fill="#17222e">Maluku–Papua</text><rect x="150" y="219" width="13.799999999999999" height="16" rx="3" fill="#bcd6f5"/><text x="171.8" y="234" font-size="12" font-weight="700" fill="#17222e">3%</text></svg><figcaption>Gambar 2. Kontribusi PDB menurut pulau. Data ilustrasi yang dibulatkan agar mudah dibaca.</figcaption></figure>`,G3:`<figure class="fig"><svg viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alur peran lembaga keuangan"><rect x="10" y="35" width="130" height="50" rx="8" fill="#eaf2ff" stroke="#0f4c9c" stroke-width="2"/><text x="75" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#17222e">Masyarakat</text><text x="75" y="72" text-anchor="middle" font-size="12" fill="#17222e">menabung</text><text x="152" y="63" font-size="18" fill="#0f4c9c">→</text><rect x="175" y="35" width="140" height="50" rx="8" fill="#eaf2ff" stroke="#0f4c9c" stroke-width="2"/><text x="245" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#17222e">Lembaga Keuangan</text><text x="245" y="72" text-anchor="middle" font-size="12" fill="#17222e">(Bank)</text><text x="327" y="63" font-size="18" fill="#0f4c9c">→</text><rect x="350" y="35" width="120" height="50" rx="8" fill="#eaf2ff" stroke="#0f4c9c" stroke-width="2"/><text x="410" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#17222e">Modal Usaha</text><text x="410" y="72" text-anchor="middle" font-size="12" fill="#17222e">disalurkan</text><text x="482" y="63" font-size="18" fill="#0f4c9c">→</text><rect x="505" y="35" width="125" height="50" rx="8" fill="#e6f4ea" stroke="#0a6b2e" stroke-width="2"/><text x="567" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#0a6b2e">Lapangan Kerja</text><text x="567" y="72" text-anchor="middle" font-size="12" fill="#0a6b2e">terbuka</text></svg><figcaption>Gambar 3. Peran lembaga keuangan bagi kesejahteraan masyarakat.</figcaption></figure>`};
 function isAnswered(i){
   const it=QUIZ[i], a=answers[i];
   if(it.t==="multi") return a.length>0;
@@ -310,7 +314,7 @@ function isAnswered(i){
   if(it.t==="fill") return a!==null && String(a).trim()!=="";
   return a!==null;
 }
-function normFill(s){return String(s).trim().replace(/\s/g,"").replace(",",".");}
+function normFill(s){return String(s).trim().toLowerCase().replace(/\s/g,"").replace(",",".");}
 function isCorrect(i){
   const it=QUIZ[i], a=answers[i];
   if(!isAnswered(i)) return false;
@@ -336,7 +340,7 @@ function renderQ(){
     } else if(it.t==="fill"){
       body = `<input type="text" data-fill="${i}" value="${answers[i]===null?"":String(answers[i]).replace(/"/g,"&quot;")}" placeholder="Tulis jawabanmu di sini" autocomplete="off">`;
     }
-    return `<div class="q" id="q${i}"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. ${tex(it.q)}</h3>${body}</div>`;
+    return `<div class="q" id="q${i}"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. ${tex(it.q)}</h3>${it.fig&&FIGS[it.fig]?FIGS[it.fig]:""}${body}</div>`;
   }).join("");
   QUIZ.forEach((it,i)=>{
     if(it.t==="mc" || it.t==="tf"){
@@ -380,7 +384,7 @@ function fmtAnswerCode(it,a){
   if(it.t==="mc") return "ABCD"[a];
   if(it.t==="tf") return a===0?"Benar":"Salah";
   if(it.t==="multi") return a.length? a.slice().sort().map(v=>"ABCD"[v]).join("") : "-";
-  if(it.t==="match") return a.map(v=>v===null?"-":"ABC"[v]).join("");
+  if(it.t==="match") return a.map(v=>v===null?"-":"ABCDEFGHIJKLMNOPQRSTUVWXYZ"[v]).join("");
   if(it.t==="fill") return String(a).trim()===""?"-":String(a).trim();
   return "-";
 }
@@ -403,7 +407,7 @@ async function muatKatalog(){
   }catch(e){
     backendV3=false; katalog=[];
     box.innerHTML="";
-    err.textContent="Daftar ujian tidak dapat dimuat. Backend CBT (Apps Script v3) belum aktif atau tidak dapat dihubungi. Periksa deployment Apps Script, lalu tekan Muat Ulang.";
+    err.textContent="Daftar ujian tidak dapat dimuat. Backend CBT (Apps Script v4) belum aktif atau tidak dapat dihubungi. Periksa deployment Apps Script, lalu tekan Muat Ulang.";
   }
 }
 function renderKatalog(){
@@ -529,21 +533,38 @@ $("btnKirimUlang").onclick=()=>{kirimRekap();};
 function submit(auto){
   clearInterval(timerId);
   if(statusTimerId) clearInterval(statusTimerId);
-  let correct=0; QUIZ.forEach((_,i)=>{if(isCorrect(i))correct++;});
-  const score=QUIZ.length?Math.round(correct/QUIZ.length*100):0;
+  let correct=0, bobotBenar=0, bobotTotal=0;
+  QUIZ.forEach((it,i)=>{const b=Number(it.bobot)||1; bobotTotal+=b; if(isCorrect(i)){correct++; bobotBenar+=b;}});
+  const score=bobotTotal?Math.round(bobotBenar/bobotTotal*100):0;
   const mins=startedAt?Math.round((new Date()-startedAt)/60000):0;
   const ps=peserta();
+  const hideScore=!!(currentUjian&&currentUjian.sembunyikanNilai);
   $("resNama").textContent=ps.nama;
   $("resKelas").textContent="Kelas "+ps.kelas+" \u00b7 NIS "+ps.nis;
   $("resUjian").textContent=examInfo?examInfo.nama:"";
-  $("resScore").textContent=score+"  ("+correct+" benar dari "+QUIZ.length+" soal)";
   $("resDetail").textContent=(auto?"Waktu habis \u2014 jawaban dikumpulkan otomatis. ":"")+"Waktu pengerjaan: \u00b1"+mins+" menit. Tanggal: "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+".";
-  $("resReview").innerHTML=QUIZ.map((it,i)=>{
+  if(hideScore){
+    $("resTitle").textContent="Jawaban Sudah Terkirim";
+    $("resScore").classList.add("hidden");
+    $("resReview").innerHTML=""; $("resReview").classList.add("hidden");
+    $("resButtons").classList.add("hidden");
+    $("resNoScore").classList.remove("hidden");
+    $("resDoneWrap").classList.remove("hidden");
+  } else {
+    $("resTitle").textContent="Hasil Ujian";
+    $("resScore").classList.remove("hidden");
+    $("resReview").classList.remove("hidden");
+    $("resButtons").classList.remove("hidden");
+    $("resNoScore").classList.add("hidden");
+    $("resDoneWrap").classList.add("hidden");
+    $("resScore").textContent=score+"  ("+correct+" benar dari "+QUIZ.length+" soal)";
+    $("resReview").innerHTML=QUIZ.map((it,i)=>{
     const ok=isCorrect(i);
     return `<div class="q"><span class="badge">${TYPE_LABEL[it.t]}</span><h3>${i+1}. <span class="${ok?"correct":"wrong"}">${ok?"Benar":"Salah"}</span>${!isAnswered(i)?" (tidak dijawab)":""}</h3>
     <p>Jawabanmu: <strong>${fmtUser(it,answers[i])}</strong><br>Kunci: <strong>${fmtKey(it)}</strong></p>
     <div class="why">${tex(it.why)}</div></div>`;}).join("");
-  try{localStorage.setItem("cbt-platform-terakhir",JSON.stringify({ujian:currentUjian.id,nama:ps.nama,kelas:ps.kelas,skor:score,benar:correct,tanggal:new Date().toISOString()}));}catch(e){}
+  }
+  try{localStorage.setItem("cbt-platform-terakhir",JSON.stringify(hideScore?{ujian:currentUjian.id,nama:ps.nama,kelas:ps.kelas,tanggal:new Date().toISOString()}:{ujian:currentUjian.id,nama:ps.nama,kelas:ps.kelas,skor:score,benar:correct,tanggal:new Date().toISOString()}));}catch(e){}
   lastPayload={waktu:new Date().toISOString(),nama:ps.nama,nis:ps.nis,kelas:ps.kelas,tglLahir:"",skor:score,benar:correct,jawaban:QUIZ.map((it,i)=>fmtAnswerCode(it,answers[i])).join("; "),durasi:mins,ujian:currentUjian.id};
   kirimRekap();
   showSection("resultCard");
@@ -648,7 +669,7 @@ function renderAdminTable(){
 function renderApproval(){
   const box=$("approvalTable");
   if(!adminData || !adminData.katalog || !adminData.katalog.length){
-    box.innerHTML="<tr><td>Belum ada data Katalog. (Membutuhkan Apps Script v3.)</td></tr>";
+    box.innerHTML="<tr><td>Belum ada data Katalog. (Membutuhkan Apps Script v4.)</td></tr>";
     return;
   }
   const rows=adminData.katalog.map(r=>{
@@ -661,7 +682,7 @@ function renderApproval(){
 }
 async function setujuiUjian(id,status){
   const err=$("adminErr");
-  if(!backendV3){ err.textContent="Fitur persetujuan membutuhkan Apps Script v3 yang belum dideploy. Periksa deployment, lalu muat ulang."; return; }
+  if(!backendV3){ err.textContent="Fitur persetujuan membutuhkan Apps Script v4 yang belum dideploy. Periksa deployment, lalu muat ulang."; return; }
   err.textContent="Mengubah status "+id+" menjadi "+status+"...";
   try{
     const r=await fetch(REKAP_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"setujui",id:id,status:status})});
