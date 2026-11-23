@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Bahan Ajar Matematika Kelas 6 — Pecahan, Rasio, Kubus &amp; Balok, Peluang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8EC; --paper:#FFFFFF; --ink:#22304A; --ink-soft:#4A5872; --line:#EADFC8;
+  --b1:#E8632B; --b1-soft:#FDEEE4; --b2:#0E7C7B; --b2-soft:#E2F3F2;
+  --b3:#2B6CB0; --b3-soft:#E5EFF9; --b4:#C2185B; --b4-soft:#FBE7F0;
+  --exam:#7A4E00; --exam-soft:#FFF3D6; --sun:#FFC53D; --good:#1E9E5A; --bad:#D64545;
+  --radius:18px; --shadow:0 4px 18px rgba(34,48,74,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#141A26; --paper:#1E2739; --ink:#F2EFE6; --ink-soft:#B9C2D4; --line:#33405A;
+    --b1-soft:#3A2A20; --b2-soft:#173635; --b3-soft:#1D2F47; --b4-soft:#3A1E2C; --exam-soft:#3A2F14; --shadow:0 4px 18px rgba(0,0,0,.35); }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:17px;line-height:1.65}
+h1,h2,h3,h4{font-family:"Baloo 2","Nunito",sans-serif;line-height:1.2;margin:0}
+button,[role="button"],select,summary,input:not([type="checkbox"],[type="radio"]){min-height:2.25rem}
+a{color:var(--b3)}
+.wrap{max-width:1020px;margin:0 auto;padding:0 16px 64px}
+
+/* ---------- Top bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:3px solid var(--sun);box-shadow:var(--shadow)}
+.topbar-in{max-width:1020px;margin:0 auto;padding:8px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.topbar .brand{font-family:"Baloo 2";font-weight:800;font-size:1.05rem;margin-right:auto}
+.chipnav{display:flex;gap:6px;flex-wrap:wrap}
+.chipnav a,.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;min-height:40px;border-radius:999px;border:2px solid var(--line);background:var(--paper);color:var(--ink);font-weight:800;font-size:.9rem;text-decoration:none;cursor:pointer;font-family:"Nunito"}
+.chipnav a:hover,.btn:hover{border-color:var(--sun)}
+.btn-print{background:var(--sun);border-color:var(--sun);color:#3A2A00}
+
+/* ---------- Hero ---------- */
+.hero{padding:36px 0 8px;text-align:left}
+.hero .kicker{display:inline-block;background:var(--sun);color:#3A2A00;font-weight:800;padding:4px 14px;border-radius:999px;font-size:.85rem;letter-spacing:.02em}
+.hero h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;margin:14px 0 8px}
+.hero p.lead{font-size:1.15rem;color:var(--ink-soft);max-width:640px;margin:0 0 20px}
+.chapgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:18px 0 8px}
+.chapcard{display:block;text-decoration:none;color:var(--ink);background:var(--paper);border-radius:var(--radius);padding:18px;border-top:8px solid var(--c,var(--sun));box-shadow:var(--shadow)}
+.chapcard .no{font-family:"Baloo 2";font-weight:800;color:var(--c);font-size:.9rem}
+.chapcard h3{font-size:1.25rem;margin:2px 0 6px}
+.chapcard p{margin:0;color:var(--ink-soft);font-size:.95rem}
+.chapcard .go{margin-top:10px;font-weight:800;color:var(--c);font-size:.9rem}
+
+/* ---------- Chapter sections ---------- */
+section.chapter{margin-top:56px;scroll-margin-top:80px}
+.chap-head{border-radius:var(--radius);padding:22px;color:#fff;background:var(--c)}
+.chap-head .no{font-weight:800;opacity:.85;letter-spacing:.06em;font-size:.9rem}
+.chap-head h2{font-size:clamp(1.7rem,4.5vw,2.4rem)}
+.chap-head p{margin:6px 0 0;max-width:640px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-top:16px;box-shadow:var(--shadow)}
+.card h3{font-size:1.35rem;margin-bottom:6px}
+.card h4{font-size:1.1rem;margin:14px 0 4px}
+.subhead{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.subhead .tag{background:var(--soft);color:var(--c);font-weight:800;border-radius:8px;padding:2px 10px;font-size:.85rem;white-space:nowrap}
+.tujuan{background:var(--soft);border-radius:12px;padding:14px 16px;margin-top:14px}
+.tujuan h4{margin:0 0 6px;color:var(--c)}
+.tujuan ul{margin:0;padding-left:20px}
+.ingat{border:2px dashed var(--c);border-radius:12px;padding:12px 16px;margin-top:14px}
+.ingat b{color:var(--c)}
+.concept{font-size:1.02rem}
+.formula{background:var(--soft);border-radius:12px;padding:14px 18px;font-size:1.15rem;text-align:center;font-weight:800;margin:12px 0}
+.frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;margin:0 2px;line-height:1.15;font-weight:800}
+.frac .top{border-bottom:3px solid currentColor;padding:0 6px}
+.frac .bot{padding:0 6px}
+.steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
+.steps li{position:relative;padding:8px 0 8px 46px}
+.steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:6px;width:32px;height:32px;border-radius:50%;background:var(--c);color:#fff;font-family:"Baloo 2";font-weight:800;display:flex;align-items:center;justify-content:center}
+.example{border-left:6px solid var(--c);background:var(--soft);border-radius:0 12px 12px 0;padding:14px 18px;margin:14px 0}
+.example .lbl{font-weight:800;color:var(--c);font-size:.85rem;letter-spacing:.04em}
+.rangkum{background:var(--ink);color:#fff;border-radius:12px;padding:16px 20px;margin-top:16px}
+.rangkum h4{color:var(--sun);margin:0 0 6px}
+.rangkum ol{margin:0;padding-left:20px}
+.tip{background:#FFF6DB;border:1px solid #F0D98C;color:#5A4300;border-radius:12px;padding:10px 16px;margin:12px 0;font-size:.97rem}
+@media (prefers-color-scheme: dark){.tip{background:#3A2F14;color:#F5D98A;border-color:#6B5518}}
+figure{margin:14px 0;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{color:var(--ink-soft);font-size:.9rem;margin-top:6px}
+
+/* ---------- Interactive widgets ---------- */
+.widget{background:var(--paper);border:2px solid var(--c);border-radius:var(--radius);padding:18px 20px;margin-top:16px}
+.widget h4{margin:0 0 4px;color:var(--c);font-size:1.15rem}
+.widget .hint{color:var(--ink-soft);font-size:.93rem;margin:0 0 12px}
+.sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:12px 0}
+.sliders label{font-weight:800;display:block}
+input[type=range]{width:100%;accent-color:var(--c);min-height:36px}
+.bigread{font-size:1.5rem;font-weight:800;text-align:center;margin:8px 0}
+.wbtn{background:var(--c);color:#fff;border:none;border-radius:999px;padding:10px 22px;font-weight:800;font-size:1rem;cursor:pointer;min-height:44px;font-family:"Nunito"}
+.wbtn.alt{background:var(--paper);color:var(--c);border:2px solid var(--c)}
+.wbtn:active{transform:scale(.97)}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.seg button{border:2px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 16px;font-weight:800;cursor:pointer;min-height:40px}
+.seg button.on{background:var(--c);color:#fff;border-color:var(--c)}
+
+/* ---------- Latihan ---------- */
+.quiz{margin-top:14px}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px;background:var(--paper)}
+.q p.qq{font-weight:700;margin:0 0 10px}
+.opts{display:grid;gap:8px}
+.opts button{text-align:left;border:2px solid var(--line);background:var(--paper);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:1rem;font-weight:600;cursor:pointer;min-height:44px}
+.opts button:hover{border-color:var(--c)}
+.opts button.right{border-color:var(--good);background:rgba(30,158,90,.12)}
+.opts button.wrong{border-color:var(--bad);background:rgba(214,69,69,.10)}
+.fb{margin-top:8px;font-weight:700;display:none}
+.fb.show{display:block}
+.fb.ok{color:var(--good)} .fb.no{color:var(--bad)}
+
+/* ---------- Exam ---------- */
+.exam-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.scorebox{display:none;background:var(--exam-soft);border:2px solid var(--sun);border-radius:12px;padding:14px 18px;font-weight:800;font-size:1.1rem;margin:14px 0}
+.scorebox.show{display:block}
+details.bahas{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:8px 14px;background:var(--soft)}
+details.bahas summary{cursor:pointer;font-weight:800;color:var(--c);padding:6px 0}
+table.score{width:100%;border-collapse:collapse;margin-top:10px}
+table.score th,table.score td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+table.score th{background:var(--exam-soft)}
+.exam-q .opts button.picked{border-color:var(--ink);background:var(--soft)}
+
+/* ---------- TOC ---------- */
+.toc{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);margin-top:22px}
+.toc h2{font-size:1.4rem;margin-bottom:10px}
+.toc ol{margin:0;padding-left:22px}
+.toc li{margin:4px 0}
+.toc a{color:var(--ink);text-decoration:none;font-weight:600}
+.toc a:hover{text-decoration:underline}
+footer{margin-top:60px;text-align:center;color:var(--ink-soft);font-size:.92rem}
+
+/* ---------- Print mode ---------- */
+body.printmode .no-print{display:none!important}
+body.printmode .topbar{position:static;box-shadow:none;border-bottom:none;background:transparent}
+body.printmode .topbar .brand,body.printmode .chipnav a{display:none}
+body.printmode{background:#fff}
+body.printmode .card,body.printmode .chapcard,body.printmode .toc{box-shadow:none}
+@media print{
+  .topbar,.no-print,.widget .btnrow,.seg{display:none!important}
+  body{background:#fff;font-size:12.5pt}
+  section.chapter{page-break-before:always;margin-top:0}
+  .card,.widget,.q{break-inside:avoid;box-shadow:none}
+  .chap-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  details.bahas{display:none}
+  body.showkey details.bahas{display:block}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <span class="brand">📐 Matematika Kelas 6</span>
+    <nav class="chipnav">
+      <a href="#bab1">Bab 1</a><a href="#bab2">Bab 2</a><a href="#bab3">Bab 3</a><a href="#bab4">Bab 4</a>
+      <a href="#ujian">📝 Ujian</a>
+      <button class="btn btn-print" id="btnPrint" type="button">🖨️ Mode Cetak / PDF</button>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <span class="kicker">BAHAN AJAR • SEMESTER 1 • KURIKULUM MERDEKA</span>
+  <h1>Matematika Kelas 6:<br>Belajar Sambil Bermain Angka 🎲</h1>
+  <p class="lead">Empat bab lengkap dengan gambar, contoh soal langkah demi langkah, latihan yang bisa dicek langsung, dan soal ujian beserta pembahasannya di bagian paling akhir. Ikuti urutannya seperti di buku paketmu, ya!</p>
+  <div class="chapgrid">
+    <a class="chapcard" style="--c:var(--b1)" href="#bab1"><span class="no">BAB 1</span><h3>Pecahan dan Desimal</h3><p>Mengalikan &amp; membagi pecahan, lalu berkenalan dengan bilangan desimal.</p><span class="go">Mulai belajar →</span></a>
+    <a class="chapcard" style="--c:var(--b2)" href="#bab2"><span class="no">BAB 2</span><h3>Rasio</h3><p>Membandingkan dua hal dengan cara yang adil dan cepat.</p><span class="go">Mulai belajar →</span></a>
+    <a class="chapcard" style="--c:var(--b3)" href="#bab3"><span class="no">BAB 3</span><h3>Kubus dan Balok</h3><p>Melipat jaring-jaring, melihat bangun dari berbagai arah, dan membaca lokasi.</p><span class="go">Mulai belajar →</span></a>
+    <a class="chapcard" style="--c:var(--b4)" href="#bab4"><span class="no">BAB 4</span><h3>Peluang</h3><p>Seberapa besar kemungkinan sesuatu terjadi? Ayo kita ukur!</p><span class="go">Mulai belajar →</span></a>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Daftar isi">
+  <h2>📚 Daftar Isi</h2>
+  <ol>
+    <li><a href="#bab1"><b>Bab 1 Pecahan dan Desimal</b></a> — A. Perkalian Pecahan · B. Pembagian Pecahan · C. Bilangan Desimal</li>
+    <li><a href="#bab2"><b>Bab 2 Rasio</b></a> — A. Konsep Rasio · B. Konsep Kesamaan Rasio · C. Penerapan Rasio</li>
+    <li><a href="#bab3"><b>Bab 3 Kubus dan Balok</b></a> — A. Mengonstruksi dan Mengurai · B. Visualisasi Spasial · C. Lokasi</li>
+    <li><a href="#bab4"><b>Bab 4 Peluang</b></a> — A. Skala Peluang · B. Membandingkan Peluang Kejadian</li>
+    <li><a href="#ujian"><b>Soal Ujian (40 soal: 30 pilihan ganda + 10 isian)</b></a> — kunci, pembahasan, dan pedoman penskoran di halaman terakhir</li>
+  </ol>
+  <p style="margin:10px 0 0;color:var(--ink-soft)">💡 <b>Cara memakai halaman ini:</b> baca konsepnya, perhatikan contohnya, lalu kerjakan “Ayo Berlatih”. Tombol <b>Mode Cetak / PDF</b> di atas mengubah tampilan menjadi bersih untuk dicetak atau disimpan sebagai PDF dari menu cetak peramban (Ctrl/Cmd + P → Simpan sebagai PDF).</p>
+</nav>
+
+<!-- ================= BAB 1 ================= -->
+<section class="chapter" id="bab1" style="--c:var(--b1);--soft:var(--b1-soft)">
+  <div class="chap-head"><span class="no">BAB 1</span><h2>Pecahan dan Desimal 🍕</h2><p>Pecahan itu seperti potongan pizza: satu loyang utuh dibagi menjadi beberapa potong sama besar. Di bab ini kita belajar mengalikan, membagi, dan mengubahnya menjadi desimal.</p></div>
+
+  <div class="tujuan"><h4>🎯 Tujuan Belajar Bab 1</h4><ul>
+    <li>Aku bisa mengalikan bilangan asli dengan pecahan dan sebaliknya.</li>
+    <li>Aku bisa membagi pecahan dengan bilangan asli dan sebaliknya.</li>
+    <li>Aku bisa mengubah pecahan menjadi desimal, lalu membandingkan dan mengurutkan desimal.</li>
+  </ul></div>
+
+  <div class="ingat"><b>🔔 Ingat Kembali!</b> Pecahan <span class="frac"><span class="top">3</span><span class="bot">4</span></span> dibaca “tiga per empat”. Angka di atas disebut <b>pembilang</b> (berapa bagian yang diambil), angka di bawah disebut <b>penyebut</b> (berapa bagian sama besar seluruhnya). Pecahan campuran seperti 1<span class="frac"><span class="top">1</span><span class="bot">2</span></span> artinya 1 utuh ditambah setengah.</div>
+
+  <!-- Widget pecahan -->
+  <div class="widget no-print">
+    <h4>🎨 Laboratorium Pecahan</h4>
+    <p class="hint">Geser penggesernya dan lihat bagaimana pecahan berubah menjadi gambar. Coba buat pecahan yang sama besar dengan cara berbeda!</p>
+    <div style="text-align:center"><svg id="fracSvg" width="320" height="120" viewBox="0 0 320 120" role="img" aria-label="Batang pecahan interaktif"></svg></div>
+    <div class="bigread" id="fracRead"></div>
+    <div class="sliders">
+      <label>Pembilang (bagian yang diwarnai): <span id="numVal">3</span><input type="range" id="numRange" min="0" max="12" value="3"></label>
+      <label>Penyebut (jumlah semua bagian): <span id="denVal">4</span><input type="range" id="denRange" min="1" max="12" value="4"></label>
+    </div>
+    <p class="hint" id="fracNote" style="text-align:center"></p>
+  </div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">A. PERKALIAN PECAHAN</span></div>
+    <h3>1. Perkalian Bilangan Asli dengan Pecahan</h3>
+    <p class="concept">Bayangkan Ibu membuat 4 loyang kue. Setiap loyang dipotong dan <span class="frac"><span class="top">3</span><span class="bot">4</span></span> loyang diberikan ke tetangga. Berapa loyang yang diberikan seluruhnya? Kita menjumlahkan <span class="frac"><span class="top">3</span><span class="bot">4</span></span> sebanyak 4 kali — dan penjumlahan berulang itu adalah <b>perkalian</b>!</p>
+    <div class="formula">4 × <span class="frac"><span class="top">3</span><span class="bot">4</span></span> = <span class="frac"><span class="top">4 × 3</span><span class="bot">4</span></span> = <span class="frac"><span class="top">12</span><span class="bot">4</span></span> = 3</div>
+    <p class="concept"><b>Aturan emas:</b> bilangan asli hanya dikalikan dengan <b>pembilang</b>. Penyebutnya tetap. Setelah itu sederhanakan hasilnya.</p>
+    <figure>
+      <svg width="340" height="90" viewBox="0 0 340 90" role="img" aria-label="Empat batang pecahan tiga per empat">
+        <g font-family="Nunito" font-size="13" font-weight="700" fill="var(--ink)">
+        <rect x="5" y="15" width="76" height="34" rx="6" fill="#F6C39A" stroke="#E8632B" stroke-width="2"/><rect x="5" y="15" width="57" height="34" rx="6" fill="#E8632B"/><text x="30" y="70">¾</text>
+        <rect x="90" y="15" width="76" height="34" rx="6" fill="#F6C39A" stroke="#E8632B" stroke-width="2"/><rect x="90" y="15" width="57" height="34" rx="6" fill="#E8632B"/><text x="115" y="70">¾</text>
+        <rect x="175" y="15" width="76" height="34" rx="6" fill="#F6C39A" stroke="#E8632B" stroke-width="2"/><rect x="175" y="15" width="57" height="34" rx="6" fill="#E8632B"/><text x="200" y="70">¾</text>
+        <rect x="260" y="15" width="76" height="34" rx="6" fill="#F6C39A" stroke="#E8632B" stroke-width="2"/><rect x="260" y="15" width="57" height="34" rx="6" fill="#E8632B"/><text x="285" y="70">¾</text>
+        </g>
+      </svg>
+      <figcaption>Empat kali ¾ batang = 12 per empat = 3 batang utuh.</figcaption>
+    </figure>
+    <div class="example"><span class="lbl">CONTOH SOAL 1</span>
+      <p><b>Soal:</b> Satu botol berisi <span class="frac"><span class="top">2</span><span class="bot">3</span></span> liter air. Berapa liter air dalam 6 botol?</p>
+      <ol class="steps">
+        <li>Tulis perkaliannya: 6 × <span class="frac"><span class="top">2</span><span class="bot">3</span></span></li>
+        <li>Kalikan bilangan asli dengan pembilang: 6 × 2 = 12, penyebut tetap 3 → <span class="frac"><span class="top">12</span><span class="bot">3</span></span></li>
+        <li>Sederhanakan: 12 ÷ 3 = <b>4 liter</b>. ✅</li>
+      </ol>
+    </div>
+    <h4>2. Perkalian Pecahan dengan Bilangan Asli</h4>
+    <p class="concept">Urutan dibalik pun hasilnya <b>sama</b> (sifat komutatif). <span class="frac"><span class="top">2</span><span class="bot">5</span></span> × 10 artinya “dua perlima <i>dari</i> 10”. Kata “dari” pada soal cerita hampir selalu berarti <b>kali</b>.</p>
+    <div class="example"><span class="lbl">CONTOH SOAL 2</span>
+      <p><b>Soal:</b> Panjang pita 15 meter. Sinta memakai <span class="frac"><span class="top">2</span><span class="bot">5</span></span> bagian. Berapa meter pita yang dipakai?</p>
+      <ol class="steps">
+        <li><span class="frac"><span class="top">2</span><span class="bot">5</span></span> × 15 = <span class="frac"><span class="top">2 × 15</span><span class="bot">5</span></span> = <span class="frac"><span class="top">30</span><span class="bot">5</span></span></li>
+        <li>30 ÷ 5 = <b>6 meter</b>. ✅ Trik cepat: bagi dulu 15 ÷ 5 = 3, lalu 3 × 2 = 6.</li>
+      </ol>
+    </div>
+    <div class="tip">💡 <b>Trik coret dulu!</b> Jika pembilang dan penyebut bisa dibagi bilangan yang sama sebelum dikalikan, hitungan jadi jauh lebih ringan. Contoh: <span class="frac"><span class="top">3</span><span class="bot">8</span></span> × 24 → 24 ÷ 8 = 3, lalu 3 × 3 = 9.</div>
+  </div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">B. PEMBAGIAN PECAHAN</span></div>
+    <h3>1. Pembagian Pecahan dengan Bilangan Asli</h3>
+    <p class="concept">Sebatang cokelat <span class="frac"><span class="top">4</span><span class="bot">5</span></span> dibagi rata kepada 2 anak. Setiap anak mendapat bagian yang lebih kecil. Membagi pecahan dengan bilangan asli artinya <b>penyebutnya dikalikan</b> bilangan itu.</p>
+    <div class="formula"><span class="frac"><span class="top">4</span><span class="bot">5</span></span> ÷ 2 = <span class="frac"><span class="top">4</span><span class="bot">5 × 2</span></span> = <span class="frac"><span class="top">4</span><span class="bot">10</span></span> = <span class="frac"><span class="top">2</span><span class="bot">5</span></span></div>
+    <div class="example"><span class="lbl">CONTOH SOAL 3</span>
+      <p><b>Soal:</b> <span class="frac"><span class="top">3</span><span class="bot">4</span></span> liter sirup dituang rata ke 3 gelas. Berapa liter isi setiap gelas?</p>
+      <ol class="steps">
+        <li><span class="frac"><span class="top">3</span><span class="bot">4</span></span> ÷ 3 = <span class="frac"><span class="top">3</span><span class="bot">4 × 3</span></span> = <span class="frac"><span class="top">3</span><span class="bot">12</span></span></li>
+        <li>Sederhanakan (bagi 3): <b><span class="frac"><span class="top">1</span><span class="bot">4</span></span> liter</b> setiap gelas. ✅</li>
+      </ol>
+    </div>
+    <h3>2. Pembagian Bilangan Asli dengan Pecahan</h3>
+    <p class="concept">Sekarang kebalikannya: 2 liter air dituang ke botol-botol kecil yang masing-masing menampung <span class="frac"><span class="top">1</span><span class="bot">4</span></span> liter. Ada berapa botol? Karena setiap liter memuat 4 botol kecil, jawabannya 2 × 4 = 8 botol. Membagi dengan pecahan sama dengan <b>mengalikan dengan kebalikannya</b>!</p>
+    <div class="formula">2 ÷ <span class="frac"><span class="top">1</span><span class="bot">4</span></span> = 2 × <span class="frac"><span class="top">4</span><span class="bot">1</span></span> = 8 &nbsp;&nbsp;•&nbsp;&nbsp; 6 ÷ <span class="frac"><span class="top">2</span><span class="bot">3</span></span> = 6 × <span class="frac"><span class="top">3</span><span class="bot">2</span></span> = 9</div>
+    <div class="example"><span class="lbl">CONTOH SOAL 4</span>
+      <p><b>Soal:</b> Ibu mempunyai 5 kg gula. Gula dikemas <span class="frac"><span class="top">1</span><span class="bot">2</span></span> kg per kantong. Berapa kantong yang didapat?</p>
+      <ol class="steps">
+        <li>Balik pecahannya: kebalikan <span class="frac"><span class="top">1</span><span class="bot">2</span></span> adalah <span class="frac"><span class="top">2</span><span class="bot">1</span></span> = 2.</li>
+        <li>5 × 2 = <b>10 kantong</b>. ✅ Masuk akal: gula setengah kilo, jadi setiap 1 kg jadi 2 kantong.</li>
+      </ol>
+    </div>
+    <div class="tip">⚠️ <b>Jangan sampai tertukar!</b> Pecahan ÷ bilangan asli → kalikan <i>penyebut</i>. Bilangan asli ÷ pecahan → <i>balik pecahannya</i> lalu kalikan. Hasil membagi dengan pecahan yang lebih kecil dari 1 selalu <b>lebih besar</b> dari bilangan awal.</div>
+  </div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">C. BILANGAN DESIMAL</span></div>
+    <h3>1. Mengubah Pecahan Menjadi Desimal</h3>
+    <p class="concept">Desimal adalah cara lain menulis pecahan berpenyebut 10, 100, 1000, dan seterusnya. <span class="frac"><span class="top">1</span><span class="bot">2</span></span> = 0,5 dan <span class="frac"><span class="top">3</span><span class="bot">4</span></span> = 0,75. Ada dua cara mengubahnya:</p>
+    <ol class="steps">
+      <li><b>Cara penyebut 10/100:</b> ubah penyebut menjadi 10, 100, atau 1000. <span class="frac"><span class="top">3</span><span class="bot">4</span></span> = <span class="frac"><span class="top">75</span><span class="bot">100</span></span> = 0,75 (pembilang dan penyebut sama-sama × 25).</li>
+      <li><b>Cara membagi:</b> bagilah pembilang dengan penyebut. <span class="frac"><span class="top">5</span><span class="bot">8</span></span> = 5 ÷ 8 = 0,625.</li>
+    </ol>
+    <figure>
+      <svg width="360" height="110" viewBox="0 0 360 110" role="img" aria-label="Garis bilangan desimal 0 sampai 1">
+        <line x1="20" y1="55" x2="340" y2="55" stroke="var(--ink)" stroke-width="3"/>
+        <g stroke="var(--ink)" stroke-width="2"><line x1="20" y1="45" x2="20" y2="65"/><line x1="84" y1="48" x2="84" y2="62"/><line x1="148" y1="48" x2="148" y2="62"/><line x1="212" y1="48" x2="212" y2="62"/><line x1="276" y1="48" x2="276" y2="62"/><line x1="340" y1="45" x2="340" y2="65"/></g>
+        <circle cx="180" cy="55" r="8" fill="#E8632B"/>
+        <g font-family="Nunito" font-weight="800" font-size="14" fill="var(--ink)" text-anchor="middle">
+          <text x="20" y="90">0</text><text x="84" y="90">0,2</text><text x="148" y="90">0,4</text><text x="212" y="90">0,6</text><text x="276" y="90">0,8</text><text x="340" y="90">1</text>
+          <text x="180" y="30" fill="#E8632B">0,5 = ½</text>
+        </g>
+      </svg>
+      <figcaption>Garis bilangan 0 sampai 1. Titik oranye tepat di tengah: 0,5 sama dengan setengah.</figcaption>
+    </figure>
+    <h3>2. Membandingkan dan Mengurutkan Bilangan Desimal</h3>
+    <p class="concept">Bandingkan <b>digit demi digit dari kiri</b>: satuan dulu, lalu persepuluhan, perseratusan, dan seterusnya. Hati-hati: 0,7 lebih besar dari 0,65 walaupun 65 lebih besar dari 7! Samakan dulu jumlah angka di belakang koma: 0,7 = 0,70 &gt; 0,65.</p>
+    <div class="example"><span class="lbl">CONTOH SOAL 5</span>
+      <p><b>Soal:</b> Urutkan dari yang terkecil: 0,45 ; 0,5 ; 0,405 ; 0,54.</p>
+      <ol class="steps">
+        <li>Samakan menjadi 3 angka di belakang koma: 0,450 ; 0,500 ; 0,405 ; 0,540.</li>
+        <li>Bandingkan: 405 &lt; 450 &lt; 500 &lt; 540.</li>
+        <li>Urutan: <b>0,405 ; 0,45 ; 0,5 ; 0,54</b>. ✅</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card quiz" data-quiz>
+    <h3>✏️ Ayo Berlatih — Bab 1</h3>
+    <p style="color:var(--ink-soft);margin:0">Klik jawabanmu, langsung ketahuan benar atau salah!</p>
+    <div class="q"><p class="qq">1. Hasil dari 5 × <span class="frac"><span class="top">3</span><span class="bot">10</span></span> adalah …</p>
+      <div class="opts"><button data-ok="0">3/2</button><button data-ok="1">1½</button><button data-ok="0">15/50</button><button data-ok="0">8/10</button></div>
+      <p class="fb" data-fb-ok="Betul! 5 × 3 = 15, penyebut tetap 10 → 15/10 = 1½." data-fb-no="Coba lagi: kalikan 5 dengan pembilang saja, penyebut tetap."></p></div>
+    <div class="q"><p class="qq">2. Hasil dari 12 ÷ <span class="frac"><span class="top">3</span><span class="bot">4</span></span> adalah …</p>
+      <div class="opts"><button data-ok="0">9</button><button data-ok="0">12</button><button data-ok="1">16</button><button data-ok="0">36</button></div>
+      <p class="fb" data-fb-ok="Betul! Balik pecahannya: 12 × 4/3 = 48/3 = 16." data-fb-no="Ingat: membagi dengan pecahan = mengalikan kebalikannya (4/3)."></p></div>
+    <div class="q"><p class="qq">3. Bentuk desimal dari <span class="frac"><span class="top">7</span><span class="bot">20</span></span> adalah …</p>
+      <div class="opts"><button data-ok="0">0,72</button><button data-ok="1">0,35</button><button data-ok="0">0,07</button><button data-ok="0">0,27</button></div>
+      <p class="fb" data-fb-ok="Betul! 7/20 = 35/100 = 0,35." data-fb-no="Ubah penyebutnya jadi 100: kalikan pembilang dan penyebut dengan 5."></p></div>
+    <div class="q"><p class="qq">4. Bilangan yang paling besar adalah …</p>
+      <div class="opts"><button data-ok="0">0,8</button><button data-ok="0">0,75</button><button data-ok="1">0,805</button><button data-ok="0">0,79</button></div>
+      <p class="fb" data-fb-ok="Betul! Samakan 3 angka belakang koma: 0,800 ; 0,750 ; 0,805 ; 0,790 → terbesar 0,805." data-fb-no="Samakan dulu jumlah angka di belakang koma, baru bandingkan."></p></div>
+  </div>
+
+  <div class="rangkum"><h4>📌 Rangkuman Bab 1</h4><ol>
+    <li>Bilangan asli × pecahan: kalikan bilangan asli dengan pembilang, penyebut tetap, lalu sederhanakan.</li>
+    <li>Pecahan ÷ bilangan asli: kalikan penyebutnya. Bilangan asli ÷ pecahan: balik pecahannya lalu kalikan.</li>
+    <li>Desimal dibandingkan digit demi digit dari kiri setelah jumlah angka di belakang koma disamakan.</li>
+  </ol></div>
+</section>
+
+<!-- ================= BAB 2 ================= -->
+<section class="chapter" id="bab2" style="--c:var(--b2);--soft:var(--b2-soft)">
+  <div class="chap-head"><span class="no">BAB 2</span><h2>Rasio ⚖️</h2><p>Rasio adalah cara membandingkan dua hal secara adil. Resep minuman, campuran cat, sampai kecepatan lari — semuanya memakai rasio!</p></div>
+
+  <div class="tujuan"><h4>🎯 Tujuan Belajar Bab 2</h4><ul>
+    <li>Aku bisa menulis rasio dari perbandingan dua benda dan menyederhanakannya.</li>
+    <li>Aku bisa menentukan rasio yang sama dan rasio satuan.</li>
+    <li>Aku bisa memakai rasio bagian–bagian, bagian–keseluruhan, dan rasio pada durasi waktu.</li>
+  </ul></div>
+
+  <div class="ingat"><b>🔔 Ingat Kembali!</b> Pecahan <span class="frac"><span class="top">2</span><span class="bot">3</span></span> juga bisa dibaca sebagai perbandingan 2 banding 3. Rasio dan pecahan adalah sahabat dekat!</div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">A. KONSEP RASIO</span></div>
+    <h3>1. Membandingkan Benda</h3>
+    <p class="concept">Di keranjang ada 6 apel 🍎 dan 4 jeruk 🍊. Kita bisa membandingkan: apel lebih banyak 2 buah, <i>atau</i> apel banding jeruk adalah 6 banding 4. Cara kedua inilah yang disebut rasio — ia tetap benar walaupun jumlah buahnya diperbanyak dengan kelipatan yang sama.</p>
+    <figure>
+      <svg width="360" height="96" viewBox="0 0 360 96" role="img" aria-label="Bar model rasio apel dan jeruk">
+        <g font-family="Nunito" font-weight="800" font-size="14" fill="var(--ink)">
+          <text x="0" y="30">Apel</text>
+          <rect x="70" y="12" width="42" height="26" rx="5" fill="#E8632B"/><rect x="114" y="12" width="42" height="26" rx="5" fill="#E8632B"/><rect x="158" y="12" width="42" height="26" rx="5" fill="#E8632B"/><rect x="202" y="12" width="42" height="26" rx="5" fill="#E8632B"/><rect x="246" y="12" width="42" height="26" rx="5" fill="#E8632B"/><rect x="290" y="12" width="42" height="26" rx="5" fill="#E8632B"/>
+          <text x="0" y="76">Jeruk</text>
+          <rect x="70" y="58" width="42" height="26" rx="5" fill="#FFC53D"/><rect x="114" y="58" width="42" height="26" rx="5" fill="#FFC53D"/><rect x="158" y="58" width="42" height="26" rx="5" fill="#FFC53D"/><rect x="202" y="58" width="42" height="26" rx="5" fill="#FFC53D"/>
+        </g>
+      </svg>
+      <figcaption>Bar model: 6 kotak apel berbanding 4 kotak jeruk → rasio 6 : 4 = 3 : 2.</figcaption>
+    </figure>
+    <h3>2. Pengertian Rasio</h3>
+    <p class="concept">Rasio a : b dibaca “a banding b”. Rasio ditulis paling sederhana dengan membagi kedua bilangan dengan FPB-nya. Urutan <b>tidak boleh tertukar</b>: “apel banding jeruk” berbeda dengan “jeruk banding apel”. Satuan juga harus sama dulu — ubah cm ke m atau menit ke detik sebelum membandingkan!</p>
+    <div class="formula">6 : 4 = (6 ÷ 2) : (4 ÷ 2) = 3 : 2</div>
+    <div class="example"><span class="lbl">CONTOH SOAL 1</span>
+      <p><b>Soal:</b> Tali A panjangnya 150 cm, tali B panjangnya 1 m. Tentukan rasio panjang A : B paling sederhana!</p>
+      <ol class="steps">
+        <li>Samakan satuan: 1 m = 100 cm.</li>
+        <li>Rasio = 150 : 100.</li>
+        <li>Bagi keduanya dengan 50 → <b>3 : 2</b>. ✅</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Widget rasio -->
+  <div class="widget no-print">
+    <h4>🧪 Laboratorium Rasio</h4>
+    <p class="hint">Atur jumlah sirup dan air, lalu lihat bar model dan bentuk paling sederhananya. Resep yang rasionya sama akan terasa sama manisnya!</p>
+    <div class="bigread" id="ratioRead"></div>
+    <svg id="ratioSvg" width="100%" height="110" viewBox="0 0 360 110" role="img" aria-label="Bar model rasio interaktif"></svg>
+    <div class="sliders">
+      <label>Gelas sirup: <span id="sirupVal">2</span><input type="range" id="sirupRange" min="1" max="10" value="2"></label>
+      <label>Gelas air: <span id="airVal">3</span><input type="range" id="airRange" min="1" max="10" value="3"></label>
+    </div>
+    <p class="hint" id="ratioNote" style="text-align:center"></p>
+  </div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">B. KESAMAAN RASIO</span></div>
+    <h3>1. Kesamaan Rasio</h3>
+    <p class="concept">Dua rasio dikatakan sama jika keduanya bisa disederhanakan menjadi rasio yang sama, atau jika hasil kali silangnya sama. Resep 2 : 3 untuk 1 teko sama enaknya dengan 4 : 6 untuk 2 teko, karena 4 : 6 disederhanakan menjadi 2 : 3.</p>
+    <div class="formula">2 : 3 = 4 : 6 = 6 : 9 = 10 : 15</div>
+    <h3>2. Rasio Satuan</h3>
+    <p class="concept">Rasio satuan membuat salah satu bilangan menjadi <b>1</b>. Rasio satuan sangat berguna untuk membandingkan harga dan kecepatan: “harga <i>per</i> 1 kg”, “jarak <i>per</i> 1 jam”.</p>
+    <div class="example"><span class="lbl">CONTOH SOAL 2</span>
+      <p><b>Soal:</b> Harga 4 kg mangga Rp60.000,00. Berapa harga per 1 kg?</p>
+      <ol class="steps">
+        <li>Rasio harga : berat = 60.000 : 4.</li>
+        <li>Bagi keduanya dengan 4 → 15.000 : 1.</li>
+        <li>Harga per 1 kg = <b>Rp15.000,00</b>. ✅</li>
+      </ol>
+    </div>
+    <div class="example"><span class="lbl">CONTOH SOAL 3</span>
+      <p><b>Soal:</b> Toko A menjual 3 pensil seharga Rp12.000,00. Toko B menjual 5 pensil seharga Rp17.500,00. Di toko mana pensil lebih murah?</p>
+      <ol class="steps">
+        <li>Toko A: 12.000 ÷ 3 = Rp4.000,00 per pensil.</li>
+        <li>Toko B: 17.500 ÷ 5 = Rp3.500,00 per pensil.</li>
+        <li><b>Toko B lebih murah</b> Rp500,00 per pensil. ✅ Bandingkan selalu dengan rasio satuan!</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">C. PENERAPAN RASIO</span></div>
+    <h3>1. Rasio Bagian terhadap Bagian dan Bagian terhadap Keseluruhan</h3>
+    <p class="concept">Di kelas ada 12 anak laki-laki dan 18 anak perempuan. Rasio laki-laki : perempuan = 12 : 18 = 2 : 3 (bagian terhadap bagian). Sedangkan rasio laki-laki terhadap <b>seluruh</b> anak = 12 : 30 = 2 : 5 (bagian terhadap keseluruhan). Perhatikan kata “seluruh/total” pada soal!</p>
+    <div class="example"><span class="lbl">CONTOH SOAL 4</span>
+      <p><b>Soal:</b> Rasio kelereng merah : biru = 3 : 5. Jumlah seluruh kelereng 40 butir. Berapa kelereng merah?</p>
+      <ol class="steps">
+        <li>Jumlah bagian rasio = 3 + 5 = 8 bagian.</li>
+        <li>Nilai 1 bagian = 40 ÷ 8 = 5 butir.</li>
+        <li>Kelereng merah = 3 × 5 = <b>15 butir</b> (biru = 5 × 5 = 25 butir; 15 + 25 = 40 ✔). ✅</li>
+      </ol>
+    </div>
+    <h3>2. Rasio pada Durasi Waktu</h3>
+    <p class="concept">Rasio juga dipakai membandingkan lama kegiatan. Waktu harus disamakan satuannya dulu. Andi belajar 1 jam 30 menit, Budi belajar 45 menit. Ubah: 90 menit : 45 menit = 2 : 1. Artinya Andi belajar dua kali lebih lama dari Budi.</p>
+    <div class="example"><span class="lbl">CONTOH SOAL 5</span>
+      <p><b>Soal:</b> Keran A mengisi ember dalam 6 menit, keran B dalam 4 menit. Tentukan rasio waktu A : B paling sederhana, dan keran mana yang lebih cepat?</p>
+      <ol class="steps">
+        <li>Rasio = 6 : 4, bagi 2 → <b>3 : 2</b>.</li>
+        <li>Waktu lebih kecil = lebih cepat, jadi <b>keran B lebih cepat</b>. ✅</li>
+      </ol>
+    </div>
+    <div class="tip">💡 <b>Kunci rasio:</b> (1) samakan satuan, (2) sederhanakan dengan FPB, (3) untuk mencari jumlah sebenarnya, cari dulu nilai 1 bagian = total ÷ jumlah bagian rasio.</div>
+  </div>
+
+  <div class="card quiz" data-quiz>
+    <h3>✏️ Ayo Berlatih — Bab 2</h3>
+    <p style="color:var(--ink-soft);margin:0">Klik jawabanmu, langsung ketahuan benar atau salah!</p>
+    <div class="q"><p class="qq">1. Rasio paling sederhana dari 18 : 24 adalah …</p>
+      <div class="opts"><button data-ok="0">6 : 8</button><button data-ok="1">3 : 4</button><button data-ok="0">9 : 12</button><button data-ok="0">2 : 3</button></div>
+      <p class="fb" data-fb-ok="Betul! Bagi keduanya dengan FPB 6 → 3 : 4." data-fb-no="Bagi kedua bilangan dengan FPB-nya, yaitu 6."></p></div>
+    <div class="q"><p class="qq">2. Rasio uang Sinta : Rudi = 5 : 3. Jumlah uang mereka Rp64.000,00. Uang Rudi adalah …</p>
+      <div class="opts"><button data-ok="0">Rp40.000,00</button><button data-ok="0">Rp32.000,00</button><button data-ok="1">Rp24.000,00</button><button data-ok="0">Rp8.000,00</button></div>
+      <p class="fb" data-fb-ok="Betul! 1 bagian = 64.000 ÷ 8 = 8.000; Rudi = 3 × 8.000 = Rp24.000,00." data-fb-no="Jumlah bagian = 5 + 3 = 8. Cari dulu nilai 1 bagian."></p></div>
+    <div class="q"><p class="qq">3. Sebuah mobil menempuh 150 km dalam 3 jam. Rasio satuan kecepatannya adalah …</p>
+      <div class="opts"><button data-ok="1">50 km per jam</button><button data-ok="0">45 km per jam</button><button data-ok="0">150 km per jam</button><button data-ok="0">30 km per jam</button></div>
+      <p class="fb" data-fb-ok="Betul! 150 ÷ 3 = 50 km per 1 jam." data-fb-no="Rasio satuan: bagi jarak dengan waktu, 150 ÷ 3."></p></div>
+    <div class="q"><p class="qq">4. Di kandang ada ayam dan bebek dengan rasio 7 : 4. Jika ayam ada 28 ekor, banyak bebek adalah …</p>
+      <div class="opts"><button data-ok="0">12 ekor</button><button data-ok="1">16 ekor</button><button data-ok="0">20 ekor</button><button data-ok="0">49 ekor</button></div>
+      <p class="fb" data-fb-ok="Betul! 1 bagian = 28 ÷ 7 = 4; bebek = 4 × 4 = 16 ekor." data-fb-no="Nilai 1 bagian = 28 ÷ 7 = 4 ekor. Bebek = 4 bagian."></p></div>
+  </div>
+
+  <div class="rangkum"><h4>📌 Rangkuman Bab 2</h4><ol>
+    <li>Rasio a : b disederhanakan dengan membagi kedua bilangan dengan FPB-nya; satuan harus sama dan urutan tidak boleh tertukar.</li>
+    <li>Rasio satuan membuat salah satu bilangan menjadi 1 — ampuh untuk membandingkan harga dan kecepatan.</li>
+    <li>Mencari jumlah sebenarnya: nilai 1 bagian = total ÷ jumlah bagian rasio, lalu kalikan dengan bagian yang ditanya.</li>
+  </ol></div>
+</section>
+
+<!-- ================= BAB 3 ================= -->
+<section class="chapter" id="bab3" style="--c:var(--b3);--soft:var(--b3-soft)">
+  <div class="chap-head"><span class="no">BAB 3</span><h2>Kubus dan Balok 🧊</h2><p>Dadu, kardus, dan rubik adalah teman sehari-hari kita. Di bab ini kita membongkar bangun ruang menjadi jaring-jaring, melihatnya dari berbagai arah, dan membaca posisinya.</p></div>
+
+  <div class="tujuan"><h4>🎯 Tujuan Belajar Bab 3</h4><ul>
+    <li>Aku bisa mengenali jaring-jaring kubus dan balok, serta menyusun bangun dari jaring-jaringnya.</li>
+    <li>Aku bisa menggambar susunan kubus dari tampak depan, samping, dan atas.</li>
+    <li>Aku bisa menentukan lokasi benda pada denah dengan baris dan kolom.</li>
+  </ul></div>
+
+  <div class="ingat"><b>🔔 Ingat Kembali!</b> <b>Kubus</b>: 6 sisi persegi sama besar, 12 rusuk sama panjang, 8 titik sudut. <b>Balok</b>: 6 sisi berbentuk persegi panjang (sisi berhadapan sama besar), 12 rusuk, 8 titik sudut.</div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">A. MENGONSTRUKSI &amp; MENGURAI</span></div>
+    <h3>Jaring-Jaring Kubus dan Balok</h3>
+    <p class="concept">Jika sebuah kardus dibuka dan direbahkan rata, hasilnya disebut <b>jaring-jaring</b>. Jaring-jaring kubus selalu terdiri dari <b>6 persegi</b>, tetapi tidak semua susunan 6 persegi bisa dilipat menjadi kubus! Susunan yang tidak bisa dilipat biasanya karena ada sisi yang bertumpuk dan satu sisi yang kosong/hilang.</p>
+    <figure>
+      <svg width="300" height="230" viewBox="0 0 300 230" role="img" aria-label="Jaring-jaring kubus bentuk salib">
+        <g fill="#BDD7EE" stroke="#2B6CB0" stroke-width="2.5">
+          <rect x="110" y="10" width="70" height="70"/>
+          <rect x="40" y="80" width="70" height="70"/><rect x="110" y="80" width="70" height="70" fill="#2B6CB0"/><rect x="180" y="80" width="70" height="70"/>
+          <rect x="110" y="150" width="70" height="70"/>
+        </g>
+        <text x="145" y="125" text-anchor="middle" font-family="Nunito" font-weight="800" fill="#fff">alas</text>
+      </svg>
+      <figcaption>Jaring-jaring kubus pola “1-4-1”: satu persegi di atas, empat berderet, satu di bawah. Persegi biru tua menjadi alas saat dilipat.</figcaption>
+    </figure>
+    <p class="concept">Jaring-jaring balok terdiri dari 3 pasang persegi panjang yang sama besar. Saat melipat, sisi yang <b>berhadapan tidak pernah bersebelahan</b> pada jaring-jaring — ini petunjuk penting untuk soal dadu!</p>
+    <div class="example"><span class="lbl">CONTOH SOAL 1</span>
+      <p><b>Soal:</b> Pada jaring-jaring kubus pola salib di atas, persegi di ujung kiri berhadapan dengan persegi yang mana?</p>
+      <ol class="steps">
+        <li>Bayangkan melipat deretan 4 persegi menjadi dinding mengelilingi alas.</li>
+        <li>Persegi ujung kiri dan ujung kanan deretan itu bertemu sebagai sisi yang saling berhadapan.</li>
+        <li>Jadi ujung kiri berhadapan dengan <b>ujung kanan</b>. ✅ Aturan: pada deretan 4 persegi, persegi ke-1 berhadapan dengan ke-3, ke-2 berhadapan dengan ke-4.</li>
+      </ol>
+    </div>
+    <div class="tip">💡 <b>Trik “lompat satu”:</b> pada jaring-jaring kubus, dua persegi yang dipisahkan tepat satu persegi dalam satu garis lurus pasti berhadapan saat dilipat.</div>
+  </div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">B. VISUALISASI SPASIAL</span></div>
+    <h3>Melihat Susunan Kubus dari Berbagai Arah</h3>
+    <p class="concept">Susunan balok-balok kecil terlihat berbeda dari depan, samping, dan atas. Dari setiap arah, yang kita gambar adalah <b>jumlah tumpukan tertinggi</b> pada setiap kolom yang terlihat. Coba sendiri pada alat di bawah ini!</p>
+  </div>
+
+  <!-- Widget visualisasi spasial -->
+  <div class="widget no-print">
+    <h4>👀 Alat Tampak Depan / Samping / Atas</h4>
+    <p class="hint">Susunan kubus: baris belakang bertumpuk 2-1, baris depan bertumpuk 1-3 (dilihat dari atas: kiri ke kanan). Pilih arah pandang dan perhatikan gambarnya!</p>
+    <div class="seg" id="viewSeg">
+      <button type="button" data-view="depan" class="on">Tampak Depan</button>
+      <button type="button" data-view="samping">Tampak Samping Kanan</button>
+      <button type="button" data-view="atas">Tampak Atas</button>
+    </div>
+    <div style="text-align:center"><svg id="viewSvg" width="300" height="190" viewBox="0 0 300 190" role="img" aria-label="Gambar tampak susunan kubus"></svg></div>
+    <p class="hint" id="viewNote" style="text-align:center"></p>
+  </div>
+
+  <div class="card">
+    <div class="example"><span class="lbl">CONTOH SOAL 2</span>
+      <p><b>Soal:</b> Sebuah susunan terdiri dari 3 kubus berjajar ke kanan, tumpukannya 2, 1, dan 3. Berapa persegi yang terlihat dari depan?</p>
+      <ol class="steps">
+        <li>Dari depan, setiap kolom menampilkan tumpukan tertingginya: 2, 1, dan 3 persegi.</li>
+        <li>Jumlahkan: 2 + 1 + 3 = <b>6 persegi</b>. ✅</li>
+      </ol>
+    </div>
+    <div class="subhead"><span class="tag">C. LOKASI</span></div>
+    <h3>Membaca Lokasi pada Denah</h3>
+    <p class="concept">Lokasi benda pada denah ditulis dengan pasangan <b>(kolom, baris)</b> — seperti kursi bioskop! Kolom dibaca dari huruf di bagian atas/bawah denah, baris dari angka di sampingnya. Selalu sebutkan kolom dulu, baru baris.</p>
+    <figure>
+      <svg width="300" height="240" viewBox="0 0 300 240" role="img" aria-label="Denah kelas sederhana">
+        <g font-family="Nunito" font-weight="800" font-size="14" fill="var(--ink)" text-anchor="middle">
+          <text x="80" y="18">A</text><text x="150" y="18">B</text><text x="220" y="18">C</text>
+          <text x="25" y="65">1</text><text x="25" y="125">2</text><text x="25" y="185">3</text>
+        </g>
+        <g fill="#E5EFF9" stroke="#2B6CB0" stroke-width="2">
+          <rect x="45" y="30" width="70" height="55"/><rect x="115" y="30" width="70" height="55"/><rect x="185" y="30" width="70" height="55"/>
+          <rect x="45" y="90" width="70" height="55"/><rect x="115" y="90" width="70" height="55" fill="#FFC53D"/><rect x="185" y="90" width="70" height="55"/>
+          <rect x="45" y="150" width="70" height="55"/><rect x="115" y="150" width="70" height="55"/><rect x="185" y="150" width="70" height="55"/>
+        </g>
+        <text x="150" y="122" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="13" fill="#5A4300">⭐ Bintang</text>
+      </svg>
+      <figcaption>Denah 3 kolom (A, B, C) dan 3 baris (1, 2, 3). Bintang berada di lokasi (B, 2).</figcaption>
+    </figure>
+    <div class="example"><span class="lbl">CONTOH SOAL 3</span>
+      <p><b>Soal:</b> Pada denah di atas, di lokasi manakah bintang berada?</p>
+      <ol class="steps">
+        <li>Lihat kolomnya: bintang sejajar dengan huruf <b>B</b>.</li>
+        <li>Lihat barisnya: bintang sejajar dengan angka <b>2</b>.</li>
+        <li>Lokasi bintang = <b>(B, 2)</b>. ✅</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card quiz" data-quiz>
+    <h3>✏️ Ayo Berlatih — Bab 3</h3>
+    <p style="color:var(--ink-soft);margin:0">Klik jawabanmu, langsung ketahuan benar atau salah!</p>
+    <div class="q"><p class="qq">1. Banyak sisi, rusuk, dan titik sudut balok berturut-turut adalah …</p>
+      <div class="opts"><button data-ok="0">6, 8, 12</button><button data-ok="1">6, 12, 8</button><button data-ok="0">8, 12, 6</button><button data-ok="0">6, 6, 8</button></div>
+      <p class="fb" data-fb-ok="Betul! Balok (dan kubus) mempunyai 6 sisi, 12 rusuk, 8 titik sudut." data-fb-no="Ingat: 6 sisi, 12 rusuk, 8 titik sudut — sama untuk kubus dan balok."></p></div>
+    <div class="q"><p class="qq">2. Jaring-jaring kubus selalu terdiri dari … persegi.</p>
+      <div class="opts"><button data-ok="0">4</button><button data-ok="0">5</button><button data-ok="1">6</button><button data-ok="0">8</button></div>
+      <p class="fb" data-fb-ok="Betul! Kubus mempunyai 6 sisi, jadi jaring-jaringnya 6 persegi." data-fb-no="Sebanyak sisi kubus, yaitu 6."></p></div>
+    <div class="q"><p class="qq">3. Susunan kubus dari depan menunjukkan tumpukan 3, 1, 2. Banyak persegi tampak depan adalah …</p>
+      <div class="opts"><button data-ok="1">6</button><button data-ok="0">3</button><button data-ok="0">5</button><button data-ok="0">9</button></div>
+      <p class="fb" data-fb-ok="Betul! 3 + 1 + 2 = 6 persegi." data-fb-no="Jumlahkan tinggi setiap kolom: 3 + 1 + 2."></p></div>
+    <div class="q"><p class="qq">4. Pada denah, perpustakaan berada di kolom C baris 4. Lokasinya ditulis …</p>
+      <div class="opts"><button data-ok="0">(4, C)</button><button data-ok="1">(C, 4)</button><button data-ok="0">C-4 saja</button><button data-ok="0">(4, 4)</button></div>
+      <p class="fb" data-fb-ok="Betul! Kolom disebut dulu, baru baris: (C, 4)." data-fb-no="Urutannya: kolom (huruf) dulu, lalu baris (angka)."></p></div>
+  </div>
+
+  <div class="rangkum"><h4>📌 Rangkuman Bab 3</h4><ol>
+    <li>Kubus dan balok sama-sama mempunyai 6 sisi, 12 rusuk, dan 8 titik sudut; jaring-jaring kubus terdiri dari 6 persegi dan sisi berhadapan tidak pernah bersebelahan.</li>
+    <li>Tampak depan/samping/atas digambar dari tumpukan tertinggi setiap kolom yang terlihat dari arah itu.</li>
+    <li>Lokasi pada denah ditulis (kolom, baris) — huruf dulu, baru angka.</li>
+  </ol></div>
+</section>
+
+<!-- ================= BAB 4 ================= -->
+<section class="chapter" id="bab4" style="--c:var(--b4);--soft:var(--b4-soft)">
+  <div class="chap-head"><span class="no">BAB 4</span><h2>Peluang 🎲</h2><p>Apakah besok akan hujan? Apakah aku akan mendapat angka 6 saat melempar dadu? Peluang membantu kita mengukur seberapa besar kemungkinan sesuatu terjadi.</p></div>
+
+  <div class="tujuan"><h4>🎯 Tujuan Belajar Bab 4</h4><ul>
+    <li>Aku bisa menempatkan kejadian pada skala peluang: tidak mungkin, kecil kemungkinan, mungkin, besar kemungkinan, dan pasti.</li>
+    <li>Aku bisa membandingkan peluang dua kejadian dalam permainan dan kehidupan sehari-hari.</li>
+  </ul></div>
+
+  <div class="ingat"><b>🔔 Ingat Kembali!</b> Sebuah dadu mempunyai 6 sisi bernomor 1–6 yang berpeluang sama. Sebuah koin mempunyai 2 sisi: Angka dan Gambar. Kejadian yang adil memberi peluang yang sama kepada semua hasil.</div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">A. SKALA PELUANG</span></div>
+    <h3>1. Skala Peluang</h3>
+    <p class="concept">Bayangkan sebuah garis dari kiri ke kanan. Di ujung kiri ada kejadian yang <b>tidak mungkin</b> terjadi, di ujung kanan ada kejadian yang <b>pasti</b> terjadi. Di tengah-tengah ada kejadian yang <b>mungkin</b> terjadi.</p>
+    <figure>
+      <svg width="380" height="120" viewBox="0 0 380 120" role="img" aria-label="Skala peluang dari tidak mungkin sampai pasti">
+        <defs><linearGradient id="pelGrad" x1="0" x2="1"><stop offset="0" stop-color="#7FB3E8"/><stop offset=".5" stop-color="#FFC53D"/><stop offset="1" stop-color="#E8632B"/></linearGradient></defs>
+        <rect x="15" y="42" width="350" height="20" rx="10" fill="url(#pelGrad)"/>
+        <g font-family="Nunito" font-weight="800" font-size="12.5" fill="var(--ink)" text-anchor="middle">
+          <text x="32" y="30">Tidak</text><text x="32" y="86">mungkin</text>
+          <text x="105" y="30">Kecil</text><text x="105" y="86">kemungkinan</text>
+          <text x="190" y="30">Mungkin</text><text x="190" y="86">terjadi</text>
+          <text x="275" y="30">Besar</text><text x="275" y="86">kemungkinan</text>
+          <text x="348" y="30">Pasti</text><text x="348" y="86">terjadi</text>
+        </g>
+        <g fill="var(--ink)"><circle cx="32" cy="52" r="5"/><circle cx="105" cy="52" r="5"/><circle cx="190" cy="52" r="5"/><circle cx="275" cy="52" r="5"/><circle cx="348" cy="52" r="5"/></g>
+      </svg>
+      <figcaption>Skala peluang: tidak mungkin — kecil kemungkinan — mungkin — besar kemungkinan — pasti.</figcaption>
+    </figure>
+    <div class="example"><span class="lbl">CONTOH SOAL 1</span>
+      <p><b>Soal:</b> Tentukan skala peluang kejadian berikut: (a) Matahari terbit besok pagi. (b) Seekor ikan terbang ke bulan. (c) Mendapat sisi Angka saat melempar koin.</p>
+      <ol class="steps">
+        <li>(a) Terjadi setiap hari → <b>pasti</b>.</li>
+        <li>(b) Tidak pernah bisa terjadi → <b>tidak mungkin</b>.</li>
+        <li>(c) Koin punya 2 sisi yang seimbang → <b>mungkin</b> (peluangnya setengah-setengah). ✅</li>
+      </ol>
+    </div>
+    <div class="tip">💡 <b>Kata kunci:</b> “selalu/setiap hari” → pasti. “Tidak pernah” → tidak mungkin. “Kadang-kadang” → di antara kecil kemungkinan sampai besar kemungkinan, bergantung seberapa sering.</div>
+  </div>
+
+  <!-- Widget roda peluang -->
+  <div class="widget no-print">
+    <h4>🎡 Roda Peluang</h4>
+    <p class="hint">Roda ini dibagi: Merah 4 bagian, Kuning 2 bagian, Biru 2 bagian (total 8). Putar rodanya berkali-kali dan lihat warna apa yang paling sering muncul!</p>
+    <div style="text-align:center">
+      <svg id="wheelSvg" width="220" height="220" viewBox="0 0 220 220" role="img" aria-label="Roda peluang">
+        <g id="wheelG" style="transform-origin:110px 110px;transition:transform 1.6s cubic-bezier(.2,.8,.3,1)">
+          <path d="M110 110 L110 10 A100 100 0 0 1 180.7 39.3 Z" fill="#D64545"/>
+          <path d="M110 110 L180.7 39.3 A100 100 0 0 1 210 110 Z" fill="#D64545"/>
+          <path d="M110 110 L210 110 A100 100 0 0 1 180.7 180.7 Z" fill="#FFC53D"/>
+          <path d="M110 110 L180.7 180.7 A100 100 0 0 1 110 210 Z" fill="#2B6CB0"/>
+          <path d="M110 110 L110 210 A100 100 0 0 1 39.3 180.7 Z" fill="#D64545"/>
+          <path d="M110 110 L39.3 180.7 A100 100 0 0 1 10 110 Z" fill="#D64545"/>
+          <path d="M110 110 L10 110 A100 100 0 0 1 39.3 39.3 Z" fill="#FFC53D"/>
+          <path d="M110 110 L39.3 39.3 A100 100 0 0 1 110 10 Z" fill="#2B6CB0"/>
+        </g>
+        <circle cx="110" cy="110" r="16" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+        <path d="M110 0 L100 22 L120 22 Z" fill="var(--ink)"/>
+      </svg>
+    </div>
+    <div class="bigread" id="wheelResult">Siap diputar!</div>
+    <div class="btnrow" style="justify-content:center">
+      <button class="wbtn" id="spinBtn" type="button">🔄 Putar Roda</button>
+      <button class="wbtn alt" id="spinReset" type="button">Ulangi Hitungan</button>
+    </div>
+    <p class="hint" style="text-align:center" id="wheelTally">Merah: 0 • Kuning: 0 • Biru: 0 • Total putaran: 0</p>
+    <p class="hint" style="text-align:center">Merah menempati 4 dari 8 bagian, jadi peluangnya paling besar. Makin sering diputar, hasil putaran makin mendekati perbandingan itu!</p>
+  </div>
+
+  <div class="card">
+    <div class="subhead"><span class="tag">B. MEMBANDINGKAN PELUANG</span></div>
+    <h3>1. Membandingkan Peluang dalam Permainan</h3>
+    <p class="concept">Untuk membandingkan, hitung <b>berapa hasil yang menguntungkan</b> dari <b>seluruh hasil yang mungkin</b>. Pada dadu: peluang mendapat angka 6 adalah 1 dari 6. Peluang mendapat angka genap (2, 4, 6) adalah 3 dari 6 — lebih besar! Ditulis sebagai pecahan: <span class="frac"><span class="top">hasil yang dicari</span><span class="bot">seluruh hasil</span></span>.</p>
+    <div class="example"><span class="lbl">CONTOH SOAL 2</span>
+      <p><b>Soal:</b> Dalam kantong ada 5 kelereng merah dan 3 kelereng hijau. Diambil satu kelereng tanpa melihat. Warna apa yang peluangnya lebih besar?</p>
+      <ol class="steps">
+        <li>Seluruh kelereng = 5 + 3 = 8.</li>
+        <li>Peluang merah = 5/8, peluang hijau = 3/8.</li>
+        <li>5/8 &gt; 3/8, jadi <b>kelereng merah berpeluang lebih besar</b> terambil. ✅</li>
+      </ol>
+    </div>
+    <h3>2. Membandingkan Peluang dalam Kejadian Sehari-hari</h3>
+    <p class="concept">Di kehidupan nyata kita membandingkan peluang dari pengalaman dan data. Contoh: pada musim hujan, peluang hujan hari ini lebih besar daripada musim kemarau. Jika dari 10 hari terakhir hujan turun 8 hari, peluang hujan besok termasuk <b>besar kemungkinan</b>.</p>
+    <div class="example"><span class="lbl">CONTOH SOAL 3</span>
+      <p><b>Soal:</b> Kotak A berisi 8 bola putih dan 2 bola hitam. Kotak B berisi 5 bola putih dan 5 bola hitam. Dari kotak mana peluang mengambil bola putih lebih besar?</p>
+      <ol class="steps">
+        <li>Kotak A: peluang putih = 8 dari 10 = 8/10.</li>
+        <li>Kotak B: peluang putih = 5 dari 10 = 5/10.</li>
+        <li>8/10 &gt; 5/10 → <b>kotak A</b> berpeluang lebih besar. ✅</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card quiz" data-quiz>
+    <h3>✏️ Ayo Berlatih — Bab 4</h3>
+    <p style="color:var(--ink-soft);margin:0">Klik jawabanmu, langsung ketahuan benar atau salah!</p>
+    <div class="q"><p class="qq">1. Kejadian “bulan terbit di siang hari menggantikan matahari selamanya” termasuk skala peluang …</p>
+      <div class="opts"><button data-ok="0">Pasti</button><button data-ok="0">Mungkin</button><button data-ok="1">Tidak mungkin</button><button data-ok="0">Besar kemungkinan</button></div>
+      <p class="fb" data-fb-ok="Betul! Kejadian itu tidak akan pernah terjadi." data-fb-no="Kejadian yang tidak pernah bisa terjadi disebut tidak mungkin."></p></div>
+    <div class="q"><p class="qq">2. Peluang mendapat angka lebih dari 4 (yaitu 5 atau 6) saat melempar satu dadu adalah …</p>
+      <div class="opts"><button data-ok="0">1 dari 6</button><button data-ok="1">2 dari 6</button><button data-ok="0">4 dari 6</button><button data-ok="0">6 dari 6</button></div>
+      <p class="fb" data-fb-ok="Betul! Ada 2 hasil yang dicari (5 dan 6) dari 6 hasil." data-fb-no="Hitung hasil yang dicari: angka 5 dan 6, ada 2."></p></div>
+    <div class="q"><p class="qq">3. Kantong P berisi 6 permen stroberi dan 2 permen jeruk. Kantong Q berisi 4 permen stroberi dan 4 permen jeruk. Peluang mendapat stroberi lebih besar dari kantong …</p>
+      <div class="opts"><button data-ok="1">P</button><button data-ok="0">Q</button><button data-ok="0">Sama besar</button><button data-ok="0">Tidak bisa ditentukan</button></div>
+      <p class="fb" data-fb-ok="Betul! P = 6/8 stroberi, Q = 4/8 stroberi. 6/8 lebih besar." data-fb-no="Bandingkan 6 dari 8 dengan 4 dari 8."></p></div>
+    <div class="q"><p class="qq">4. Roda putar dibagi 8 sama besar: 1 bagian hadiah utama, 7 bagian “coba lagi”. Peluang mendapat hadiah utama adalah …</p>
+      <div class="opts"><button data-ok="0">Besar kemungkinan</button><button data-ok="1">Kecil kemungkinan</button><button data-ok="0">Pasti</button><button data-ok="0">Sama dengan coba lagi</button></div>
+      <p class="fb" data-fb-ok="Betul! Hanya 1 dari 8 bagian, jadi kecil kemungkinan." data-fb-no="Hanya 1 dari 8 bagian untuk hadiah utama — sangat sedikit."></p></div>
+  </div>
+
+  <div class="rangkum"><h4>📌 Rangkuman Bab 4</h4><ol>
+    <li>Skala peluang berurutan: tidak mungkin – kecil kemungkinan – mungkin – besar kemungkinan – pasti.</li>
+    <li>Peluang suatu hasil = banyak hasil yang dicari ÷ seluruh hasil yang mungkin.</li>
+    <li>Membandingkan peluang: samakan dulu seluruh hasilnya (penyebutnya), lalu bandingkan banyak hasil yang dicari.</li>
+  </ol></div>
+</section>
+
+<!-- ================= UJIAN ================= -->
+<section class="chapter" id="ujian" style="--c:var(--exam);--soft:var(--exam-soft)">
+  <div class="chap-head"><span class="no">HALAMAN UJIAN</span><h2>Soal Ujian Matematika Kelas 6 📝</h2><p>40 soal: 30 pilihan ganda (A–D) dan 10 isian singkat, mencakup Bab 1 sampai Bab 4. Kerjakan sendiri dulu dengan jujur — kunci dan pembahasan ada di bagian paling akhir dan bisa disembunyikan selama ujian berlangsung.</p></div>
+
+  <div class="card">
+    <h3>📌 Petunjuk Pengerjaan</h3>
+    <ol style="margin:6px 0;padding-left:22px">
+      <li>Bagian I: pilih <b>satu</b> jawaban paling tepat (A, B, C, atau D) dengan mengekliknya.</li>
+      <li>Bagian II: tulis jawaban singkat pada kotak yang tersedia. Untuk desimal boleh memakai koma (0,36).</li>
+      <li>Setelah selesai semua, klik <b>Periksa Jawabanku</b> untuk melihat nilaimu.</li>
+      <li>Pembahasan lengkap setiap soal ada di bagian <b>Pembahasan</b> paling akhir — jangan dibuka sebelum selesai mengerjakan! 🙈</li>
+    </ol>
+    <p style="margin:0;color:var(--ink-soft)">Sebaran soal — Bab 1 Pecahan dan Desimal: nomor 1–8 &amp; 31–33 • Bab 2 Rasio: nomor 9–16 &amp; 34–36 • Bab 3 Kubus dan Balok: nomor 17–23 &amp; 37–38 • Bab 4 Peluang: nomor 24–30 &amp; 39–40.</p>
+  </div>
+
+  <div class="card">
+    <h3>Bagian I — Pilihan Ganda (30 soal)</h3>
+    <p style="color:var(--ink-soft);margin-top:0"><b>Bab 1 — Pecahan dan Desimal (Nomor 1–8)</b></p>
+
+    <div class="q exam-q"><p class="qq">1. Hasil dari 7 × <span class="frac"><span class="top">3</span><span class="bot">5</span></span> adalah …</p>
+      <div class="opts"><button data-ok="0">A. 3⅕</button><button data-ok="1">B. 4⅕</button><button data-ok="0">C. 21/35</button><button data-ok="0">D. 10/12</button></div></div>
+    <div class="q exam-q"><p class="qq">2. Hasil dari <span class="frac"><span class="top">2</span><span class="bot">3</span></span> × 18 adalah …</p>
+      <div class="opts"><button data-ok="0">A. 9</button><button data-ok="1">B. 12</button><button data-ok="0">C. 24</button><button data-ok="0">D. 36</button></div></div>
+    <div class="q exam-q"><p class="qq">3. Hasil dari <span class="frac"><span class="top">5</span><span class="bot">6</span></span> ÷ 5 adalah …</p>
+      <div class="opts"><button data-ok="1">A. 1/6</button><button data-ok="0">B. 25/6</button><button data-ok="0">C. 5/11</button><button data-ok="0">D. 1/5</button></div></div>
+    <div class="q exam-q"><p class="qq">4. Hasil dari 9 ÷ <span class="frac"><span class="top">3</span><span class="bot">4</span></span> adalah …</p>
+      <div class="opts"><button data-ok="0">A. 27/4</button><button data-ok="0">B. 6</button><button data-ok="1">C. 12</button><button data-ok="0">D. 36</button></div></div>
+    <div class="q exam-q"><p class="qq">5. Bentuk desimal dari <span class="frac"><span class="top">3</span><span class="bot">8</span></span> adalah …</p>
+      <div class="opts"><button data-ok="0">A. 0,38</button><button data-ok="1">B. 0,375</button><button data-ok="0">C. 0,83</button><button data-ok="0">D. 0,0375</button></div></div>
+    <div class="q exam-q"><p class="qq">6. Urutan bilangan dari yang terkecil adalah …</p>
+      <div class="opts"><button data-ok="1">A. 0,55 ; 0,6 ; 0,605 ; 0,65</button><button data-ok="0">B. 0,6 ; 0,55 ; 0,605 ; 0,65</button><button data-ok="0">C. 0,55 ; 0,605 ; 0,6 ; 0,65</button><button data-ok="0">D. 0,65 ; 0,605 ; 0,6 ; 0,55</button></div></div>
+    <div class="q exam-q"><p class="qq">7. Ibu membeli 8 kantong tepung. Setiap kantong berisi <span class="frac"><span class="top">3</span><span class="bot">4</span></span> kg. Berat seluruh tepung adalah …</p>
+      <div class="opts"><button data-ok="0">A. 5 kg</button><button data-ok="1">B. 6 kg</button><button data-ok="0">C. 11 kg</button><button data-ok="0">D. 24 kg</button></div></div>
+    <div class="q exam-q"><p class="qq">8. Bilangan desimal yang paling besar adalah …</p>
+      <div class="opts"><button data-ok="0">A. 0,705</button><button data-ok="0">B. 0,715</button><button data-ok="1">C. 0,75</button><button data-ok="0">D. 0,7</button></div></div>
+
+    <p style="color:var(--ink-soft)"><b>Bab 2 — Rasio (Nomor 9–16)</b></p>
+    <div class="q exam-q"><p class="qq">9. Bentuk paling sederhana dari rasio 20 : 35 adalah …</p>
+      <div class="opts"><button data-ok="0">A. 5 : 7</button><button data-ok="1">B. 4 : 7</button><button data-ok="0">C. 2 : 3</button><button data-ok="0">D. 10 : 17</button></div></div>
+    <div class="q exam-q"><p class="qq">10. Rasio banyak pensil : penghapus = 4 : 3. Jika pensil ada 20 batang, banyak penghapus adalah …</p>
+      <div class="opts"><button data-ok="1">A. 15 buah</button><button data-ok="0">B. 12 buah</button><button data-ok="0">C. 16 buah</button><button data-ok="0">D. 24 buah</button></div></div>
+    <div class="q exam-q"><p class="qq">11. Harga 6 buku tulis Rp42.000,00. Harga satuan 1 buku adalah …</p>
+      <div class="opts"><button data-ok="0">A. Rp6.000,00</button><button data-ok="1">B. Rp7.000,00</button><button data-ok="0">C. Rp7.500,00</button><button data-ok="0">D. Rp8.000,00</button></div></div>
+    <div class="q exam-q"><p class="qq">12. Rasio yang sama nilainya dengan 3 : 5 adalah …</p>
+      <div class="opts"><button data-ok="0">A. 6 : 15</button><button data-ok="0">B. 12 : 25</button><button data-ok="1">C. 9 : 15</button><button data-ok="0">D. 15 : 20</button></div></div>
+    <div class="q exam-q"><p class="qq">13. Di kelas ada 30 siswa, 18 di antaranya perempuan. Rasio siswa laki-laki terhadap seluruh siswa paling sederhana adalah …</p>
+      <div class="opts"><button data-ok="1">A. 2 : 5</button><button data-ok="0">B. 3 : 5</button><button data-ok="0">C. 5 : 3</button><button data-ok="0">D. 2 : 3</button></div></div>
+    <div class="q exam-q"><p class="qq">14. Rasio paling sederhana dari 2 jam : 45 menit adalah …</p>
+      <div class="opts"><button data-ok="0">A. 2 : 45</button><button data-ok="1">B. 8 : 3</button><button data-ok="0">C. 4 : 3</button><button data-ok="0">D. 3 : 8</button></div></div>
+    <div class="q exam-q"><p class="qq">15. Campuran minuman dibuat dengan rasio sirup : air = 2 : 7. Jika seluruh campuran 45 gelas, banyak sirup adalah …</p>
+      <div class="opts"><button data-ok="1">A. 10 gelas</button><button data-ok="0">B. 14 gelas</button><button data-ok="0">C. 20 gelas</button><button data-ok="0">D. 35 gelas</button></div></div>
+    <div class="q exam-q"><p class="qq">16. Sebuah bus menempuh 240 km dalam waktu 4 jam. Rasio satuan kecepatannya adalah …</p>
+      <div class="opts"><button data-ok="0">A. 40 km per jam</button><button data-ok="0">B. 50 km per jam</button><button data-ok="1">C. 60 km per jam</button><button data-ok="0">D. 80 km per jam</button></div></div>
+
+    <p style="color:var(--ink-soft)"><b>Bab 3 — Kubus dan Balok (Nomor 17–23)</b></p>
+    <div class="q exam-q"><p class="qq">17. Banyak titik sudut pada kubus adalah …</p>
+      <div class="opts"><button data-ok="0">A. 6</button><button data-ok="1">B. 8</button><button data-ok="0">C. 12</button><button data-ok="0">D. 4</button></div></div>
+    <div class="q exam-q"><p class="qq">18. Pasangan sisi yang berhadapan pada balok selalu …</p>
+      <div class="opts"><button data-ok="1">A. sama besar</button><button data-ok="0">B. berbeda besar</button><button data-ok="0">C. bersebelahan</button><button data-ok="0">D. berbentuk persegi</button></div></div>
+    <div class="q exam-q"><p class="qq">19. Susunan kubus menempati petak 2 × 2 pada denah (semua petak terisi). Banyak persegi pada gambar tampak atas adalah …</p>
+      <div class="opts"><button data-ok="0">A. 3</button><button data-ok="1">B. 4</button><button data-ok="0">C. 6</button><button data-ok="0">D. 8</button></div></div>
+    <div class="q exam-q"><p class="qq">20. Susunan kubus dua baris: baris belakang tumpukannya 2 dan 1, baris depan tumpukannya 1 dan 3. Banyak persegi pada gambar tampak depan adalah …</p>
+      <div class="opts"><button data-ok="1">A. 5</button><button data-ok="0">B. 6</button><button data-ok="0">C. 4</button><button data-ok="0">D. 7</button></div></div>
+    <div class="q exam-q"><p class="qq">21. Meja guru berada pada kolom E baris 1 sebuah denah. Lokasinya ditulis …</p>
+      <div class="opts"><button data-ok="0">A. (1, E)</button><button data-ok="1">B. (E, 1)</button><button data-ok="0">C. (E, E)</button><button data-ok="0">D. (1, 1)</button></div></div>
+    <div class="q exam-q"><p class="qq">22. Pada jaring-jaring kubus terdapat deretan lurus 4 persegi. Persegi pertama pada deretan itu berhadapan dengan persegi ke-…</p>
+      <div class="opts"><button data-ok="0">A. 2</button><button data-ok="1">B. 3</button><button data-ok="0">C. 4</button><button data-ok="0">D. tidak ada yang berhadapan</button></div></div>
+    <div class="q exam-q"><p class="qq">23. Sisi-sisi balok terdiri dari persegi panjang yang berpasangan sama besar. Banyak pasangan sisi balok adalah …</p>
+      <div class="opts"><button data-ok="0">A. 6 pasang</button><button data-ok="0">B. 2 pasang</button><button data-ok="0">C. 4 pasang</button><button data-ok="1">D. 3 pasang</button></div></div>
+
+    <p style="color:var(--ink-soft)"><b>Bab 4 — Peluang (Nomor 24–30)</b></p>
+    <div class="q exam-q"><p class="qq">24. Kejadian “matahari terbit dari arah barat besok pagi” termasuk skala peluang …</p>
+      <div class="opts"><button data-ok="0">A. pasti</button><button data-ok="0">B. mungkin</button><button data-ok="1">C. tidak mungkin</button><button data-ok="0">D. besar kemungkinan</button></div></div>
+    <div class="q exam-q"><p class="qq">25. Peluang mendapat angka prima (2, 3, atau 5) saat melempar satu dadu adalah …</p>
+      <div class="opts"><button data-ok="1">A. 3 dari 6</button><button data-ok="0">B. 1 dari 6</button><button data-ok="0">C. 2 dari 6</button><button data-ok="0">D. 5 dari 6</button></div></div>
+    <div class="q exam-q"><p class="qq">26. Dalam kantong ada 4 kelereng merah dan 6 kelereng biru. Peluang mengambil kelereng merah adalah …</p>
+      <div class="opts"><button data-ok="0">A. 6 dari 10</button><button data-ok="1">B. 4 dari 10</button><button data-ok="0">C. 4 dari 6</button><button data-ok="0">D. 10 dari 4</button></div></div>
+    <div class="q exam-q"><p class="qq">27. Kotak X berisi 7 bola putih dan 3 bola hitam. Kotak Y berisi 5 bola putih dan 5 bola hitam. Peluang mengambil bola putih lebih besar dari kotak …</p>
+      <div class="opts"><button data-ok="1">A. X</button><button data-ok="0">B. Y</button><button data-ok="0">C. sama besar</button><button data-ok="0">D. tidak dapat ditentukan</button></div></div>
+    <div class="q exam-q"><p class="qq">28. Peluang mendapat sisi Gambar saat melempar satu koin adalah …</p>
+      <div class="opts"><button data-ok="0">A. pasti</button><button data-ok="1">B. 1 dari 2</button><button data-ok="0">C. tidak mungkin</button><button data-ok="0">D. 2 dari 2</button></div></div>
+    <div class="q exam-q"><p class="qq">29. Roda putar dibagi 10 bagian sama besar: 1 bagian hadiah dan 9 bagian “zonk”. Peluang mendapat hadiah termasuk …</p>
+      <div class="opts"><button data-ok="0">A. pasti</button><button data-ok="0">B. besar kemungkinan</button><button data-ok="1">C. kecil kemungkinan</button><button data-ok="0">D. tidak mungkin</button></div></div>
+    <div class="q exam-q"><p class="qq">30. Kejadian berikut yang termasuk <b>pasti</b> adalah …</p>
+      <div class="opts"><button data-ok="0">A. besok turun hujan</button><button data-ok="0">B. muncul angka 7 pada dadu bersisi 6</button><button data-ok="0">C. mendapat angka genap pada lemparan dadu</button><button data-ok="1">D. matahari terbit besok pagi</button></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Bagian II — Isian Singkat (10 soal)</h3>
+    <p style="color:var(--ink-soft);margin-top:0">Tulis jawabanmu pada kotak. Kerjakan dengan teliti, ya!</p>
+    <div class="q fill-q"><p class="qq">31. (Bab 1) Hasil dari 6 × <span class="frac"><span class="top">2</span><span class="bot">9</span></span> dalam bentuk paling sederhana adalah …</p>
+      <input type="text" data-answer="4/3|1 1/3|1⅓|12/9" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">32. (Bab 1) Hasil dari 10 ÷ <span class="frac"><span class="top">2</span><span class="bot">5</span></span> adalah …</p>
+      <input type="text" data-answer="25" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">33. (Bab 1) Bentuk desimal dari <span class="frac"><span class="top">9</span><span class="bot">25</span></span> adalah …</p>
+      <input type="text" data-answer="0,36|0.36" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">34. (Bab 2) Bentuk paling sederhana dari rasio 24 : 36 adalah …</p>
+      <input type="text" data-answer="2:3|2 : 3|2: 3|2 :3" placeholder="Contoh penulisan: 2 : 3" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">35. (Bab 2) Rasio a : b = 3 : 4. Jika a + b = 35, maka nilai b adalah …</p>
+      <input type="text" data-answer="20" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">36. (Bab 2) Harga 5 kg beras Rp75.000,00. Harga 1 kg beras adalah Rp…</p>
+      <input type="text" data-answer="15000|15.000|rp15.000|rp 15.000|15.000,00|15000,00" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">37. (Bab 3) Banyak rusuk pada sebuah balok adalah …</p>
+      <input type="text" data-answer="12" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">38. (Bab 3) Gambar tampak depan sebuah susunan kubus menunjukkan tumpukan 4, 2, dan 3. Banyak persegi pada gambar tampak depan itu adalah …</p>
+      <input type="text" data-answer="9" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">39. (Bab 4) Sebuah kantong berisi 3 permen merah dan 7 permen biru. Peluang mengambil permen biru adalah 7 dari …</p>
+      <input type="text" data-answer="10" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+    <div class="q fill-q"><p class="qq">40. (Bab 4) Pada skala peluang, kejadian “matahari terbenam pada sore hari” termasuk …</p>
+      <input type="text" data-answer="pasti" placeholder="Tulis jawabanmu" style="width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:1rem;background:var(--paper);color:var(--ink)"></div>
+
+    <div class="exam-tools no-print">
+      <button class="wbtn" id="checkExam" type="button" style="--c:var(--exam);background:var(--sun);color:#3A2A00">✔ Periksa Jawabanku</button>
+      <button class="wbtn alt" id="resetExam" type="button" style="--c:var(--exam)">↺ Ulangi Ujian</button>
+    </div>
+    <div class="scorebox" id="scoreBox" role="status"></div>
+    <p class="no-print" style="color:var(--ink-soft)">Skor: pilihan ganda 2 poin per soal (maks. 60) + isian 4 poin per soal (maks. 40) = nilai akhir maksimal <b>100</b>. Rincian pedoman penskoran ada di bagian Pembahasan paling akhir.</p>
+  </div>
+</section>
+
+<!-- ================= PEMBAHASAN (PALING AKHIR) ================= -->
+<section class="chapter" id="pembahasan" style="--c:var(--exam);--soft:var(--exam-soft)">
+  <div class="chap-head"><span class="no">BAGIAN TERAKHIR • KHUSUS SETELAH UJIAN SELESAI</span><h2>Kunci Jawaban &amp; Pembahasan 🔑</h2><p>Bagian ini sengaja diletakkan paling akhir dan tersembunyi. Guru dapat membukanya setelah ujian selesai, atau mencetak bahan ajar tanpa bagian ini agar kunci tidak ikut terbaca murid.</p></div>
+
+  <div class="exam-tools no-print">
+    <button class="wbtn" id="toggleKey" type="button" style="background:var(--sun);color:#3A2A00">👁️ Tampilkan Kunci &amp; Pembahasan</button>
+    <span style="color:var(--ink-soft)">Tekan sekali lagi untuk menyembunyikan kembali.</span>
+  </div>
+
+  <div id="keyContent" style="display:none">
+    <div class="card">
+      <h3>🔑 Kunci Jawaban Sekilas</h3>
+      <h4>Bagian I — Pilihan Ganda</h4>
+      <table class="score">
+        <tr><th>No.</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+        <tr><td><b>Kunci</b></td><td>B</td><td>B</td><td>A</td><td>C</td><td>B</td><td>A</td><td>B</td><td>C</td><td>B</td><td>A</td></tr>
+        <tr><th>No.</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th></tr>
+        <tr><td><b>Kunci</b></td><td>B</td><td>C</td><td>A</td><td>B</td><td>A</td><td>C</td><td>B</td><td>A</td><td>B</td><td>A</td></tr>
+        <tr><th>No.</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th></tr>
+        <tr><td><b>Kunci</b></td><td>B</td><td>B</td><td>D</td><td>C</td><td>A</td><td>B</td><td>A</td><td>B</td><td>C</td><td>D</td></tr>
+      </table>
+      <h4>Bagian II — Isian Singkat</h4>
+      <table class="score">
+        <tr><th>No.</th><th>31</th><th>32</th><th>33</th><th>34</th><th>35</th><th>36</th><th>37</th><th>38</th><th>39</th><th>40</th></tr>
+        <tr><td><b>Kunci</b></td><td>4/3 (1⅓)</td><td>25</td><td>0,36</td><td>2 : 3</td><td>20</td><td>15.000</td><td>12</td><td>9</td><td>10</td><td>Pasti</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>📖 Pembahasan Langkah demi Langkah</h3>
+      <h4>Bab 1 — Pecahan dan Desimal</h4>
+      <ol style="padding-left:22px">
+        <li><b>Jawaban: B (4⅕).</b> 7 × 3/5 → kalikan 7 dengan pembilang: 7 × 3 = 21, penyebut tetap 5 → 21/5 → ubah ke pecahan campuran: 21 ÷ 5 = 4 sisa 1 → <b>4⅕</b>.</li>
+        <li><b>Jawaban: B (12).</b> 2/3 × 18 → bagi dulu 18 ÷ 3 = 6 → 6 × 2 = <b>12</b>.</li>
+        <li><b>Jawaban: A (1/6).</b> 5/6 ÷ 5 → kalikan penyebutnya: 5/(6 × 5) = 5/30 → sederhanakan bagi 5 → <b>1/6</b>.</li>
+        <li><b>Jawaban: C (12).</b> 9 ÷ 3/4 → balik pecahannya lalu kalikan: 9 × 4/3 = 36/3 = <b>12</b>.</li>
+        <li><b>Jawaban: B (0,375).</b> 3/8 = 3 ÷ 8 → 8 × 0,3 = 2,4 (sisa 0,6); lanjutkan pembagian → <b>0,375</b>. Cara lain: 3/8 = 375/1000.</li>
+        <li><b>Jawaban: A.</b> Samakan 3 angka di belakang koma: 0,600 ; 0,550 ; 0,605 ; 0,650 → urutan terkecil: 550 &lt; 600 &lt; 605 &lt; 650 → <b>0,55 ; 0,6 ; 0,605 ; 0,65</b>.</li>
+        <li><b>Jawaban: B (6 kg).</b> 8 × 3/4 → 8 ÷ 4 = 2 → 2 × 3 = <b>6 kg</b>.</li>
+        <li><b>Jawaban: C (0,75).</b> Samakan 3 angka belakang koma: 0,705 ; 0,715 ; 0,750 ; 0,700 → yang terbesar <b>0,75</b>.</li>
+      </ol>
+      <h4>Bab 2 — Rasio</h4>
+      <ol start="9" style="padding-left:22px">
+        <li><b>Jawaban: B (4 : 7).</b> FPB dari 20 dan 35 adalah 5 → 20 ÷ 5 = 4 dan 35 ÷ 5 = 7 → <b>4 : 7</b>.</li>
+        <li><b>Jawaban: A (15 buah).</b> Nilai 1 bagian = 20 ÷ 4 = 5 → penghapus = 3 bagian × 5 = <b>15 buah</b>.</li>
+        <li><b>Jawaban: B (Rp7.000,00).</b> Rasio satuan: 42.000 ÷ 6 = <b>Rp7.000,00</b> per buku.</li>
+        <li><b>Jawaban: C (9 : 15).</b> Sederhanakan 9 : 15 dengan membagi 3 → 3 : 5 ✔. Pilihan lain: 6 : 15 = 2 : 5, 12 : 25 tetap, 15 : 20 = 3 : 4 — semuanya bukan 3 : 5.</li>
+        <li><b>Jawaban: A (2 : 5).</b> Laki-laki = 30 − 18 = 12 → rasio 12 : 30 → bagi 6 → <b>2 : 5</b>. (Perhatikan: yang ditanya laki-laki terhadap <i>seluruh</i> siswa.)</li>
+        <li><b>Jawaban: B (8 : 3).</b> Samakan satuan: 2 jam = 120 menit → 120 : 45 → bagi 15 → <b>8 : 3</b>.</li>
+        <li><b>Jawaban: A (10 gelas).</b> Jumlah bagian = 2 + 7 = 9 → 1 bagian = 45 ÷ 9 = 5 gelas → sirup = 2 × 5 = <b>10 gelas</b>.</li>
+        <li><b>Jawaban: C (60 km per jam).</b> Rasio satuan: 240 ÷ 4 = <b>60 km per 1 jam</b>.</li>
+      </ol>
+      <h4>Bab 3 — Kubus dan Balok</h4>
+      <ol start="17" style="padding-left:22px">
+        <li><b>Jawaban: B (8).</b> Kubus mempunyai 6 sisi, 12 rusuk, dan <b>8 titik sudut</b> (4 di alas + 4 di atas).</li>
+        <li><b>Jawaban: A (sama besar).</b> Balok mempunyai 3 pasang sisi berhadapan, dan setiap pasang selalu <b>sama bentuk dan sama besar</b>.</li>
+        <li><b>Jawaban: B (4).</b> Dari atas, tinggi tumpukan tidak terlihat; yang tampak hanyalah petak yang terisi: 2 × 2 = <b>4 persegi</b>.</li>
+        <li><b>Jawaban: A (5).</b> Dari depan ambil tumpukan tertinggi tiap kolom: kolom kiri maks(2, 1) = 2, kolom kanan maks(1, 3) = 3 → 2 + 3 = <b>5 persegi</b>.</li>
+        <li><b>Jawaban: B ((E, 1)).</b> Lokasi ditulis (kolom, baris): kolom <b>E</b> disebut dulu, lalu baris <b>1</b>.</li>
+        <li><b>Jawaban: B (ke-3).</b> Aturan “lompat satu”: pada deretan lurus, persegi ke-1 dan ke-3 saling <b>berhadapan</b> saat dilipat (begitu pula ke-2 dengan ke-4).</li>
+        <li><b>Jawaban: D (3 pasang).</b> Balok mempunyai 6 sisi; sisi berhadapan berpasangan → 6 ÷ 2 = <b>3 pasang</b>.</li>
+      </ol>
+      <h4>Bab 4 — Peluang</h4>
+      <ol start="24" style="padding-left:22px">
+        <li><b>Jawaban: C (tidak mungkin).</b> Matahari selalu terbit dari arah timur, jadi terbit dari barat <b>tidak mungkin</b> terjadi.</li>
+        <li><b>Jawaban: A (3 dari 6).</b> Angka prima pada dadu: 2, 3, 5 → ada 3 hasil dari seluruhnya 6 hasil → <b>3 dari 6</b>.</li>
+        <li><b>Jawaban: B (4 dari 10).</b> Seluruh kelereng = 4 + 6 = 10; kelereng merah ada 4 → peluangnya <b>4 dari 10</b>.</li>
+        <li><b>Jawaban: A (kotak X).</b> Kotak X: putih 7 dari 10. Kotak Y: putih 5 dari 10. Karena 7/10 &gt; 5/10, peluang putih lebih besar dari <b>kotak X</b>.</li>
+        <li><b>Jawaban: B (1 dari 2).</b> Koin mempunyai 2 sisi yang seimbang; sisi Gambar hanya 1 → peluangnya <b>1 dari 2</b>.</li>
+        <li><b>Jawaban: C (kecil kemungkinan).</b> Hadiah hanya 1 dari 10 bagian — sangat sedikit dibanding 9 bagian zonk → <b>kecil kemungkinan</b> (tetapi bukan tidak mungkin, karena bagiannya tetap ada).</li>
+        <li><b>Jawaban: D.</b> Matahari terbit setiap pagi tanpa kecuali → <b>pasti</b>. Hujan bergantung cuaca, angka 7 tidak ada pada dadu bersisi 6, dan angka genap hanya mungkin.</li>
+      </ol>
+      <h4>Bagian II — Isian Singkat</h4>
+      <ol start="31" style="padding-left:22px">
+        <li><b>Jawaban: 4/3 atau 1⅓.</b> 6 × 2/9 = 12/9 → sederhanakan bagi 3 → <b>4/3 = 1⅓</b>.</li>
+        <li><b>Jawaban: 25.</b> 10 ÷ 2/5 = 10 × 5/2 = 50/2 = <b>25</b>.</li>
+        <li><b>Jawaban: 0,36.</b> 9/25 → kalikan pembilang dan penyebut dengan 4 → 36/100 = <b>0,36</b>.</li>
+        <li><b>Jawaban: 2 : 3.</b> FPB 24 dan 36 adalah 12 → 24 ÷ 12 = 2 dan 36 ÷ 12 = 3 → <b>2 : 3</b>.</li>
+        <li><b>Jawaban: 20.</b> Jumlah bagian = 3 + 4 = 7 → 1 bagian = 35 ÷ 7 = 5 → b = 4 × 5 = <b>20</b>.</li>
+        <li><b>Jawaban: Rp15.000,00.</b> Rasio satuan: 75.000 ÷ 5 = <b>Rp15.000,00</b> per kg.</li>
+        <li><b>Jawaban: 12.</b> Balok (dan kubus) mempunyai <b>12 rusuk</b>: 4 di alas, 4 di atas, dan 4 tegak.</li>
+        <li><b>Jawaban: 9.</b> Jumlahkan tinggi tumpukan setiap kolom: 4 + 2 + 3 = <b>9 persegi</b>.</li>
+        <li><b>Jawaban: 10.</b> Seluruh permen = 3 + 7 = <b>10</b>, jadi peluang permen biru adalah 7 dari 10.</li>
+        <li><b>Jawaban: pasti.</b> Matahari terbenam setiap sore hari → pada skala peluang termasuk <b>pasti</b> terjadi.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h3>📊 Pedoman Penskoran</h3>
+      <table class="score">
+        <tr><th>Bagian</th><th>Jumlah Soal</th><th>Skor per Soal</th><th>Skor Maksimal</th></tr>
+        <tr><td>I. Pilihan Ganda (No. 1–30)</td><td>30</td><td>2 (benar) / 0 (salah atau kosong)</td><td>60</td></tr>
+        <tr><td>II. Isian Singkat (No. 31–40)</td><td>10</td><td>4 (benar) / 0 (salah atau kosong)</td><td>40</td></tr>
+        <tr><td colspan="3"><b>Total / Nilai Akhir</b></td><td><b>100</b></td></tr>
+      </table>
+      <p><b>Rumus nilai:</b> Nilai = (skor pilihan ganda) + (skor isian), karena total skor maksimal sudah 100.</p>
+      <table class="score">
+        <tr><th>Rentang Nilai</th><th>Predikat</th><th>Keterangan</th></tr>
+        <tr><td>90 – 100</td><td>Sangat Baik 🌟</td><td>Menguasai keempat bab dengan sangat baik.</td></tr>
+        <tr><td>75 – 89</td><td>Baik 👍</td><td>Menguasai sebagian besar materi; periksa kembali soal yang salah.</td></tr>
+        <tr><td>60 – 74</td><td>Cukup 📘</td><td>Perlu mengulang bab dari soal-soal yang masih salah.</td></tr>
+        <tr><td>&lt; 60</td><td>Perlu Bimbingan 🌱</td><td>Belajar kembali bab terkait bersama guru, lalu coba lagi.</td></tr>
+      </table>
+      <p style="color:var(--ink-soft)">Catatan untuk penilaian di atas kertas: jawaban isian yang nilainya sama tetapi bentuknya berbeda tetap dinilai benar (mis. 4/3 = 1⅓ = 12/9; 0,36 = 0.36; penulisan rasio 2 : 3 atau 2:3). Satuan pada No. 36 boleh ditulis dengan atau tanpa “Rp”.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>📐 <b>Bahan Ajar Matematika Kelas 6 — Semester 1</b><br>Bab 1 Pecahan dan Desimal • Bab 2 Rasio • Bab 3 Kubus dan Balok • Bab 4 Peluang<br>Selamat belajar, kamu pasti bisa! 🌟</p>
+</footer>
+
+</div><!-- /.wrap -->
+
+<script>
+// ---------- Mode cetak ----------
+document.getElementById('btnPrint').addEventListener('click', function(){
+  var on = document.body.classList.toggle('printmode');
+  this.textContent = on ? '↩ Kembali ke Mode Interaktif' : '🖨️ Mode Cetak / PDF';
+  if(on){ window.scrollTo({top:0}); }
+});
+
+// ---------- Laboratorium Pecahan ----------
+(function(){
+  var numR=document.getElementById('numRange'), denR=document.getElementById('denRange');
+  var svg=document.getElementById('fracSvg'), read=document.getElementById('fracRead'),
+      note=document.getElementById('fracNote'), nv=document.getElementById('numVal'), dv=document.getElementById('denVal');
+  function gcd(a,b){return b?gcd(b,a%b):a;}
+  function draw(){
+    var n=+numR.value, d=+denR.value; nv.textContent=n; dv.textContent=d;
+    var w=300/d, s='';
+    for(var i=0;i<d;i++){ s+='<rect x="'+(10+i*w)+'" y="25" width="'+(w-4)+'" height="60" rx="6" fill="'+(i<n?'#E8632B':'#F6C39A')+'" stroke="#E8632B" stroke-width="2"/>'; }
+    svg.innerHTML=s;
+    var whole=Math.floor(n/d), rem=n%d;
+    var txt = n+'/'+d;
+    if(n===0) txt='0';
+    else if(rem===0) txt=(n/d)+' utuh';
+    else if(whole>0) txt=whole+' '+rem+'/'+d;
+    read.textContent='Pecahan: '+txt;
+    var g=gcd(n,d);
+    note.textContent = (n>0 && g>1) ? ('Bentuk paling sederhana: '+(n/g)+'/'+(d/g)) : (n>d ? 'Ini pecahan lebih dari 1 utuh!' : 'Geser dan coba pecahan lain!');
+  }
+  numR.addEventListener('input',draw); denR.addEventListener('input',draw); draw();
+})();
+
+// ---------- Laboratorium Rasio ----------
+(function(){
+  var sR=document.getElementById('sirupRange'), aR=document.getElementById('airRange');
+  var svg=document.getElementById('ratioSvg'), read=document.getElementById('ratioRead'),
+      note=document.getElementById('ratioNote'), sv=document.getElementById('sirupVal'), av=document.getElementById('airVal');
+  function gcd(a,b){return b?gcd(b,a%b):a;}
+  function draw(){
+    var s=+sR.value, a=+aR.value; sv.textContent=s; av.textContent=a;
+    var html='<text x="0" y="26" font-family="Nunito" font-weight="800" font-size="13" fill="var(--ink)">Sirup</text>';
+    for(var i=0;i<s;i++) html+='<rect x="'+(52+i*30)+'" y="8" width="26" height="24" rx="5" fill="#C2185B"/>';
+    html+='<text x="0" y="76" font-family="Nunito" font-weight="800" font-size="13" fill="var(--ink)">Air</text>';
+    for(var j=0;j<a;j++) html+='<rect x="'+(52+j*30)+'" y="58" width="26" height="24" rx="5" fill="#2B6CB0"/>';
+    svg.innerHTML=html;
+    var g=gcd(s,a);
+    read.textContent='Rasio sirup : air = '+s+' : '+a;
+    note.textContent='Bentuk paling sederhana: '+(s/g)+' : '+(a/g)+' • Total '+(s+a)+' gelas campuran';
+  }
+  sR.addEventListener('input',draw); aR.addEventListener('input',draw); draw();
+})();
+
+// ---------- Visualisasi spasial ----------
+// Grid tumpukan (baris belakang, baris depan) x (kiri, kanan): [[2,1],[1,3]]
+(function(){
+  var svg=document.getElementById('viewSvg'), note=document.getElementById('viewNote');
+  var seg=document.getElementById('viewSeg');
+  function cells(cols, base){
+    var s='';
+    cols.forEach(function(h,i){ for(var k=0;k<h;k++){ s+='<rect x="'+(70+i*80)+'" y="'+(150-(k+1)*45)+'" width="70" height="42" rx="5" fill="#BDD7EE" stroke="#2B6CB0" stroke-width="2.5"/>'; } });
+    return s;
+  }
+  function draw(view){
+    if(view==='depan'){ svg.innerHTML=cells([2,3]); note.textContent='Tampak DEPAN: kolom kiri tertinggi 2 (belakang), kolom kanan tertinggi 3 (depan) → 2 + 3 = 5 persegi.'; }
+    else if(view==='samping'){ svg.innerHTML=cells([3,2]); note.textContent='Tampak SAMPING KANAN: ke arah depan tertinggi 3, ke arah belakang tertinggi 2 → 3 + 2 = 5 persegi.'; }
+    else { svg.innerHTML='<g fill="#BDD7EE" stroke="#2B6CB0" stroke-width="2.5"><rect x="80" y="25" width="65" height="65"/><rect x="150" y="25" width="65" height="65"/><rect x="80" y="95" width="65" height="65"/><rect x="150" y="95" width="65" height="65"/></g><g font-family="Nunito" font-weight="800" font-size="17" fill="#2B6CB0" text-anchor="middle"><text x="112" y="65">2</text><text x="182" y="65">1</text><text x="112" y="135">1</text><text x="182" y="135">3</text></g>';
+      note.textContent='Tampak ATAS: terlihat 4 petak; angka menunjukkan tinggi tumpukan di setiap petak.'; }
+  }
+  seg.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on'); draw(b.dataset.view);
+  });
+  draw('depan');
+})();
+
+// ---------- Roda peluang ----------
+(function(){
+  var g=document.getElementById('wheelG'), res=document.getElementById('wheelResult'), tally=document.getElementById('wheelTally');
+  var counts={Merah:0,Kuning:0,Biru:0}, total=0, rot=0;
+  // Segmen pada penunjuk (atas), urutan searah jarum jam mulai dari atas: Biru, Merah, Merah, Kuning, Biru, Merah, Merah, Kuning
+  var segs=['Merah','Merah','Kuning','Biru','Merah','Merah','Kuning','Biru'];
+  document.getElementById('spinBtn').addEventListener('click',function(){
+    var idx=Math.floor(Math.random()*8);
+    rot += 360*4 + (360 - idx*45) - (rot % 360);
+    g.style.transform='rotate('+rot+'deg)';
+    var color=segs[idx];
+    counts[color]++; total++;
+    res.textContent='Berhenti di: '+color+'!';
+    tally.textContent='Merah: '+counts.Merah+' • Kuning: '+counts.Kuning+' • Biru: '+counts.Biru+' • Total putaran: '+total;
+  });
+  document.getElementById('spinReset').addEventListener('click',function(){
+    counts={Merah:0,Kuning:0,Biru:0}; total=0;
+    res.textContent='Siap diputar!';
+    tally.textContent='Merah: 0 • Kuning: 0 • Biru: 0 • Total putaran: 0';
+  });
+})();
+
+// ---------- Latihan per bab (cek langsung) ----------
+document.querySelectorAll('[data-quiz] .q').forEach(function(q){
+  var fb=q.querySelector('.fb'); if(!fb) return;
+  q.querySelectorAll('.opts button').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      q.querySelectorAll('.opts button').forEach(function(b){ b.classList.remove('right','wrong'); });
+      if(btn.dataset.ok==='1'){ btn.classList.add('right'); fb.textContent='🎉 '+fb.dataset.fbOk; fb.className='fb show ok'; }
+      else { btn.classList.add('wrong'); fb.textContent='🤔 '+fb.dataset.fbNo; fb.className='fb show no'; }
+    });
+  });
+});
+
+// ---------- Ujian: pilih jawaban ----------
+document.querySelectorAll('.exam-q').forEach(function(q){
+  q.querySelectorAll('.opts button').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      q.querySelectorAll('.opts button').forEach(function(b){ b.classList.remove('picked'); });
+      btn.classList.add('picked');
+    });
+  });
+});
+
+// ---------- Ujian: periksa ----------
+function norm(s){ return (s||'').toLowerCase().replace(/\s+/g,' ').trim(); }
+document.getElementById('checkExam').addEventListener('click',function(){
+  var pgBenar=0, pgTotal=0;
+  document.querySelectorAll('.exam-q').forEach(function(q){
+    pgTotal++;
+    q.querySelectorAll('.opts button').forEach(function(b){ b.classList.remove('right','wrong'); });
+    var picked=q.querySelector('.opts button.picked');
+    if(picked){
+      if(picked.dataset.ok==='1'){ picked.classList.add('right'); pgBenar++; }
+      else { picked.classList.add('wrong'); var right=q.querySelector('.opts button[data-ok="1"]'); if(right) right.classList.add('right'); }
+    }
+  });
+  var isBenar=0, isTotal=0;
+  document.querySelectorAll('.fill-q input').forEach(function(inp){
+    isTotal++;
+    var answers=inp.dataset.answer.split('|').map(norm);
+    var val=norm(inp.value).replace(/rp\.?/g,'').replace(/,/g,'.').trim();
+    var rawOk = answers.indexOf(norm(inp.value))>=0;
+    var numOk = answers.some(function(a){ return a.replace(/,/g,'.')===val; });
+    var ok = rawOk || numOk;
+    inp.style.borderColor = ok ? 'var(--good)' : 'var(--bad)';
+    if(ok) isBenar++;
+  });
+  var nilai = pgBenar*2 + isBenar*4;
+  var box=document.getElementById('scoreBox');
+  var pesan = nilai>=90 ? '🌟 Luar biasa! Kamu menguasai keempat bab!' : nilai>=75 ? '👍 Bagus! Periksa lagi soal yang masih merah, ya.' : nilai>=60 ? '📘 Cukup baik — ulangi bab dari soal yang salah.' : '🌱 Jangan menyerah! Pelajari lagi babnya, lalu coba lagi.';
+  box.innerHTML='Nilaimu: '+nilai+' dari 100<br><span style="font-size:.95rem;font-weight:700">Pilihan ganda benar: '+pgBenar+'/'+pgTotal+' • Isian benar: '+isBenar+'/'+isTotal+'<br>'+pesan+'<br>Sekarang buka bagian Pembahasan di paling akhir untuk melihat langkah-langkahnya.</span>';
+  box.classList.add('show');
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+});
+document.getElementById('resetExam').addEventListener('click',function(){
+  document.querySelectorAll('.exam-q .opts button').forEach(function(b){ b.classList.remove('picked','right','wrong'); });
+  document.querySelectorAll('.fill-q input').forEach(function(inp){ inp.value=''; inp.style.borderColor='var(--line)'; });
+  var box=document.getElementById('scoreBox'); box.classList.remove('show'); box.innerHTML='';
+  document.getElementById('ujian').scrollIntoView({behavior:'smooth'});
+});
+
+// ---------- Kunci & pembahasan: tampil / sembunyi ----------
+document.getElementById('toggleKey').addEventListener('click',function(){
+  var kc=document.getElementById('keyContent');
+  var show = kc.style.display==='none';
+  kc.style.display = show ? 'block' : 'none';
+  document.body.classList.toggle('showkey', show);
+  this.textContent = show ? '🙈 Sembunyikan Kunci & Pembahasan' : '👁️ Tampilkan Kunci & Pembahasan';
+});
+</script>
+</body>
+</html>
